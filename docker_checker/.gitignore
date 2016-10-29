@@ -1,0 +1,19 @@
+# Build things
+*.pyc
+*.swp
+*egg-info*
+env/
+build/*
+dist/*
+
+# Test things
+.cache/
+.coverage
+.pylint.d/
+.tox/
+coverage*.xml
+junit*.xml
+pylint*.log
+
+# IDE/Tool things
+.idea/

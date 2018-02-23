@@ -16,7 +16,7 @@ entry_points = {
 setup(
     name='docker_checker',
     version=version,
-    description="Biarri Networks Whale Reports",
+    description="Docker Checker",
     author='Kayan Hau',
     author_email='virtualda@gmail.com',
     url="https://github.com/kyhau/docker-stuff",

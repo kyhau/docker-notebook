@@ -86,10 +86,10 @@ docker search --limit 10 apache
 docker pull docker.example.com/<image_path_and_name>
 
 # Pull only latest
-docker pull docker.example.com/solvers/google_a8_sol     # pull only google_a8_sol:latest
+docker pull docker.example.com/examples/simple_image
 
-docker pull docker.example.com/solvers/google_a8_sol:3.0
+docker pull docker.example.com/examples/simple_image:3.0
 
-docker pull docker.example.com/solvers/google_a8_sol:3.0.0	
+docker pull docker.example.com/examples/simple_image:3.0.0	
 ```
 

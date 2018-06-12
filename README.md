@@ -27,7 +27,7 @@ Other references:
 docker run centos:6
 
 # Container is deleted when “exit”
-# i: interactive,  t: terminal; start a container and log into the container
+# i: interactive,  t: terminal; launch a container in 'interactive' mode in the current 'terminal'
 docker run -it centos:6
 
 # Container is not deleted when “exit”
@@ -52,10 +52,20 @@ docker attach [containername]
 # process started on instantiation.
 docker exec -it [containername] /bin/bash
 
-# Allow the container to perform operations that a container may otherwise be restricted from performing.
-# So basically any container host that you allow anyone to launch a --privileged container on is the same as giving
-# them root access to every container on that host.
-docker run --privileged -it --rm ubuntu:latest bash
+# Instantiate a docker container called 'myweb' that is running an Apache web server on port 80 by default within it,
+# you can allow direct access to the container service via the host's IP by redirecting the container port 80 to the
+# host port 80.
+# Redirecting ports is through the '-p [host port]:[container port]' syntax.
+docker run -d --name myweb -p 80:80 httpd:latest
+
+# Instantiate a container called 'myweb' running an Apache application from the image 'httpd:latest' on your system,
+# and allow the container port 80 to be redirected to the underlying host's port somewhere in the range of 80-85,
+# based on port availability.
+docker run -d --name myweb -p 80-85:80 httpd:latest
+
+# Instantiate a container (named myweb) running Apache from an image called 'http:latest', mount the underlying hosts's
+# '/var/www/html' directory in the container's '/usr/local/apache2/htdocs' directory
+docker run -d --name myweb -v /var/www/html:/usr/local/apache2/htdocs httpd:latest
 
 # If you have 2 CPUs, guarantee the container at most at most one and a half of the CPUs every second.
 # Docker 1.13 and higher. Docker 1.12 and lower uses --cpu-period=100000 --cpu-quota=50000
@@ -70,6 +80,13 @@ docker run -it --memory=[amount b/k/m/g] ubuntu /bin/bash
 # of physical memory that can be used.
 docker run -it --memory=[amount b/k/m/g] --memory-swap=[amount b/k/m/g] ubuntu /bin/bash
 
+# The 'docker run' command uses the --dns option to override the default DNS servers for a container.
+docker run -d --dns=8.8.8.8 [image]
+
+# Allow the container to perform operations that a container may otherwise be restricted from performing.
+# So basically any container host that you allow anyone to launch a --privileged container on is the same as giving
+# them root access to every container on that host.
+docker run --privileged -it --rm ubuntu:latest /bin/bash
 ```
 
 
@@ -90,7 +107,7 @@ docker rm $(docker ps -q -f status=exited)
 ```
 
 
-#### Searching
+#### `docker search`
 
 ```bash
 # Return store
@@ -108,7 +125,7 @@ docker search --limit 10 apache
 ```
 
 
-#### Pulling
+#### `docker pull`
 
 ```bash
 docker pull docker.example.com/<image_path_and_name>
@@ -119,4 +136,22 @@ docker pull docker.example.com/examples/simple_image
 docker pull docker.example.com/examples/simple_image:3.0
 
 docker pull docker.example.com/examples/simple_image:3.0.0	
+```
+
+
+#### `docker container`
+
+New way to do docker container commands (make it clearer).
+
+```bash
+# New way to do `docker ps`
+docker container ls
+
+# You have to temporarily use a public DNS (8.8.8.8) when launching transient detached containers while your corporate
+# DNS servers are undergoing maintenance. Which docker command would use that public DNS server for name resolution?
+# The 'docker run' command uses the --dns option to override the default DNS servers for a container.
+docker container run -d --dns=8.8.8.8 [image]
+# OR
+docker run -d --dns=8.8.8.8 [image]
+
 ```

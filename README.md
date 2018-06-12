@@ -1,12 +1,19 @@
 # Something about Docker
 
 Subpages
-- [Upgrade Docker](docker-upgrade.md)
+- [Installation, Configurations, Storage and Volumes](docker-configurations.md)
+- [Image Creation, Management, and Registry](docker-image-creation-management-registry.md)
+- [Orchestration - Swarm, Node, Service](docker-orchestration.md)
+- [Docker Trust Registry](docker-trusted-registry.md)
+- [Docker upgrade](docker-upgrade.md)
 - [Image signing](docker-image-signing.md)
-- [Configurations](docker-configurations.md)
 
 Python examples:
 - [docker_checker](docker_checker/README.md)
+
+Other references:
+- [Docker: Advanced multi-stage build patterns – Tõnis Tiigi](https://medium.com/@tonistiigi/advanced-multi-stage-build-patterns-6f741b852fae)
+
 
 #### Running container
 
@@ -33,11 +40,14 @@ docker run -d httpd
 docker run --detach httpd
 
 # Attach to a container, will cause the container to exit when “exit” the container.
-docker attach
+docker attach [containername]
 
-# Attach to a container, will not cause the container to exit when “exit” the container.
-docker exec -it container_name /bin/bash
+# Interact inside a container and will noy cause the container to stop when you exit the running shell.
+# Executing another shell in a running container and then exiting that shell will not stop the underlying container
+# process started on instantiation.
+docker exec -it [containername] /bin/bash
 ```
+
 
 #### Removing docker images and container
 
@@ -50,6 +60,7 @@ docker images prune
 # OR
 docker rmi $(docker images -q -f dangling=true)
 ```
+
 
 #### Searching
 
@@ -68,9 +79,17 @@ docker search --filter stars=50 --filter is-automated=true apache
 docker search --limit 10 apache	
 ```
 
-#### Docker service
+
+#### Pulling
 
 ```bash
-# Restart docker service
-sudo service docker restart
+docker pull docker.example.com/<image_path_and_name>
+
+# Pull only latest
+docker pull docker.example.com/solvers/google_a8_sol     # pull only google_a8_sol:latest
+
+docker pull docker.example.com/solvers/google_a8_sol:3.0
+
+docker pull docker.example.com/solvers/google_a8_sol:3.0.0	
 ```
+

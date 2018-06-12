@@ -1,9 +1,10 @@
-# Something about Docker
+# Docker Cheat Sheets
 
 Subpages
-- [Installation, Configurations, Storage and Volumes](docker-configurations.md)
+- [Installation and Configurations](docker-configurations.md)
 - [Image Creation, Management, and Registry](docker-image-creation-management-registry.md)
 - [Orchestration - Swarm, Node, Service](docker-orchestration.md)
+- [Storage and Volumes](docker-storage-and-volumes.md)
 - [Docker Trust Registry](docker-trusted-registry.md)
 - [Docker upgrade](docker-upgrade.md)
 - [Image signing](docker-image-signing.md)
@@ -12,7 +13,8 @@ Python examples:
 - [docker_checker](docker_checker/README.md)
 
 Other references:
-- [Docker: Advanced multi-stage build patterns – Tõnis Tiigi](https://medium.com/@tonistiigi/advanced-multi-stage-build-patterns-6f741b852fae)
+- [Docker Advanced multi-stage build patterns – Tõnis Tiigi](https://medium.com/@tonistiigi/advanced-multi-stage-build-patterns-6f741b852fae)
+- [Docker ARG, ENV and .env - a Complete Guide](https://vsupalov.com/docker-arg-env-variable-guide/)
 
 
 #### Running container
@@ -52,13 +54,17 @@ docker exec -it [containername] /bin/bash
 #### Removing docker images and container
 
 ```bash
-# Remove all non-running containers (possible filters: created, restarting, running, paused, exited)
-docker rm $(docker ps -q -f status=exited)
+# Remove ALL stopped containers, images without at least one container associated, all build cache, and all networks
+# not used by at least one container, from a Docker host
+docker system prune -a
 
 # Remove dangling (untagged) images
 docker images prune
 # OR
 docker rmi $(docker images -q -f dangling=true)
+
+# Remove all non-running containers (possible filters: created, restarting, running, paused, exited)
+docker rm $(docker ps -q -f status=exited)
 ```
 
 
@@ -92,4 +98,3 @@ docker pull docker.example.com/examples/simple_image:3.0
 
 docker pull docker.example.com/examples/simple_image:3.0.0	
 ```
-

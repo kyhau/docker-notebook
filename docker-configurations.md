@@ -1,4 +1,4 @@
-# Docker Installation, Configurations, Storage and Volumes
+# Docker Installation and Configurations
 
 
 ### Configuration commands
@@ -19,9 +19,9 @@ When Docker is first installed, the installation creates a network interface cal
 1. defining the network range available for container IP assignments.
 
 
-#### Configuration files and directories
+### Configuration files and directories
 
-##### `/run/docker.sock`
+#### `/run/docker.sock`
 
 - Determine which accounts can use the service.
 - `docker.sock` command is owned by `docker`.
@@ -30,12 +30,12 @@ When Docker is first installed, the installation creates a network interface cal
     usermod -aG docker user
     ```
 
-##### `/run/docker.pid`
+#### `/run/docker.pid`
 
 - Contain the PID (Process ID) of the Docker service when it is running.
 
 
-##### `/etc/docker/daemon.json`
+#### `/etc/docker/daemon.json`
 
 - The `/etc/docker/daemon.json` file is used to override various Docker defaults, including
 
@@ -43,7 +43,7 @@ When Docker is first installed, the installation creates a network interface cal
    1. the Docker storage driver
 
 
-##### `/var/lib/docker`
+#### `/var/lib/docker`
 
 - Storage related to Docker image and container layers are stored in `/var/lib/docker` on a host unless
   changed in the configuration or daemon at launch time.

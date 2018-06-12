@@ -20,6 +20,10 @@ systemctl status docker
 
 1. Docker swarm allows you to deploy clusters of Docker containers across multiple nodes and manage their behavior.
 
+1. Two types of Docker Swarm Services
+    1. Replicated: Number of identical tasks can be specified for a replicated service.
+    1. Global: There is no pre-specified number of tasks for global service.
+
 1. `docker-compose` allows you to define one or more containers in a single configuration file that can then be deployed all at once.
 
 
@@ -42,6 +46,9 @@ docker swarm join-token worker
 
 # When executed from the node you are removing, you can gracefully leave the cluster without having to use the NODE ID.
 docker swarm leave
+
+# Enable autolock on an existing swarm cluster
+docker swarm update --autolock=true
 ```
 
 #### `docker node`

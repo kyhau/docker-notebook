@@ -1,5 +1,8 @@
 # Docker Storage and Volumes
 
+1. There is no way to add a volume to an instantiated container.
+
+
 ### Differences between -v and --mount behavior
 
 1. If you use `-v` or `--volume` to bind-mount a file or directory that does not yet exist on the Docker host, `-v`

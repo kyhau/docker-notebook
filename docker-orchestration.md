@@ -100,10 +100,21 @@ docker service rm my_api
 docker service logs [SERVICE NAME]
 ```
 
-#### `docker inspect`
+#### `docker inspect` (or `docker container inspect`)
+
 
 ```bash
 # The '--pretty' option will format the associated output in a more easily readable format.
 # JSON, is thde default output from an inspect command.
 docker inspect [NODE ID] --pretty
+
+# There are multiple references to the key search term IP, but only one specifically called 'IPAddress' when running
+# the 'inspect' command on any container.
+docker inspect myweb | grep IPAddress
+
+# The output will be formatted as to be more easily readable on standard output.
+docker inspect --format="{{.Structure.To.Review}}" [objectid/name] myweb
+
+# Show JUST the IP address of a running container called 'testweb'
+docker container inspect --format="{{.NetworkSettings.Networks.bridge.IPAddress}" testweb
 ```

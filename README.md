@@ -66,6 +66,8 @@ docker run -d --name myweb -p 80-85:80 httpd:latest
 # Instantiate a container (named myweb) running Apache from an image called 'http:latest', mount the underlying hosts's
 # '/var/www/html' directory in the container's '/usr/local/apache2/htdocs' directory
 docker run -d --name myweb -v /var/www/html:/usr/local/apache2/htdocs httpd:latest
+# OR
+docker run -d --name myweb --mount type=bind,src=/var/www/html,target=/usr/local/apache2/htdocs httpd:latest
 
 # If you have 2 CPUs, guarantee the container at most at most one and a half of the CPUs every second.
 # Docker 1.13 and higher. Docker 1.12 and lower uses --cpu-period=100000 --cpu-quota=50000
@@ -102,10 +104,23 @@ docker images prune
 # OR
 docker rmi $(docker images -q -f dangling=true)
 
+# Remove an image with containers based on it as they will otherwise be left orphaned
+docker rmi [image_name] --force
+
 # Remove all non-running containers (possible filters: created, restarting, running, paused, exited)
 docker rm $(docker ps -q -f status=exited)
+
+docker rm [container_name or container_id]
 ```
 
+#### `docker history`
+
+The 'history' option will display the image layers, the number of them, and how they were built on the image.
+
+```bash
+# Review an image's storage layers
+docker history [image id]
+```
 
 #### `docker search`
 
@@ -155,3 +170,5 @@ docker container run -d --dns=8.8.8.8 [image]
 docker run -d --dns=8.8.8.8 [image]
 
 ```
+
+

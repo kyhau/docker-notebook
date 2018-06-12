@@ -2,6 +2,14 @@
 
 ### TODO
 
+
+#### docker hub
+
+The most common public repository for published Docker images.
+
+
+#### Overlay Network
+
 Overlay Network allows Docker Trusted Registry components running on different nodes to communicate and replicate
 Docker Trusted Registry data.
 ```

@@ -18,6 +18,11 @@ systemctl status docker
 
 ### Docker Swarm
 
+1. Docker swarm allows you to deploy clusters of Docker containers across multiple nodes and manage their behavior.
+
+1. `docker-compose` allows you to define one or more containers in a single configuration file that can then be deployed all at once.
+
+
 #### `docker swarm`
 
 ```bash
@@ -98,6 +103,7 @@ docker service logs [SERVICE NAME]
 #### `docker inspect`
 
 ```bash
-# The '--pretty' optin will format the associated output in a more easily readable format.
+# The '--pretty' option will format the associated output in a more easily readable format.
+# JSON, is thde default output from an inspect command.
 docker inspect [NODE ID] --pretty
 ```

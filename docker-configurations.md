@@ -58,12 +58,26 @@ DOCKER_OPTS="--insecure-registry <docker registry url>"
 ```
 
 
+## Installation notes
 
-### Installation notes
+1. All major x86 based operating systems, and even some 'arm', support Docker, including
+
+   1. Apple OSX/sierraOS
+   1. Linux (all flavors)
+   1. Microsoft Windows
+
+1. The three major cloud providers support local image Docker installs as well as container services:
+
+    1. AWS
+    1. Azure
+    1. Google
 
 1. The following are requirements for Docker to run but are NOT installed as dependencies as they exist on most full
-    system installations.
+   system installations:
 
     1. `device-mapper-persistent-data`
     1. `lvm2`
     1. `yum-utils`
+
+1. A virtual machine relies on some type of **hypervisor** that is responsible for translating calls from applications to
+   the underlying hardware: storage, CPU, and memory requests.

@@ -3,8 +3,11 @@
 Subpages
 - [Installation and Configurations](docker-configurations.md)
 - [Image Creation, Management, and Registry](docker-image-creation-management-registry.md)
+- [Dockerfile](docker-dockerfile.md)
 - [Orchestration - Swarm, Node, Service](docker-orchestration.md)
 - [Storage and Volumes](docker-storage-and-volumes.md)
+- [Networking](docker-networking.md)
+- [Security](docker-security.md)
 - [Docker Trust Registry](docker-trusted-registry.md)
 - [Docker upgrade](docker-upgrade.md)
 - [Image signing](docker-image-signing.md)
@@ -48,6 +51,25 @@ docker attach [containername]
 # Executing another shell in a running container and then exiting that shell will not stop the underlying container
 # process started on instantiation.
 docker exec -it [containername] /bin/bash
+
+# Allow the container to perform operations that a container may otherwise be restricted from performing.
+# So basically any container host that you allow anyone to launch a --privileged container on is the same as giving
+# them root access to every container on that host.
+docker run --privileged -it --rm ubuntu:latest bash
+
+# If you have 2 CPUs, guarantee the container at most at most one and a half of the CPUs every second.
+# Docker 1.13 and higher. Docker 1.12 and lower uses --cpu-period=100000 --cpu-quota=50000
+docker run -it --cpus="1.5" ubuntu /bin/bash
+
+# The maximum amount of memory the container can use. If you set this option, the minimum allowed value is 4m
+# (4 megabyte).
+docker run -it --memory=[amount b/k/m/g] ubuntu /bin/bash
+
+# If --memory and --memory-swap are set to the same value, this prevents containers from using any swap. This is
+# because --memory-swap is the amount of combined memory and swap that can be used, while --memory is only the amount
+# of physical memory that can be used.
+docker run -it --memory=[amount b/k/m/g] --memory-swap=[amount b/k/m/g] ubuntu /bin/bash
+
 ```
 
 

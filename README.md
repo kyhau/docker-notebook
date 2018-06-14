@@ -45,12 +45,12 @@ docker run -d httpd
 docker run --detach httpd
 
 # Attach to a container, will cause the container to exit when “exit” the container.
-docker attach [containername]
+docker attach [container_name]
 
 # Interact inside a container and will noy cause the container to stop when you exit the running shell.
 # Executing another shell in a running container and then exiting that shell will not stop the underlying container
 # process started on instantiation.
-docker exec -it [containername] /bin/bash
+docker exec -it [container_name] /bin/bash
 
 # Instantiate a docker container called 'myweb' that is running an Apache web server on port 80 by default within it,
 # you can allow direct access to the container service via the host's IP by redirecting the container port 80 to the
@@ -83,7 +83,7 @@ docker run -it --memory=[amount b/k/m/g] ubuntu /bin/bash
 docker run -it --memory=[amount b/k/m/g] --memory-swap=[amount b/k/m/g] ubuntu /bin/bash
 
 # The 'docker run' command uses the --dns option to override the default DNS servers for a container.
-docker run -d --dns=8.8.8.8 [image]
+docker run -d --dns=8.8.8.8 [image_name]
 
 # Allow the container to perform operations that a container may otherwise be restricted from performing.
 # So basically any container host that you allow anyone to launch a --privileged container on is the same as giving
@@ -113,20 +113,30 @@ docker rm $(docker ps -q -f status=exited)
 docker rm [container_name or container_id]
 ```
 
+
+#### `docker image`
+
+```bash
+# Display detailed information on one or more images
+docker image inspect [image_id]
+```
+
+
 #### `docker history`
 
 The 'history' option will display the image layers, the number of them, and how they were built on the image.
 
 ```bash
 # Review an image's storage layers
-docker history [image id]
+docker history [image_id]
 ```
+
 
 #### `docker search`
 
 ```bash
 # Return store
-docker search image_name (e.g. docker search apache)	
+docker search [image_name] (e.g. docker search apache)	
 
 # Return rating more than 50
 docker search --filter stars=50 apache	
@@ -171,4 +181,30 @@ docker run -d --dns=8.8.8.8 [image]
 
 ```
 
+
+#### `docker inspect` (or `docker container inspect`)
+
+- `docker inspect` returns low-level information on Docker objects. 
+- Default format is json.
+
+```bash
+# The '--pretty' option will format the associated output in a more easily readable format.
+# JSON, is thde default output from an inspect command.
+docker inspect [NODE ID] --pretty
+
+# There are multiple references to the key search term IP, but only one specifically called 'IPAddress' when running
+# the 'inspect' command on any container.
+docker inspect myweb | grep IPAddress
+
+# The output will be formatted as to be more easily readable on standard output.
+docker inspect --format="{{.Structure.To.Review}}" [objectid/name] myweb
+
+# Show JUST the IP address of a running container called 'testweb'
+docker container inspect --format="{{.NetworkSettings.Networks.bridge.IPAddress}" testweb
+```
+
+
+#### `docker-compose`
+
+1. `docker-compose` allows you to define one or more containers in a single configuration file that can then be deployed all at once.
 

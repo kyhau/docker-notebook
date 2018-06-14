@@ -24,7 +24,18 @@ systemctl status docker
     1. Replicated: Number of identical tasks can be specified for a replicated service.
     1. Global: There is no pre-specified number of tasks for global service.
 
-1. `docker-compose` allows you to define one or more containers in a single configuration file that can then be deployed all at once.
+1. Raft (Docker Consensus Algorithm)
+   1. In Docker swarm mode, manager nodes implement the Raft Consensus Algorithm to manage the global cluster state.
+   1. The consensus algorithm is to make sure that all the manager nodes that are in charge of managing and scheduling
+      tasks in the cluster, are storing the same consistent state.
+   1. Raft requires a majority or quorum of (N/2)+1 members to agree on values proposed to the cluster.
+   1. Raft tolerates up to (N-1)/2 failures.
+   1. If a quorum is not reached, the existing tasks will keep running.
+   1. If a quorum is not reached, the system will not process any more requests to schedule additional tasks.
+
+This means that in a cluster of 5 Managers running Raft, if 3 nodes are unavailable, the system cannot process any
+more requests to schedule additional tasks. The existing tasks keep running but the scheduler cannot rebalance tasks
+to cope with failures if the manager set is not healthy.
 
 
 #### `docker swarm`
@@ -68,6 +79,9 @@ docker node update --availability active [NODE ID]
 # Docker updates the object (node) to DOWN when the availability is indicated to be 'drain' on the indicated NODE ID.
 docker node update --availability drain [NODE ID]
 
+# Add or update multiple node labels
+docker node update --label-add foo --label-add bar worker1
+
 # Remove a node marked as 'DOWN' from the cluster
 docker node rm [NODE ID]
 
@@ -90,10 +104,28 @@ docker service create --name my_api httpd
 
 # Scale the number of replicas in your swarm to FIVE once the cluster is already running
 # The 'scale' option allows you to indicate the service to scale along with the number of replicas to scale to.
-docker service scale [SERVICE NAME]=5
+docker service scale [service_name]=5
 
 # Scale your service, called 'my_api', from whatever its current replica count is to TEN replicas in the cluster
 docker service scale my_api=10
+
+# Roll back to the previous version of a service
+docker service update --rollback [service_name]
+
+# Add or update a placement constraint to the service 'redis'
+docker service update --constraint-add "engine.labels.purpose==database" redis
+
+# Add or update a mount on a service
+docker service update --mount-add ... [service_name]
+
+# Add a network to a service
+docker service update --network-add ... [service_name]
+
+# Add or update a placement preference
+docker service update --placement-pref-add ... [service_name]
+
+# Add or update a published port?
+docker service update --publish-add ... [service_name]
 
 # Stop a service called 'myweb' on your cluster
 # Docker requires you to specify the 'service' object when removing a service rather than a single container from
@@ -105,23 +137,4 @@ docker service rm my_api
 
 # When executed on one of the master nodes, will display the logs for the indicated service running on the swarm.
 docker service logs [SERVICE NAME]
-```
-
-#### `docker inspect` (or `docker container inspect`)
-
-
-```bash
-# The '--pretty' option will format the associated output in a more easily readable format.
-# JSON, is thde default output from an inspect command.
-docker inspect [NODE ID] --pretty
-
-# There are multiple references to the key search term IP, but only one specifically called 'IPAddress' when running
-# the 'inspect' command on any container.
-docker inspect myweb | grep IPAddress
-
-# The output will be formatted as to be more easily readable on standard output.
-docker inspect --format="{{.Structure.To.Review}}" [objectid/name] myweb
-
-# Show JUST the IP address of a running container called 'testweb'
-docker container inspect --format="{{.NetworkSettings.Networks.bridge.IPAddress}" testweb
 ```

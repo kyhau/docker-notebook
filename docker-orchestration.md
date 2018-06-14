@@ -55,7 +55,8 @@ docker swarm join-token manager
 # Retrieve the command needed for a node to join a cluster
 docker swarm join-token worker
 
-# When executed from the node you are removing, you can gracefully leave the cluster without having to use the NODE ID.
+# When executed from the node you are removing, you can gracefully leave the cluster without having to use the
+# NODE ID.
 docker swarm leave
 
 # Enable autolock on an existing swarm cluster
@@ -65,18 +66,19 @@ docker swarm update --autolock=true
 #### `docker node`
 
 ```bash
-# The simple 'ls' command applied to the 'node' object from the manager provides a list of all nodes that the manager
-# is aware of.
+# The simple 'ls' command applied to the 'node' object from the manager provides a list of all nodes that the
+# manager is aware of.
 docker node ls
 
 # Undo the 'drain' task applied to a node so that it can be used again for services.
-# Once a node has been drained, it is marked DOWN and must be updated to ACTIVE status so that it's availability for
-# services as advertised.
+# Once a node has been drained, it is marked DOWN and must be updated to ACTIVE status so that it's availability
+# for services as advertised.
 docker node update --availability active [NODE ID]
 
-# Drain the indicated node so that future services will not run on it unless the command is undone (when run from the
-# manager node).
-# Docker updates the object (node) to DOWN when the availability is indicated to be 'drain' on the indicated NODE ID.
+# Drain the indicated node so that future services will not run on it unless the command is undone (when run from
+# the manager node).
+# Docker updates the object (node) to DOWN when the availability is indicated to be 'drain' on the indicated NODE
+# ID.
 docker node update --availability drain [NODE ID]
 
 # Add or update multiple node labels

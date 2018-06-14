@@ -17,18 +17,20 @@ LABEL key=value                           # Metadata to an image
 
 LABEL maintainer=”user1@email.com”        # MAINTAINER (deprecated): use LABEL maintainer
 
-RUN apt-get update && \         # Executes any commands in a new layer on top of the current image and commit the results
+RUN apt-get update && \
     apt-get install -y --force-yes apache2
+                      # Execute any commands in a new layer on top of the current image and commit the results
 
-CMD echo “Check container IP”   # CMD Command the container to start, only the last CMD will be run if multiple specified 
+CMD echo “Check container IP”
+                      # CMD Command the container to start, only the last CMD will be run if multiple specified 
 
-EXPOSE 80 443                   # EXPOSE <port> [<port>/<protocol>...] 
-                                # Inform Docker that the container listens on the specified network ports at runtime
-                                # Does not publish the port to external systems.
+EXPOSE 80 443         # EXPOSE <port> [<port>/<protocol>...] 
+                      # Inform Docker that the container listens on the specified network ports at runtime
+                      # Does not publish the port to external systems.
 
 VOLUME ["/var/www", "/var/log/apache2", "/etc/apache2"]
-                                # Create a mount point with the specified name and marks it as holding externally
-                                # mounted volumes from native host or other containers
+                      # Create a mount point with the specified name and marks it as holding externally
+                      # mounted volumes from native host or other containers
 
 ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 ```

@@ -48,47 +48,45 @@ docker run --detach httpd
 docker attach [container_name]
 
 # Interact inside a container and will noy cause the container to stop when you exit the running shell.
-# Executing another shell in a running container and then exiting that shell will not stop the
-# underlying container process started on instantiation.
+# Executing another shell in a running container and then exiting that shell will not stop the underlying
+# container process started on instantiation.
 docker exec -it [container_name] /bin/bash
 
-# Instantiate a docker container called 'myweb' that is running an Apache web server on port 80 by
-# default within it, you can allow direct access to the container service via the host's IP by
-# redirecting the container port 80 to the host port 80.
-# Redirecting ports is through the '-p [host port]:[container port]' syntax.
+# Instantiate a docker container called 'myweb' that is running an Apache web server on port 80 by default within
+# it, you can allow direct access to the container service via the host's IP by redirecting the container port 80
+# to the host port 80. Redirecting ports is through the '-p [host port]:[container port]' syntax.
 docker run -d --name myweb -p 80:80 httpd:latest
 
-# Instantiate a container called 'myweb' running an Apache application from the image
-# 'httpd:latest' on your system, and allow the container port 80 to be redirected to the underlying
-# host's port somewhere in the range of 80-85, based on port availability.
+# Instantiate a container called 'myweb' running an Apache application from the image 'httpd:latest' on your
+# system, and allow the container port 80 to be redirected to the underlying host's port somewhere in the range
+# of 80-85, based on port availability.
 docker run -d --name myweb -p 80-85:80 httpd:latest
 
-# Instantiate a container (named myweb) running Apache from an image called 'http:latest', mount
-# the underlying hosts's '/var/www/html' directory in the container's '/usr/local/apache2/htdocs'
+# Instantiate a container (named myweb) running Apache from an image called 'http:latest', mount the underlying
+# hosts's '/var/www/html' directory in the container's '/usr/local/apache2/htdocs'
 docker run -d --name myweb -v /var/www/html:/usr/local/apache2/htdocs httpd:latest
 # OR
 docker run -d --name myweb --mount type=bind,src=/var/www/html,target=/usr/local/apache2/htdocs httpd:latest
 
-# If you have 2 CPUs, guarantee the container at most at most one and a half of the CPUs every
-# second.
+# If you have 2 CPUs, guarantee the container at most at most one and a half of the CPUs every second.
 # Docker 1.13 and higher. Docker 1.12 and lower uses --cpu-period=100000 --cpu-quota=50000
 docker run -it --cpus="1.5" ubuntu /bin/bash
 
-# The maximum amount of memory the container can use. If you set this option, the minimum allowed 
-# value is 4m (4 megabyte).
+# The maximum amount of memory the container can use. If you set this option, the minimum allowed value is 4m
+# (4 megabyte).
 docker run -it --memory=[amount b/k/m/g] ubuntu /bin/bash
 
-# If --memory and --memory-swap are set to the same value, this prevents containers from using any
-# swap. This is because --memory-swap is the amount of combined memory and swap that can be used, 
-# while --memory is only the amount of physical memory that can be used.
+# If --memory and --memory-swap are set to the same value, this prevents containers from using any swap. This is
+# because --memory-swap is the amount of combined memory and swap that can be used, while --memory is only the
+# amount of physical memory that can be used.
 docker run -it --memory=[amount b/k/m/g] --memory-swap=[amount b/k/m/g] ubuntu /bin/bash
 
 # The 'docker run' command uses the --dns option to override the default DNS servers for a container.
 docker run -d --dns=8.8.8.8 [image_name]
 
-# Allow the container to perform operations that a container may otherwise be restricted from
-# performing. So basically any container host that you allow anyone to launch a --privileged 
-# container on is the same as giving them root access to every container on that host.
+# Allow the container to perform operations that a container may otherwise be restricted from performing. So
+# basically any container host that you allow anyone to launch a --privileged container on is the same as giving
+# them root access to every container on that host.
 docker run --privileged -it --rm ubuntu:latest /bin/bash
 ```
 
@@ -96,8 +94,8 @@ docker run --privileged -it --rm ubuntu:latest /bin/bash
 #### Removing docker images and container
 
 ```bash
-# Remove ALL stopped containers, images without at least one container associated, all build cache,
-# and all networks not used by at least one container, from a Docker host
+# Remove ALL stopped containers, images without at least one container associated, all build cache, and all
+# networks not used by at least one container, from a Docker host
 docker system prune -a
 
 # Remove dangling (untagged) images

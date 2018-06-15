@@ -45,7 +45,7 @@ docker run -d httpd
 # Attach to a container, will cause the container to exit when “exit” the container.
 docker attach [container_name]
 
-# Interact inside a container and will noy cause the container to stop when you exit the running shell.
+# Interact inside a container and will not cause the container to stop when you exit the running shell.
 # Executing another shell in a running container and then exiting that shell will not stop the underlying
 # container process started on instantiation.
 docker exec -it [container_name] /bin/bash

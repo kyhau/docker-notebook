@@ -9,3 +9,12 @@ docker build -t myimage:v1 .
 # to the repository in order to log in?
 --username=[USERNAME]
 ```
+
+
+```bash
+docker push [OPTIONS] NAME[:TAG]
+
+docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+
+
+```

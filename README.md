@@ -102,6 +102,8 @@ docker system prune -a
 docker images prune
 # OR
 docker rmi $(docker images -q -f dangling=true)
+# OR
+docker image rm $(docker images -q -f dangling=true)
 
 # Remove an image with containers based on it as they will otherwise be left orphaned
 docker rmi [image_name] --force

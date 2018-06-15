@@ -3,6 +3,10 @@
 ### TODO
 
 
+Docker Trusted Registry is the image storage solution that is part of Docker Enterprise Edition.
+
+
+
 #### docker hub
 
 The most common public repository for published Docker images.

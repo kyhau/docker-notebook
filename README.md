@@ -23,7 +23,7 @@ Other references:
 #### Running container
 
 ```bash
-# Start a container but it will exit immediately
+# Start a container from the image 'centos:6'; it will exit immediately
 docker run centos:6
 
 # Container is deleted when “exit”
@@ -36,13 +36,11 @@ docker run -it centos:6 /bin/bash
 # Container is deleted when “exit”
 docker run -it --rm centos:6 /bin/bash
 
-# Inside container: echo $MYENV
+# Inside container: echo $MYVAR and $MYVAR2
 docker run -it --rm --env MYVAR=whatever --env MYVAR2=something centos:6 /bin/bash
 
-# Run the container in background and print container ID.
+# Run the container from the image 'httpd:latest' in background (-d or --detach) and print container ID.
 docker run -d httpd
-# or
-docker run --detach httpd
 
 # Attach to a container, will cause the container to exit when “exit” the container.
 docker attach [container_name]

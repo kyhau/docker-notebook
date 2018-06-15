@@ -1,4 +1,4 @@
-# Docker Cheat Sheets
+# Docker notebook
 
 Subpages
 - [Installation and Configurations](docker-configurations.md)

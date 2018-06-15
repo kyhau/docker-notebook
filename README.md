@@ -2,8 +2,7 @@
 
 Subpages
 - [Installation and Configurations](docker-configurations.md)
-- [Image Creation, Management, and Registry](docker-image-creation-management-registry.md)
-- [Dockerfile](docker-dockerfile.md)
+- [Dockerfile, Image Creation, Management, and Registry](docker-image-creation-management-registry.md)
 - [Orchestration - Swarm, Node, Service](docker-orchestration.md)
 - [Storage and Volumes](docker-storage-and-volumes.md)
 - [Networking](docker-networking.md)

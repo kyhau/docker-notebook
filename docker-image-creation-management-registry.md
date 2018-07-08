@@ -44,13 +44,16 @@ ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 
 1. Build cache is only used from images that have a local parent chain.
 
-1. Parser directives are optional, and affect the way in which subsequent lines in a Dockerfile are handled. Once a comment, empty line or builder instruction has been processed, Docker no longer looks for parser directives.
+1. Parser directives are optional, and affect the way in which subsequent lines in a Dockerfile are handled. Once a
+   comment, empty line or builder instruction has been processed, Docker no longer looks for parser directives.
 
 1. Escape character: \ or `
 
 1. Environment variables
-   1. ${variable:-word} indicates that if variable is set then the result will be that value. If variable is not set then word will be the result.
-   1. ${variable:+word} indicates that if variable is set then word will be the result, otherwise the result is the empty string.
+   1. ${variable:-word} indicates that if variable is set then the result will be that value. If variable is not set
+      then word will be the result.
+   1. ${variable:+word} indicates that if variable is set then word will be the result, otherwise the result is the
+      empty string.
 1. Environment variables are supported by the following list of instructions in the Dockerfile:
    1. ADD
    1. COPY

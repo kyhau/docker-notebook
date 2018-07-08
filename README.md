@@ -15,39 +15,45 @@ Python examples:
 - [docker_checker](docker_checker/README.md)
 
 Other references:
-- [Docker Advanced multi-stage build patterns – Tõnis Tiigi](https://medium.com/@tonistiigi/advanced-multi-stage-build-patterns-6f741b852fae)
+- [Docker Advanced multi-stage build patterns – Tõnis Tiigi](
+  https://medium.com/@tonistiigi/advanced-multi-stage-build-patterns-6f741b852fae)
 - [Docker ARG, ENV and .env - a Complete Guide](https://vsupalov.com/docker-arg-env-variable-guide/)
 
 
 #### Running container
 
 ```bash
-# Start a container from the image 'centos:6'; it will exit immediately
+# Start a container from the image 'centos:6'; it will exit immediately.
 docker run centos:6
 
-# Container is deleted when “exit”
-# i: interactive,  t: terminal; launch a container in 'interactive' mode in the current 'terminal'
+# Start a container from the image 'httpd:latest' in background (-d or --detach) and print container ID.
+docker run -d httpd
+
+# Launch a container in 'interactive' mode in the current 'terminal'; i: interactive, t: terminal
+# Container is deleted at “exit”.
 docker run -it centos:6
 
-# Container is not deleted when “exit”
+# Container is not deleted at “exit”.
 docker run -it centos:6 /bin/bash
 
-# Container is deleted when “exit”
+# Container is deleted at “exit”.
 docker run -it --rm centos:6 /bin/bash
+
+# Attach local standard input, output, and error streams to a running container
+# Will cause the container to exit when “exit” the container.
+docker attach [OPTIONS] CONTAINER_NAME
+
+# Run a command in a running container
+docker exec [OPTIONS] CONTAINER_NAME COMMAND [ARG...]
+
+# Executing another shell in a running container and then exiting that shell will not stop the underlying
+# container process started on instantiation.
+docker exec -it CONTAINER_NAME /bin/bash
 
 # Inside container: echo $MYVAR and $MYVAR2
 docker run -it --rm --env MYVAR=whatever --env MYVAR2=something centos:6 /bin/bash
 
-# Run the container from the image 'httpd:latest' in background (-d or --detach) and print container ID.
-docker run -d httpd
-
-# Attach to a container, will cause the container to exit when “exit” the container.
-docker attach [container_name]
-
-# Interact inside a container and will not cause the container to stop when you exit the running shell.
-# Executing another shell in a running container and then exiting that shell will not stop the underlying
-# container process started on instantiation.
-docker exec -it [container_name] /bin/bash
+# Note: To specify container name, use '--name'. Note that '--name' has no short form ('-n' is not valid).
 
 # Instantiate a docker container called 'myweb' that is running an Apache web server on port 80 by default within
 # it, you can allow direct access to the container service via the host's IP by redirecting the container port 80
@@ -59,11 +65,15 @@ docker run -d --name myweb -p 80:80 httpd:latest
 # of 80-85, based on port availability.
 docker run -d --name myweb -p 80-85:80 httpd:latest
 
-# Instantiate a container (named myweb) running Apache from an image called 'http:latest', mount the underlying
+# Instantiate a container (named myweb) running Apache from an image called 'httpd:latest', mount the underlying
 # hosts's '/var/www/html' directory in the container's '/usr/local/apache2/htdocs'
+# Option 1: use (-v or --volume <src>:<dest>)
 docker run -d --name myweb -v /var/www/html:/usr/local/apache2/htdocs httpd:latest
 # OR
+# Option 2: use (--mount type=bind,src=<src>,target=<dest>)
 docker run -d --name myweb --mount type=bind,src=/var/www/html,target=/usr/local/apache2/htdocs httpd:latest
+
+# Note: you cannot add a volume to an instantiated container.
 
 # If you have 2 CPUs, guarantee the container at most at most one and a half of the CPUs every second.
 # Docker 1.13 and higher. Docker 1.12 and lower uses --cpu-period=100000 --cpu-quota=50000
@@ -79,7 +89,7 @@ docker run -it --memory=[amount b/k/m/g] ubuntu /bin/bash
 docker run -it --memory=[amount b/k/m/g] --memory-swap=[amount b/k/m/g] ubuntu /bin/bash
 
 # The 'docker run' command uses the --dns option to override the default DNS servers for a container.
-docker run -d --dns=8.8.8.8 [image_name]
+docker run -d --dns=8.8.8.8 IMAGE_NAME
 
 # Allow the container to perform operations that a container may otherwise be restricted from performing. So
 # basically any container host that you allow anyone to launch a --privileged container on is the same as giving
@@ -102,21 +112,40 @@ docker rmi $(docker images -q -f dangling=true)
 # OR
 docker image rm $(docker images -q -f dangling=true)
 
-# Remove an image with containers based on it as they will otherwise be left orphaned
-docker rmi [image_name] --force
+# Force removal of an image (e.g. remove an image with containers based on it); --force or -f
+docker rmi IMAGE_NAME --force
+
+# Do not delete untagged parents
+docker rmi IMAGE_NAME --no-prune
 
 # Remove all non-running containers (filters: created, restarting, running, paused, exited)
 docker rm $(docker ps -q -f status=exited)
 
-docker rm [container_name or container_id]
+docker rm <CONTAINER_NAME or CONTAINER_ID>
+```
+
+
+#### General commands to manage containers and images
+
+```bash
+# List all containers (both running or not running)
+docker ps -a
+
+# List the locally installed images that can be used to instantiate containers from
+docker images
+
+# List all locally installed images including intermediate images and dangling images
+docker images -a
+
 ```
 
 
 #### `docker image`
 
 ```bash
+
 # Display detailed information on one or more images
-docker image inspect [image_id]
+docker image inspect IMAGE_ID
 ```
 
 
@@ -126,7 +155,7 @@ The 'history' option will display the image layers, the number of them, and how 
 
 ```bash
 # Review an image's storage layers
-docker history [image_id]
+docker history IMAGE_ID
 ```
 
 
@@ -134,7 +163,7 @@ docker history [image_id]
 
 ```bash
 # Return store
-docker search [image_name] (e.g. docker search apache)	
+docker search IMAGE_NAME (e.g. docker search apache)	
 
 # Return rating more than 50
 docker search --filter stars=50 apache	

@@ -1,7 +1,41 @@
 # Docker Networking
 
+1. **Macvlan networks** is the best network driver type when you are migrating from a VM setup or need your containers
+   to look like physical hosts on your network, each with a unique MAC address.
 
-#### `docker network`
+1. **Overlay networks** is the best network driver type when you need containers running on different Docker hosts to
+   communicate, or when multiple applications work together using swarm services.
+
+1. **User-defined bridge networks** is the best network driver type when you need multiple containers to communicate on
+   the same Docker host.
+
+1. **Host networks** is the best network driver type when the network stack should not be isolated from the Docker host,
+   but you want other aspects of the container to be isolated.
+
+
+## User-defined bridge networks
+
+User-defined bridges vs. default bridges
+
+1. User-defined bridges provide better isolation and interoperability between containerised applications.
+1. User-defined bridges provide automatic DNS resolution between containers.
+1. Containers can be attached and detached from user-defined networks on the fly.
+1. Each user-defined network creates a configurable bridge.
+1. Linked containers on the default bridge network share environment variables.
+
+
+## Overlay networks
+
+1. Overlay network is ingress network.
+
+1. Overlay Network allows Docker Trusted Registry components running on different nodes to communicate and replicate
+   Docker Trusted Registry data.
+   ```
+   dtr-ol
+   ```
+
+
+## `docker network`
 
 ```bash
 # The 'ls' command for the 'docker network' object will list all Docker networks and their drivers installed.
@@ -11,6 +45,16 @@ docker network ls
 # The 'docker network create' command can take a network, subnet and gateway as arguments for either bridge or
 # overlay drivers.
 docker network create --driver=overlay --subnet=192.168.1.0/24 --gateway 192.168.1.250 dev_overlay
+
+# Create a bridge network
+dcker network create my-net
+
+docker network rm my-net
+
+# To connect a running container to an existing user-defined bridge
+docker create --name my-nginx --network my-net --publish 8080:80 nginx:latest
+docker network connect my-net my-nginx
+docker network disconnect my-net my-nginx
 ```
 
 ```bash
@@ -28,9 +72,11 @@ Overlay
 host
 ```
 
-#### Routing mesh
+
+## Routing mesh
 
 1. The ability for any node in a cluster to answer for an exposed service port even if there is no replica for that
- service running on it, is handled by Routing Mesh.
+   service running on it, is handled by Routing Mesh.
+   
 1. The 'routing mesh' allows all nodes that participate in a Swarm for a given service to be aware of and capable of
- responding to any published service port request even if a node does not have a replica for said service running on it.
+   responding to any published service port request even if a node does not have a replica for said service running on it.

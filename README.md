@@ -7,7 +7,7 @@ Subpages
 - [Storage and Volumes](docker-storage-and-volumes.md)
 - [Networking](docker-networking.md)
 - [Security](docker-security.md)
-- [Docker Trust Registry](docker-trusted-registry.md)
+- [UCP and DTR](docker-ucp-dtr.md)
 - [Docker upgrade](docker-upgrade.md)
 - [Image signing](docker-image-signing.md)
 
@@ -131,6 +131,11 @@ docker rm <CONTAINER_NAME or CONTAINER_ID>
 # List all containers (both running or not running)
 docker ps -a
 
+# The column ‘size’ shows the amount of data that is used for the writable layer of each container.
+# The column ‘virtual size’ shows the amount of data used for the read-only image data used by the container
+# plus the container’s writable layer ‘size’.
+docker ps -s
+
 # List the locally installed images that can be used to instantiate containers from
 docker images
 
@@ -146,6 +151,49 @@ docker images -a
 
 # Display detailed information on one or more images
 docker image inspect IMAGE_ID
+```
+
+
+#### `docker container`
+
+New way to do docker container commands (make it clearer).
+
+```bash
+# New way to do `docker ps`
+docker container ls
+
+# You have to temporarily use a public DNS (8.8.8.8) when launching transient detached containers
+# while your corporate DNS servers are undergoing maintenance. Which docker command would use that
+# public DNS server for name resolution?
+# The 'docker run' command uses the --dns option to override the default DNS servers for a
+# container.
+docker container run -d --dns=8.8.8.8 [image]
+# OR
+docker run -d --dns=8.8.8.8 [image]
+
+```
+
+
+#### `docker inspect` (or `docker container inspect`)
+
+- `docker inspect` returns low-level information on Docker objects. 
+- Default format is json.
+
+```bash
+# The '--pretty' option will format the associated output in a more easily readable format.
+# JSON, is thde default output from an inspect command.
+docker inspect [NODE_ID] --pretty
+
+# The output will be formatted as to be more easily readable on standard output.
+docker inspect --format="{{.Structure.To.Review}}" [objectid/name] myweb
+
+# Display the IP address of the running container `myweb`.
+# There are multiple references to the key search term IP, but only one specifically called
+# 'IPAddress' when running the 'inspect' command on any container.
+docker inspect myweb | grep IPAddress
+
+# Show JUST the IP address of a running container called 'testweb'
+docker container inspect --format="{{.NetworkSettings.Networks.bridge.IPAddress}" testweb
 ```
 
 
@@ -191,50 +239,67 @@ docker pull docker.example.com/examples/simple_image:3.0.0
 ```
 
 
-#### `docker container`
-
-New way to do docker container commands (make it clearer).
-
-```bash
-# New way to do `docker ps`
-docker container ls
-
-# You have to temporarily use a public DNS (8.8.8.8) when launching transient detached containers
-# while your corporate DNS servers are undergoing maintenance. Which docker command would use that
-# public DNS server for name resolution?
-# The 'docker run' command uses the --dns option to override the default DNS servers for a
-# container.
-docker container run -d --dns=8.8.8.8 [image]
-# OR
-docker run -d --dns=8.8.8.8 [image]
-
-```
-
-
-#### `docker inspect` (or `docker container inspect`)
-
-- `docker inspect` returns low-level information on Docker objects. 
-- Default format is json.
-
-```bash
-# The '--pretty' option will format the associated output in a more easily readable format.
-# JSON, is thde default output from an inspect command.
-docker inspect [NODE ID] --pretty
-
-# There are multiple references to the key search term IP, but only one specifically called
-# 'IPAddress' when running the 'inspect' command on any container.
-docker inspect myweb | grep IPAddress
-
-# The output will be formatted as to be more easily readable on standard output.
-docker inspect --format="{{.Structure.To.Review}}" [objectid/name] myweb
-
-# Show JUST the IP address of a running container called 'testweb'
-docker container inspect --format="{{.NetworkSettings.Networks.bridge.IPAddress}" testweb
-```
-
-
 #### `docker-compose`
 
 1. `docker-compose` allows you to define one or more containers in a single configuration file that
     can then be deployed all at once.
 
+
+#### `docker commit`
+
+The `docker commit` command is used to take a container's build and commit it to the indicated image name.
+
+
+```bash
+docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+
+# OPTIONS
+# --author ,  -a		Author (e.g., “John Hannibal Smith hannibal@a-team.com”)
+# --change ,  -c		Apply Dockerfile instruction to the created image
+# --message , -m		Commit message
+# --pause ,   -p	  true	Pause container during commit
+
+# Commit a container
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS              NAMES
+c3f279d17e0a        ubuntu:12.04        /bin/bash           7 days ago          Up 25 hours                            desperate_dubinsky
+
+$ docker commit c3f279d17e0a  svendowideit/testimage:version3
+f5283438590d
+
+$ docker images
+REPOSITORY                        TAG                 ID                  CREATED             SIZE
+svendowideit/testimage            version3            f5283438590d        16 seconds ago      335.7 MB
+
+# Commit a container with new configurations
+$ docker ps
+CONTAINER ID       IMAGE               COMMAND             CREATED             STATUS              PORTS              NAMES
+c3f279d17e0a        ubuntu:12.04        /bin/bash           7 days ago          Up 25 hours                            desperate_dubinsky
+
+$ docker inspect -f "{{ .Config.Env }}" c3f279d17e0a
+[HOME=/ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin]
+
+$ docker commit --change "ENV DEBUG true" c3f279d17e0a  svendowideit/testimage:version3
+f5283438590d
+
+$ docker inspect -f "{{ .Config.Env }}" f5283438590d
+[HOME=/ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin DEBUG=true]
+
+# Commit a container with new CMD and EXPOSE instructions
+$ docker ps
+
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS              NAMES
+c3f279d17e0a        ubuntu:12.04        /bin/bash           7 days ago          Up 25 hours                            desperate_dubinsky
+
+$ docker commit --change='CMD ["apachectl", "-DFOREGROUND"]' -c "EXPOSE 80" c3f279d17e0a  svendowideit/testimage:version4
+f5283438590d
+
+$ docker run -d svendowideit/testimage:version4
+89373736e2e7f00bc149bd783073ac43d0507da250e999f3f1036e0db60817c0
+
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                 CREATED             STATUS              PORTS              NAMES
+89373736e2e7        testimage:version4  "apachectl -DFOREGROU"  3 seconds ago       Up 2 seconds        80/tcp             distracted_fermat
+c3f279d17e0a        ubuntu:12.04        /bin/bash               7 days ago          Up 25 hours                            desperate_dubinsky
+
+```

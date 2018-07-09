@@ -41,6 +41,9 @@ to cope with failures if the manager set is not healthy.
 #### `docker swarm`
 
 ```bash
+# Set up a swarm
+docker swarm init [OPTIONS]
+
 # Docker allows a node with the appropriate token to join the swarm indicated by the IP and port.
 # A node to join the indicated cluster of the IP (of 10.0.1.100), with a token 'ighhsjkd6637'
 docker swarm join --token ighhsjkd6637 10.0.1.100:2377
@@ -73,22 +76,22 @@ docker node ls
 # Undo the 'drain' task applied to a node so that it can be used again for services.
 # Once a node has been drained, it is marked DOWN and must be updated to ACTIVE status so that it's availability
 # for services as advertised.
-docker node update --availability active [NODE ID]
+docker node update --availability active [NODE_ID]
 
 # Drain the indicated node so that future services will not run on it unless the command is undone (when run from
 # the manager node).
 # Docker updates the object (node) to DOWN when the availability is indicated to be 'drain' on the indicated NODE
 # ID.
-docker node update --availability drain [NODE ID]
+docker node update --availability drain [NODE_ID]
 
 # Add or update multiple node labels
 docker node update --label-add foo --label-add bar worker1
 
 # Remove a node marked as 'DOWN' from the cluster
-docker node rm [NODE ID]
+docker node rm [NODE_ID]
 
 # When run on the manager node, this command will remove the indicated node from the swarm it is a member of.
-docker node rm [NODE ID]
+docker node rm [NODE_ID]
 ```
 
 #### `docker service`
@@ -106,28 +109,28 @@ docker service create --name my_api httpd
 
 # Scale the number of replicas in your swarm to FIVE once the cluster is already running
 # The 'scale' option allows you to indicate the service to scale along with the number of replicas to scale to.
-docker service scale [service_name]=5
+docker service scale [SERVICE_NAME]=5
 
 # Scale your service, called 'my_api', from whatever its current replica count is to TEN replicas in the cluster
 docker service scale my_api=10
 
 # Roll back to the previous version of a service
-docker service update --rollback [service_name]
+docker service update --rollback [SERVICE_NAME]
 
 # Add or update a placement constraint to the service 'redis'
 docker service update --constraint-add "engine.labels.purpose==database" redis
 
 # Add or update a mount on a service
-docker service update --mount-add ... [service_name]
+docker service update --mount-add ... [SERVICE_NAME]
 
 # Add a network to a service
-docker service update --network-add ... [service_name]
+docker service update --network-add ... [SERVICE_NAME]
 
 # Add or update a placement preference
-docker service update --placement-pref-add ... [service_name]
+docker service update --placement-pref-add ... [SERVICE_NAME]
 
-# Add or update a published port?
-docker service update --publish-add ... [service_name]
+# Add or update a published port
+docker service update --publish-add ... [SERVICE_NAME]
 
 # Stop a service called 'myweb' on your cluster
 # Docker requires you to specify the 'service' object when removing a service rather than a single container from
@@ -138,5 +141,5 @@ docker service rm myweb
 docker service rm my_api
 
 # When executed on one of the master nodes, will display the logs for the indicated service running on the swarm.
-docker service logs [SERVICE NAME]
+docker service logs [SERVICE_NAME]
 ```

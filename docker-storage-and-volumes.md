@@ -103,3 +103,11 @@ docker inspect devtest
 | `rshared` | The same as shared, but the propagation also extends to and from mount points nested within any of the original or replica mount points. |
 | `rslave`  | The same as slave, but the propagation also extends to and from mount points nested within any of the original or replica mount points. |
 | `rprivate`| The default. The same as private, meaning that no mount points anywhere within the original or replica mount points propagate in either direction. |
+
+
+
+### Storage Drivers
+
+https://docs.docker.com/storage/storagedriver/#container-size-on-disk
+
+1. Copy-on-write (CoW) is a Docker strategy of sharing and copying files for maximum efficiency.

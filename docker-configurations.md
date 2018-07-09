@@ -39,8 +39,8 @@ When Docker is first installed, the installation creates a network interface cal
 
 - The `/etc/docker/daemon.json` file is used to override various Docker defaults, including
 
-   1. the Docker logging driver
-   1. the Docker storage driver
+   1. the Docker logging driver (`log-driver`)
+   1. the Docker storage driver (`storage-driver`)
 
 
 #### `/var/lib/docker`
@@ -81,3 +81,15 @@ DOCKER_OPTS="--insecure-registry <docker registry url>"
 
 1. A virtual machine relies on some type of **hypervisor** that is responsible for translating calls from applications to
    the underlying hardware: storage, CPU, and memory requests.
+
+1. Which of the following items need to be considered before installing Docker Enterprise?
+
+    1. Docker Engine, DTR, and UCP version compatibility
+    1. Disk space
+    1. Time Synchronisation
+    1. Network ports
+
+1. Which of the following is how to configure the Docker daemon to start on boot? (Select 2)
+
+    1. Use upstart for Ubuntu 14.10 and below
+    1. Use systemd for most current Linux distributions (RHEL, CentOS, Fedora, Ubuntu 16.04 and higher)

@@ -58,6 +58,45 @@ https://docs.docker.com/network/overlay/
    dtr-ol
    ```
 
+## Container Network Model (CNM)
+
+https://blog.docker.com/2015/04/docker-networking-takes-a-step-in-the-right-direction-2/
+
+1. Network Sandbox
+   1. An isolated environment where the Networking configuration for a Docker Container lives.
+
+1. Endpoint
+   1. A network interface that can be used for communication over a specific network. Endpoints join exactly one network and multiple endpoints can exist within a single Network Sandbox.
+
+1. Network
+   1. A network is a uniquely identifiable group of endpoints that are able to communicate with each other. You could create a “Frontend” and “Backend” network and they would be completely isolated.
+
+The CNM provides the following contract between networks and containers.
+
+1. All containers on the same network can communicate freely with each other.
+1. Multiple networks are the way to segment traffic between containers and should be supported by all drivers.
+1. Multiple endpoints per container are the way to join a container to multiple networks.
+1. An endpoint is added to a network sandbox to provide it with network connectivity.
+
+
+## IP address and hostname
+
+1. When the container starts, it can only be connected to a single network, using `--network`.
+
+1. However, you can connect a running container to multiple networks using `docker network connect`.
+
+1. When you start a container using the `--network` flag, you can specify the IP address assigned to the container on
+   that network using the `--ip` or `--ip6` flags.
+
+1. When you connect an existing container to a different network using `docker network connect`, you can use the `--ip`
+   or `--ip6` flags on that command to specify the container’s IP address on the additional network.
+
+1. In the same way, a container’s hostname defaults to be the container’s name in Docker. You can override the hostname
+   using `--hostname`. 
+   
+1. When connecting to an existing network using `docker network connect`, you can use the `--alias` flag to specify an
+   additional network alias for the container on that network.
+
 
 ## `docker network`
 
@@ -154,22 +193,33 @@ docker network rm	 NETWORK [NETWORK...]
    responding to any published service port request even if a node does not have a replica for said service running on it.
 
 
-## Container Network Model (CNM)
+## DNS Services
 
-https://blog.docker.com/2015/04/docker-networking-takes-a-step-in-the-right-direction-2/
+1. By default, a container inherits the DNS settings of the Docker daemon, including the `/etc/hosts` and
+   `/etc/resolv.conf`.
 
-1. Network Sandbox
-   1. An isolated environment where the Networking configuration for a Docker Container lives.
+1. You can override these settings on a **per-container** basis.
 
-1. Endpoint
-   1. A network interface that can be used for communication over a specific network. Endpoints join exactly one network and multiple endpoints can exist within a single Network Sandbox.
+```bash
 
-1. Network
-   1. A network is a uniquely identifiable group of endpoints that are able to communicate with each other. You could create a “Frontend” and “Backend” network and they would be completely isolated.
+# The 'docker run' command uses the --dns option to override the default DNS servers for a container.
+docker run -d --dns=8.8.8.8 IMAGE_NAME
 
-The CNM provides the following contract between networks and containers.
 
-1. All containers on the same network can communicate freely with each other.
-1. Multiple networks are the way to segment traffic between containers and should be supported by all drivers.
-1. Multiple endpoints per container are the way to join a container to multiple networks.
-1. An endpoint is added to a network sandbox to provide it with network connectivity.
+--dns IP_ADDRESS
+    The IP address of a DNS server. To specify multiple DNS servers, use multiple --dns flags. If the
+    container cannot reach any of the IP addresses you specify, Google’s public DNS server 8.8.8.8 is
+    added, so that your container can resolve internet domains.
+
+--dns-search
+    A DNS search domain to search non-fully-qualified hostnames. To specify multiple DNS search
+    prefixes, use multiple --dns-search flags.
+
+--dns-opt
+    A key-value pair representing a DNS option and its value. See your operating system’s documentation
+    for resolv.conf for valid options.
+
+--hostname
+    The hostname a container uses for itself. Defaults to the container’s name if not specified.
+
+```

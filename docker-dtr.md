@@ -1,3 +1,25 @@
+# Docker Trusted Registry (DTR)
+
+1. Docker Trusted Registry is the image storage solution that is part of Docker Enterprise Edition.
+
+1. Requirements to install Docker Trusted Registry (DTR):
+    1. DTR can be installed on-premises or a cloud provider.
+    1. All nodes must be a worker node managed by Universal Control Plane.
+    1. All nodes must have a fixed hostname.
+
+1. Endpoints exposed by Docker Trusted Registry that can be used to assess the health of a Docker Trusted Registry replica
+    ```
+    /health
+    /nginx_status
+    /api/v0/meta/cluster_status
+    ```
+
+## docker hub
+
+The most common public repository for published Docker images.
+
+
+
 # Docker image signing
 Docker supports image signing since Docker 1.8 (implemented as a separate piece of plumbing called Notary).
 
@@ -19,3 +41,9 @@ E.g. $ docker pull someimage@sha256:d149ab53f8718e987c3a3024bb8aa0e2caadf6c0328f
     3.3 A timestamp key is associated with an image repository. This is created by Docker and resides on the server.
 
 See more details in https://docs.docker.com/engine/security/trust/content_trust/
+
+```bash
+# To sign an image, you can run:
+export DOCKER_CONTENT_TRUST=1
+docker push <dtr-domain>/<repository>/<image>:<tag>
+```

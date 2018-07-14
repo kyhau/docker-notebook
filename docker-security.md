@@ -32,6 +32,11 @@ A UCP Client Bundle provides the following items to a client that intends to use
 The variable `DOCKER_CONTENT_TRUST` set to '1' will inform the Docker daemon to only pull trusted content within the
  shell it is set in.
 
+```bash
+# To sign an image, you can run:
+export DOCKER_CONTENT_TRUST=1
+docker push <dtr-domain>/<repository>/<image>:<tag>
+```
 
 #### MTLS (Mutual Transport Layer Security)
 
@@ -40,8 +45,66 @@ MTLS is used to secure communications between the manager and nodes in a Docker 
 
 #### RBAC (Role Based Access Control)
 
-In Docker UCP Security, RBAC is an acronym that determines what a user, team, or organization has access to on the
- cluster based on the role granted to them.
+Ref: https://docs.docker.com/ee/ucp/authorization/
+
+1. In Docker Universal Control Plane (UCP) Security, RBAC is an acronym that determines what a user, team, or
+   organization has access to on the cluster based on the role granted to them.
+
+1. To authorize access to cluster resources across your organization, UCP administrators might take the following
+   high-level steps:
+
+    1. Add and configure **subjects** (users, teams, organisations, and service accounts).
+    1. Define custom **roles** (or use defaults) by adding permitted operations per type of resource.
+    1. Group cluster **resources** into resource sets of Swarm collections or Kubernetes namespaces.
+    1. Create **grants** by combining subject + role + resource set.
+
+1. A **subject** represents a user, team, organization, or service account. A subject can be granted a role that defines
+   permitted operations against one or more resource sets.
+
+    1. User: A person authenticated by the authentication backend. Users can belong to one or more teams and one or
+       more organizations.
+    1. Team: A group of users that share permissions defined at the team level. A team can be in one organization only.
+    1. Organization: A group of teams that share a specific set of permissions, defined by the roles of the organization.
+    1. Service account: A Kubernetes object that enables a workload to access cluster resources that are assigned to a
+       namespace.
+
+1. **Roles** define what operations can be done by whom. A role is a set of permitted operations against a type of resource,
+   like a container or volume, that’s assigned to a user or team with a grant.
+
+1. **Resource sets** include **collections** and **namespaces**.
+
+    1. To control user access, cluster resources are grouped into **Docker Swarm collections** or **Kubernetes
+       namespaces**.
+
+    1. Swarm collections: 
+
+        1. A collection has a directory-like structure that holds Swarm resources.
+        1. You can create collections in UCP by defining a directory path and moving resources into it. 
+        1. Also, you can create the path in UCP and use labels in your YAML file to assign application resources to
+           the path. 
+        1. Resource types that users can access in a Swarm collection include containers, networks, nodes, services,
+           secrets, and volumes.
+
+    1. Kubernetes namespaces: 
+    
+        1. A namespace is a logical area for a Kubernetes cluster.
+           Kubernetes comes with a default namespace for your cluster objects, plus two more namespaces for system and
+           public resources.
+        1. You can create custom namespaces, but unlike Swarm collections, namespaces can’t be nested. Resource types
+           that users can access in a Kubernetes namespace include pods, deployments, network policies, nodes, services,
+           secrets, and many more.
+
+1. A **grant** is made up of **subject**, **role**, and **resource set**.
+
+    1. Grants define which users can access what resources in what way.
+    1. Grants are effectively **Access Control Lists (ACLs)**, and when grouped together, they provide comprehensive
+       access policies for an entire organization.
+
+    ![docker-grant](https://docs.docker.com/ee/ucp/images/ucp-grant-model.svg?sanitize=true)
+    ([Image source: docs.docker.com](https://docs.docker.com/ee/ucp/authorization/grant-permissions/#swarm-grants))
+
+1. Only an administrator can manage grants, subjects, roles, and access to resources.
+
 
 
 #### Namespaces

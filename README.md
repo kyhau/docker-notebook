@@ -3,13 +3,14 @@
 Subpages
 - [Installation and Configurations](docker-configurations.md)
 - [Dockerfile, Image Creation, Management, and Registry](docker-image-creation-management-registry.md)
-- [Orchestration - Swarm, Node, Service](docker-orchestration.md)
 - [Storage and Volumes](docker-storage-and-volumes.md)
+- [Docker Trusty Registry, Image Signing](docker-dtr.md)
+- [Universal Control Plane (UCP), Manager, Worker](docker-ucp.md)
+- [Orchestration - Swarm, Node, Service](docker-orchestration.md)
 - [Networking](docker-networking.md)
 - [Security](docker-security.md)
-- [UCP and DTR](docker-ucp-dtr.md)
+- [Backups and disaster Recovery](docker-backup.md)
 - [Docker upgrade](docker-upgrade.md)
-- [Image signing](docker-image-signing.md)
 
 Python examples:
 - [docker_checker](docker_checker/README.md)

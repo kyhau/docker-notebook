@@ -26,6 +26,8 @@
 
 # Docker image signing
 
+Docker supports image signing since Docker 1.8 (implemented as a separate piece of plumbing called **Notary**).
+
 
 ## Enable and disable content trust per-shell or per-invocation
 
@@ -52,13 +54,22 @@ docker build --disable-content-trust=false -t <username>/trusttest:testing .
 
 ## Sign image and push to DTR
 
-Ref: https://docs.docker.com/ee/dtr/user/manage-images/sign-images/#sign-images-that-ucp-can-trust
+REF: https://docs.docker.com/ee/dtr/user/manage-images/sign-images/#sign-images-that-ucp-can-trust
 
 ```bash
+# Pull NGINX from Docker Store
+docker pull nginx:latest
 
+# Re-tag NGINX
+docker tag nginx:latest dtr.example.org/dev/nginx:1
+
+# Log into DTR
+docker login dtr.example.org
+
+# Sign and push the image to DTR
+export DOCKER_CONTENT_TRUST=1
+docker push dtr.example.org/dev/nginx:1
 ```
-
-1. Docker supports image signing since Docker 1.8 (implemented as a separate piece of plumbing called **Notary**).
 
 1. By default, when you push an image to DTR, the Docker CLI client does not sign the image.
 
@@ -82,26 +93,8 @@ Ref: https://docs.docker.com/ee/dtr/user/manage-images/sign-images/#sign-images-
 
    ([Image source: docs.docker.com](https://docs.docker.com))
 
-1. Example
 
-```bash
-# Pull NGINX from Docker Store
-docker pull nginx:latest
-
-# Re-tag NGINX
-docker tag nginx:latest dtr.example.org/dev/nginx:1
-
-# Log into DTR
-docker login dtr.example.org
-
-# Sign and push the image to DTR
-export DOCKER_CONTENT_TRUST=1
-docker push dtr.example.org/dev/nginx:1
-```
-
-
-
-### Sign images that UCP can trust
+## Sign images that UCP can trust
 
 1. With the command above you’ll be able to sign your DTR images, but UCP won’t trust them because it can’t tie the
    private key you’re using to sign the images to your UCP account.
@@ -138,7 +131,7 @@ docker push dtr.example.org/dev/nginx:1
 
 ## Scan images for vulnerabilities
 
-https://docs.docker.com/ee/dtr/user/manage-images/scan-images-for-vulnerabilities/
+REF: https://docs.docker.com/ee/dtr/user/manage-images/scan-images-for-vulnerabilities/
 
 1. Docker Security Scanning is available as an add-on to Docker Trusted Registry, and an administrator configures it
    for your DTR instance.

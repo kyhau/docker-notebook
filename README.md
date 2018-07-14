@@ -4,7 +4,7 @@ Subpages
 - [Installation and Configurations](docker-configurations.md)
 - [Dockerfile, Image Creation, Management, and Registry](docker-image-creation-management-registry.md)
 - [Storage and Volumes](docker-storage-and-volumes.md)
-- [Docker Trusty Registry, Image Signing](docker-dtr.md)
+- [Docker Trusty Registry, Image Signing, Image Scanning](docker-dtr.md)
 - [Universal Control Plane (UCP), Manager, Worker](docker-ucp.md)
 - [Orchestration - Swarm, Node, Service](docker-orchestration.md)
 - [Networking](docker-networking.md)

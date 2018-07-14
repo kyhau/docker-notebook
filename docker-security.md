@@ -1,5 +1,18 @@
 # Docker Security
 
+https://docs.docker.com/engine/security/
+
+1. You can configure Docker’s trust features so that your users can push and pull trusted images.
+
+1. You can protect the Docker daemon socket and ensure only trusted Docker client connections.
+
+1. You can use certificate-based client-server authentication to verify a Docker daemon has the rights to access images
+   on a registry. 
+
+1. You can configure secure computing mode (Seccomp) policies to secure system calls in a container. 
+
+1. An AppArmor profile for Docker is installed with the official .deb packages. 
+
 
 #### docker run --privileged
 
@@ -18,19 +31,13 @@ docker run --privileged -it --rm ubuntu:latest bash
 
 See reference in [stackoverflow:privileged-containers-and-capabilities](https://stackoverflow.com/questions/36425230/privileged-containers-and-capabilities).
 
-#### UCP Client Bundle
-
-A UCP Client Bundle provides the following items to a client that intends to use or manage the cluster? (Choose 3)
-
-1. Account security key
-1. Environment variables to set the connection destination.
-1. UCP certificate files to trust.
-
 
 #### DOCKER_CONTENT_TRUST=1
 
 The variable `DOCKER_CONTENT_TRUST` set to '1' will inform the Docker daemon to only pull trusted content within the
- shell it is set in.
+shell it is set in.
+
+See [docker-dtr](docker-dtr.md)
 
 ```bash
 # To sign an image, you can run:

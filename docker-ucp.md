@@ -21,11 +21,11 @@
    ![Alt text](https://docs.docker.com/ee/ucp/images/ucp-architecture-2.svg?sanitize=true)
    ([Image source: docs.docker.com](https://docs.docker.com))
 
-1. A swarm is a collection of nodes that are in the same Docker cluster.
+    1. A swarm is a collection of nodes that are in the same Docker cluster.
 
-1. Nodes in a Docker swarm operate in one of two modes: **Manager** or **Worker**. 
+    1. Nodes in a Docker swarm operate in one of two modes: **Manager** or **Worker**. 
 
-1. If nodes are not already running in a swarm when installing UCP, nodes will be configured to run in swarm mode.
+    1. If nodes are not already running in a swarm when installing UCP, nodes will be configured to run in swarm mode.
 
 1. When you deploy UCP, it starts running a globally scheduled service called `ucp-agent`. 
 
@@ -73,3 +73,19 @@ docker ps -a | grep -I pause
 2e27b5d31a06        dockereng/ucp-pause:3.0.0-6d332d3        "/pause"                 47 hours ago        Up 47 hours                                                                                               k8s_POD_compose-698cf787f9-dxs29_kube-system_d5866b3c-1bf4-11e8-b426-0242ac110011_0
 5d96dff73458        dockereng/ucp-pause:3.0.0-6d332d3        "/pause"                 47 hours ago        Up 47 hours 
 ```
+
+### UCP Client Bundle
+
+A UCP Client Bundle provides the following items to a client that intends to use or manage the cluster? (Choose 3)
+
+1. Account security key
+1. Environment variables to set the connection destination.
+1. UCP certificate files to trust.
+
+
+### Client certificates for administrators
+
+UCP issues different types of certificates depending on the user:
+
+1. User certificate bundles: only allow running docker commands through a UCP manager node.
+1. Admin user certificate bundles: allow running docker commands on the Docker Engine of any node.

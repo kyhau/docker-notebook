@@ -127,7 +127,7 @@ docker rm <CONTAINER_NAME or CONTAINER_ID>
 ```
 
 
-### General commands to manage containers and images
+### `docker ps`
 
 ```bash
 # List all containers (both running or not running)
@@ -137,13 +137,74 @@ docker ps -a
 # The column ‘virtual size’ shows the amount of data used for the read-only image data used by the container
 # plus the container’s writable layer ‘size’.
 docker ps -s
+```
 
+### `docker images`
+
+```bash
 # List the locally installed images that can be used to instantiate containers from
 docker images
+> REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE
+> image1              latest              eeae25ada2aa        4 minutes ago        188.3 MB
+> image2              uclibc              dea752e4e117        9 minutes ago        188.3 MB
+> image3              glibc               511136ea3c5a        25 minutes ago       188.3 MB
 
-# List all locally installed images including intermediate images and dangling images
+# Show untagged images (dangling)
+docker images --filter "dangling=true"
+
+# Filter image by time: --filter|-f
+docker images --filter "before=image1"
+> image2              uclibc              dea752e4e117        9 minutes ago        188.3 MB
+> image3              glibc               511136ea3c5a        25 minutes ago       188.3 MB
+
+docker images --filter "since=image3"
+> image1              latest              eeae25ada2aa        4 minutes ago        188.3 MB
+> image2              uclibc              dea752e4e117        9 minutes ago        188.3 MB
+
+# Filter with `reference`
+docker images --filter=reference='image*:*libc'
+> image2              uclibc              dea752e4e117        9 minutes ago        188.3 MB
+> image3              glibc               511136ea3c5a        25 minutes ago       188.3 MB
+
+# Show image with the give label
+docker images --filter "label=com.example.version"
+docker images --filter "label=com.example.version=1.0"
+
+# List all locally installed images including intermediate images and dangling images: -a|--all
 docker images -a
 
+# List the full length of image IDs
+docker images --no-trunc
+> REPOSITORY                   TAG     IMAGE ID                                                                  CREATED             SIZE
+> <none>                       <none>  sha256:77af4d6b9913e693e8d0b4b294fa62ade6054e6b2f1ffb617ac955dd63fb0182   19 hours ago        1.089 GB
+> committest                   latest  sha256:b6fa739cedf5ea12a620a439402b6004d057da800f91c7524b5086a5e4749c9f   19 hours ago        1.089 GB
+
+# List image digests
+docker images --digests
+> REPOSITORY                   TAG     DIGEST                                                                    IMAGE ID            CREATED             SIZE
+> localhost:5000/test/busybox  <none>  sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf   4986bf8c1536        9 weeks ago         2.43 MB
+
+# Show only numeric ID: --quiet|-q
+docker images -f "dangling=true" -q
+> 8abc22fbb042
+
+# Format the output: --format
+#
+# Placeholders: .ID, .Repository, .Tag, .Digest, .CreatedSince, .CreatedAt, .Size
+
+docker images --format "{{.ID}}: {{.Repository}}"
+> 30557a29d5ab: docker
+> 5ed6274db6ce: <none>
+> 746b819f315e: postgres
+> 746b819f315e: postgres
+
+# To list all images with their repository and tag in a "table" format
+$ docker images --format "table {{.ID}}\t{{.Repository}}\t{{.Tag}}"
+> IMAGE ID            REPOSITORY                TAG
+> 30557a29d5ab        docker                    latest
+> 5ed6274db6ce        <none>                    <none>
+> 746b819f315e        postgres                  9
+> 746b819f315e        postgres                  9.3
 ```
 
 

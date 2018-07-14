@@ -1,14 +1,14 @@
 # Docker notebook
 
 Subpages
+- [Docker Overview - Docker Engine, dockerd, namespaces, cgroups, UnionFD](docker-overview.md)
 - [Installation and Configurations](docker-configurations.md)
-- [Docker Overview](docker-overview.md)
 - [Dockerfile, Image Creation, Management, and Registry](docker-image-creation-management-registry.md)
 - [Storage and Volumes](docker-storage-and-volumes.md)
 - [Orchestration - Swarm, Node, Service](docker-orchestration.md)
 - [Networking](docker-networking.md)
 - [Docker Trusty Registry, Image Signing, Image Scanning](docker-dtr.md)
-- [Universal Control Plane (UCP), Manager, Worker](docker-ucp.md)
+- [Universal Control Plane (UCP), Manager, Worker, Pause Containers](docker-ucp.md)
 - [Security](docker-security.md)
 - [Backups and disaster Recovery](docker-backup.md)
 - [Docker upgrade](docker-upgrade.md)
@@ -21,6 +21,8 @@ Other references:
   https://medium.com/@tonistiigi/advanced-multi-stage-build-patterns-6f741b852fae)
 - [Docker ARG, ENV and .env - a Complete Guide](https://vsupalov.com/docker-arg-env-variable-guide/)
 
+
+## Cheat Sheet
 
 #### Running container
 

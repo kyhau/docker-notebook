@@ -108,17 +108,7 @@ Ref: https://docs.docker.com/ee/ucp/authorization/
        access policies for an entire organization.
 
     ![docker-grant](https://docs.docker.com/ee/ucp/images/ucp-grant-model.svg?sanitize=true)
+    
     ([Image source: docs.docker.com](https://docs.docker.com/ee/ucp/authorization/grant-permissions/#swarm-grants))
 
 1. Only an administrator can manage grants, subjects, roles, and access to resources.
-
-
-
-#### Namespaces
-
-The following 'namespaces' Docker use to maintain its isolation and security model of the container processes
- from underlying host services.
-
-    1. Network
-    1. PID
-

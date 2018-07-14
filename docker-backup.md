@@ -15,7 +15,7 @@ https://docs.docker.com/ee/ucp/admin/backups-and-disaster-recovery/#data-managed
 
 ## UCP backup
 
-Ref: https://docs.docker.com/v17.09/datacenter/ucp/2.2/guides/admin/backups-and-disaster-recovery/
+REF: https://docs.docker.com/v17.09/datacenter/ucp/2.2/guides/admin/backups-and-disaster-recovery/
 
 1. UCP maintains data about:
 
@@ -48,7 +48,7 @@ TODO
 
 ## DTR backup
 
-Ref: https://docs.docker.com/ee/dtr/admin/disaster-recovery/create-a-backup/
+REF: https://docs.docker.com/ee/dtr/admin/disaster-recovery/create-a-backup/
 
 1. DTR maintains data about:
 
@@ -60,7 +60,7 @@ Ref: https://docs.docker.com/ee/dtr/admin/disaster-recovery/create-a-backup/
     1. Certificates and keys:  The certificates, public keys, and private keys that are used for mutual TLS
        communication
     1. Images content:  The images you push to DTR. This can be stored on the file system of the node running DTR, or
-       other storage system, depending on the configuration
+       other storage system, depending on the r
 
 ### Backup a DTR node
 

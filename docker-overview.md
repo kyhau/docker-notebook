@@ -1,6 +1,6 @@
 # Docker Overview
 
-Ref: https://docs.docker.com/engine/docker-overview/#docker-engine
+REF: https://docs.docker.com/engine/docker-overview/#docker-engine
 
 ## Docker Engine
 
@@ -10,7 +10,7 @@ Docker Engine is a client-server application with these major components:
 
 1. A REST API which specifies interfaces that programs can use to talk to the daemon and instruct it what to do.
 
-1. A command line interface (CLI) client (the docker command).
+1. A command line interface (CLI) client (the `docker` command).
 
 ![docker-grant](https://docs.docker.com/engine/images/architecture.svg)
 
@@ -28,11 +28,11 @@ Docker Engine is a client-server application with these major components:
     1. **Docker Hub** and **Docker Cloud** are public registries that anyone can use, and Docker is configured to look
        for images on **Docker Hub** by default.
        
-    1. You can even run your own private registry. If you use Docker Datacenter (DDC), it includes Docker Trusted
-       Registry (DTR). See [docker-dtr.md](docker-dtr.md).
+    1. You can even run your own private registry. If you use **Docker Datacenter (DDC)**, it includes **Docker Trusted
+       Registry (DTR)**. See [docker-dtr.md](docker-dtr.md).
 
     1. When you use the `docker pull` or `docker run` commands, the required images are pulled from your configured
-       registry. When you use the docker push command, your image is pushed to your configured registry.
+       registry. When you use the `docker push` command, your image is pushed to your configured registry.
        
 1. **Docker store** allows you to buy and sell Docker images or distribute them for free.
 

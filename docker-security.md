@@ -14,7 +14,7 @@ https://docs.docker.com/engine/security/
 1. An AppArmor profile for Docker is installed with the official .deb packages. 
 
 
-#### docker run --privileged
+## docker run --privileged
 
 Providing `--privileged` to a container at startup, will allow it to perform operations that a container may otherwise
 be restricted from performing (e.g. binding a device path to an internal container path).
@@ -32,14 +32,14 @@ docker run --privileged -it --rm ubuntu:latest bash
 See reference in [stackoverflow:privileged-containers-and-capabilities](https://stackoverflow.com/questions/36425230/privileged-containers-and-capabilities).
 
 
-#### MTLS (Mutual Transport Layer Security)
+## MTLS (Mutual Transport Layer Security)
 
 MTLS is used to secure communications between the manager and nodes in a Docker Swarm cluster.
 
 
-#### Role Based Access Control (RBAC)
+## Role Based Access Control (RBAC)
 
-Ref: https://docs.docker.com/ee/ucp/authorization/
+REF: https://docs.docker.com/ee/ucp/authorization/
 
 1. In Docker Universal Control Plane (UCP) Security, RBAC is an acronym that determines what a user, team, or
    organization has access to on the cluster based on the role granted to them.
@@ -101,15 +101,9 @@ Ref: https://docs.docker.com/ee/ucp/authorization/
 1. Only an administrator can manage grants, subjects, roles, and access to resources.
 
 
-#### DOCKER_CONTENT_TRUST=1
+## Content Trust (`DOCKER_CONTENT_TRUST=1`)
 
-The variable `DOCKER_CONTENT_TRUST` set to '1' will inform the Docker daemon to only pull trusted content within the
-shell it is set in.
+REF: https://docs.docker.com/engine/security/trust/content_trust/
 
 See [docker-dtr](docker-dtr.md).
 
-```bash
-# To sign an image, you can run:
-export DOCKER_CONTENT_TRUST=1
-docker push <dtr-domain>/<repository>/<image>:<tag>
-```

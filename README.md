@@ -12,9 +12,7 @@ Subpages
 - [Security](docker-security.md)
 - [Backups and disaster Recovery](docker-backup.md)
 - [Docker upgrade](docker-upgrade.md)
-
-Python examples:
-- [docker_checker](docker_checker/README.md)
+- Python examples: [docker_checker](docker_checker/README.md)
 
 Other references:
 - [Docker Advanced multi-stage build patterns – Tõnis Tiigi](
@@ -24,7 +22,7 @@ Other references:
 
 ## Cheat Sheet
 
-#### Running container
+### Running container
 
 ```bash
 # Start a container from the image 'centos:6'; it will exit immediately.
@@ -102,7 +100,7 @@ docker run --privileged -it --rm ubuntu:latest /bin/bash
 ```
 
 
-#### Removing docker images and container
+### Removing docker images and container
 
 ```bash
 # Remove ALL stopped containers, images without at least one container associated, all build cache, and all
@@ -129,7 +127,7 @@ docker rm <CONTAINER_NAME or CONTAINER_ID>
 ```
 
 
-#### General commands to manage containers and images
+### General commands to manage containers and images
 
 ```bash
 # List all containers (both running or not running)
@@ -149,7 +147,7 @@ docker images -a
 ```
 
 
-#### `docker image`
+### `docker image`
 
 ```bash
 
@@ -158,7 +156,7 @@ docker image inspect IMAGE_ID
 ```
 
 
-#### `docker container`
+### `docker container`
 
 New way to do docker container commands (make it clearer).
 
@@ -178,7 +176,7 @@ docker run -d --dns=8.8.8.8 [image]
 ```
 
 
-#### `docker inspect` (or `docker container inspect`)
+### `docker inspect` (or `docker container inspect`)
 
 - `docker inspect` returns low-level information on Docker objects. 
 - Default format is json.
@@ -201,7 +199,7 @@ docker container inspect --format="{{.NetworkSettings.Networks.bridge.IPAddress}
 ```
 
 
-#### `docker history`
+### `docker history`
 
 The 'history' option will display the image layers, the number of them, and how they were built on the image.
 
@@ -211,7 +209,7 @@ docker history IMAGE_ID
 ```
 
 
-#### `docker search`
+### `docker search`
 
 ```bash
 # Return store
@@ -229,7 +227,7 @@ docker search --limit 10 apache
 ```
 
 
-#### `docker pull`
+### `docker pull`
 
 ```bash
 docker pull docker.example.com/<image_path_and_name>
@@ -249,27 +247,27 @@ docker pull --disable-content-trust docker.example.com/examples/simple_image
 ```
 
 
-#### `docker build`
+### `docker build`
 
 ```bash
 # Skip image verification: --disable-content-trust=true  
 docker build --disable-content-trust -t docker.example.com/examples/simple_image .
 ```
 
-#### `docker push`
+### `docker push`
 
 ```bash
 # Skip image verification: --disable-content-trust=true  
 docker push --disable-content-trust docker.example.com/examples/simple_image
 ```
 
-#### `docker-compose`
+### `docker-compose`
 
 1. `docker-compose` allows you to define one or more containers in a single configuration file that
     can then be deployed all at once.
 
 
-#### `docker commit`
+### `docker commit`
 
 The `docker commit` command is used to take a container's build and commit it to the indicated image name.
 

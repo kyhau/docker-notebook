@@ -39,6 +39,21 @@ REF: https://success.docker.com/article/networking
     is only instantiated through a single network driver.
        
     1. Native Network Drivers (see section below)
+        1. `bridge`:  `**User-defined bridge networks** is the best network driver type when you need multiple
+           containers to communicate on the same Docker host.
+        
+        1. `host`:  **Host networks** is the best network driver type when the network stack should not be isolated from the Docker host,
+           but you want other aspects of the container to be isolated.
+        
+        1. `overlay`:  **Overlay networks** is the best network driver type when you need containers running on different Docker hosts to
+           communicate, or when multiple applications work together using swarm services.
+        
+        1. `macvlan`:  **Macvlan networks** is the best network driver type when you are migrating from a VM setup or need your containers
+           to look like physical hosts on your network, each with a unique MAC address.
+        
+        1. `none`:  The `none` driver gives a container its own networking stack and network namespace but does not configure
+            interfaces inside the container. Without additional configuration, the container is completely isolated from the
+            host networking stack.
 
     1. Remote Network Drivers
         1. `contiv`:  An open source network plugin led by Cisco Systems to provide infrastructure and security policies for multi-tenant microservices deployments. Contiv also provides integration for non-container workloads and with physical networks, such as ACI. Contiv implements remote network and IPAM drivers.
@@ -57,27 +72,16 @@ REF: https://success.docker.com/article/networking
          1. `infoblox`:  An open source IPAM plugin that provides integration with existing Infoblox tools.
 
 
-## Docker Native Network Drivers
-
-1. **User-defined bridge networks** is the best network driver type when you need multiple containers to communicate on
-   the same Docker host.
-
-1. **Host networks** is the best network driver type when the network stack should not be isolated from the Docker host,
-   but you want other aspects of the container to be isolated.
-
-1. **Overlay networks** is the best network driver type when you need containers running on different Docker hosts to
-   communicate, or when multiple applications work together using swarm services.
-
-1. **Macvlan networks** is the best network driver type when you are migrating from a VM setup or need your containers
-   to look like physical hosts on your network, each with a unique MAC address.
-
-1. **None**: The none driver gives a container its own networking stack and network namespace but does not configure
-    interfaces inside the container. Without additional configuration, the container is completely isolated from the
-    host networking stack.
-
 ## User-defined bridge networks
 
-User-defined bridges vs. default bridges
+1. On any host running Docker Engine, there is, by default, a local Docker network named `bridge`. 
+   This network is created using a **bridge network driver** which instantiates a Linux bridge called `docker0`; i.e.
+
+    1. `bridge` is the name of the Docker network.
+    1. `bridge` is the network driver, or template, from which this network is created.
+    1. `docker0` is the name of the Linux bridge that is the kernel building block used to implement this network.
+
+#### User-defined bridges vs. default bridges
 
 1. User-defined bridges provide better isolation and interoperability between containerised applications.
 1. User-defined bridges provide automatic DNS resolution between containers.
@@ -119,7 +123,6 @@ REF: https://docs.docker.com/network/overlay/
    ```
    dtr-ol
    ```
-
 
 
 ## IP address and hostname
@@ -234,9 +237,6 @@ docker network rm	 NETWORK [NETWORK...]
    
 1. The 'routing mesh' allows all nodes that participate in a Swarm for a given service to be aware of and capable of
    responding to any published service port request even if a node does not have a replica for said service running on it.
-
-
-
 
 
 ## DNS Services

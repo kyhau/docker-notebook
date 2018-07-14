@@ -26,7 +26,7 @@ docker/ucp:3.0.2 backup
 
 ## DTR backup
 
-https://docs.docker.com/reference/dtr/2.5/cli/backup/
+https://docs.docker.com/ee/dtr/admin/disaster-recovery/create-a-backup/
 
 ```bash
 docker run -i --rm docker/dtr backup [command options] > backup.tar
@@ -35,12 +35,16 @@ docker run -i --rm docker/dtr backup [command options] > backup.tar
 1. This command creates a tar file with the contents of the volumes used by DTR, and prints it. You can then use the
    ‘restore’ command to restore the data from an existing backup.
 
-1. This command only creates backups of configurations, and image metadata. It doesn’t backup users and organizations.
-   Users and organizations can be backed up when performing a UCP backup.
+1. This command only creates backups of configurations, and image metadata.
 
-   It also does not backup the Docker images stored in your registry. You should implement a separate backup policy
-   for the Docker images stored in your registry, taking in consideration whether your DTR installation is configured
-   to store images on the filesystem or using a cloud provider.
+    1. It does not backup users and organizations. Users and organizations can be backed up when performing a UCP
+       backup.
+
+    1. It  does not backup the Docker images stored in your registry. You should implement a separate backup policy
+       for the Docker images stored in your registry, taking in consideration whether your DTR installation is
+       configured to store images on the filesystem or using a cloud provider.
+    
+    1. It does not backup the Vulnerability database, which can be re-downloaded after a restore.
 
 1. This backup contains sensitive information and should be stored securely.
 

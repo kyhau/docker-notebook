@@ -2,22 +2,26 @@
 
 1. Docker Trusted Registry is the image storage solution that is part of Docker Enterprise Edition.
 
+1. DTR can be installed on-premise or on a virtual private cloud.
+
+1. DTR uses the same authentication mechanism as Docker Universal Control Plane (UCP). Users can be managed manually
+   or synched from LDAP or Active Directory. 
+   
+   DTR uses **Role Based Access Control (RBAC)** to allow you to implement fine-grained access control policies for
+   who has access to your Docker images. See [docker-security.md](docker-security.md).
+
 1. Requirements to install Docker Trusted Registry (DTR):
     1. DTR can be installed on-premises or a cloud provider.
     1. All nodes must be a worker node managed by Universal Control Plane.
     1. All nodes must have a fixed hostname.
 
-1. Endpoints exposed by Docker Trusted Registry that can be used to assess the health of a Docker Trusted Registry replica
+1. Endpoints exposed by DTRDocker Trusted Registry that can be used to assess the health of a Docker Trusted Registry
+   replica:
     ```
     /health
     /nginx_status
     /api/v0/meta/cluster_status
     ```
-
-## docker hub
-
-The most common public repository for published Docker images.
-
 
 # Docker image signing
 

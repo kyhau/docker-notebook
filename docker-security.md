@@ -32,25 +32,12 @@ docker run --privileged -it --rm ubuntu:latest bash
 See reference in [stackoverflow:privileged-containers-and-capabilities](https://stackoverflow.com/questions/36425230/privileged-containers-and-capabilities).
 
 
-#### DOCKER_CONTENT_TRUST=1
-
-The variable `DOCKER_CONTENT_TRUST` set to '1' will inform the Docker daemon to only pull trusted content within the
-shell it is set in.
-
-See [docker-dtr](docker-dtr.md)
-
-```bash
-# To sign an image, you can run:
-export DOCKER_CONTENT_TRUST=1
-docker push <dtr-domain>/<repository>/<image>:<tag>
-```
-
 #### MTLS (Mutual Transport Layer Security)
 
 MTLS is used to secure communications between the manager and nodes in a Docker Swarm cluster.
 
 
-#### RBAC (Role Based Access Control)
+#### Role Based Access Control (RBAC)
 
 Ref: https://docs.docker.com/ee/ucp/authorization/
 
@@ -112,3 +99,17 @@ Ref: https://docs.docker.com/ee/ucp/authorization/
     ([Image source: docs.docker.com](https://docs.docker.com/ee/ucp/authorization/grant-permissions/#swarm-grants))
 
 1. Only an administrator can manage grants, subjects, roles, and access to resources.
+
+
+#### DOCKER_CONTENT_TRUST=1
+
+The variable `DOCKER_CONTENT_TRUST` set to '1' will inform the Docker daemon to only pull trusted content within the
+shell it is set in.
+
+See [docker-dtr](docker-dtr.md).
+
+```bash
+# To sign an image, you can run:
+export DOCKER_CONTENT_TRUST=1
+docker push <dtr-domain>/<repository>/<image>:<tag>
+```

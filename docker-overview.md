@@ -25,11 +25,11 @@ Docker Engine is a client-server application with these major components:
 
 1. A **Docker registry** stores Docker images. 
 
-    1. Docker Hub and Docker Cloud are public registries that anyone can use, and Docker is configured to look for
-       images on Docker Hub by default.
+    1. **Docker Hub** and **Docker Cloud** are public registries that anyone can use, and Docker is configured to look
+       for images on **Docker Hub** by default.
        
     1. You can even run your own private registry. If you use Docker Datacenter (DDC), it includes Docker Trusted
-       Registry (DTR).
+       Registry (DTR). See [docker-dtr.md](docker-dtr.md).
 
     1. When you use the `docker pull` or `docker run` commands, the required images are pulled from your configured
        registry. When you use the docker push command, your image is pushed to your configured registry.

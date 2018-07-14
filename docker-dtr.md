@@ -16,6 +16,11 @@
     1. All nodes must be a worker node managed by Universal Control Plane.
     1. All nodes must have a fixed hostname.
 
+1. DTR requires that a majority (N/2 + 1) of its replicas are healthy at all times for it to work.
+   So if a majority of replicas is unhealthy or lost, the only way to restore DTR to a working state, is by recovering
+   from a backup. This is why it’s important to ensure replicas are healthy and perform frequent backups.
+   See [docker-backup.md](docker-backup.md).
+
 1. Endpoints exposed by DTRDocker Trusted Registry that can be used to assess the health of a Docker Trusted Registry
    replica:
     ```

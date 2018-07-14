@@ -1,5 +1,52 @@
 # Docker Networking
 
+## Container Network Model (CNM)
+
+REF: https://success.docker.com/article/networking
+
+![Alt text](https://success.docker.com/api/images/.%2Frefarch%2Fnetworking%2Fimages%2Fcnm.png)
+
+([Image source: docs.docker.com](https://docs.docker.com))
+
+1. A **Sandbox** contains the configuration of a container's network stack. This includes management of the container's
+   interfaces, routing table, and DNS settings. An implementation of a Sandbox could be a Linux Network Namespace, a
+   FreeBSD Jail, or other similar concept. A Sandbox may contain many **endpoints** from multiple **networks**.
+
+1. An **Endpoint** joins a **Sandbox** to a **Network**. The Endpoint construct exists so the actual connection to the
+   network can be abstracted away from the application. This helps maintain portability so that a service can use
+   different types of network drivers without being concerned with how it's connected to that network.
+
+1. The CNM does not specify a **Network** in terms of the OSI model. An implementation of a Network could be a Linux
+   bridge, a VLAN, etc. A Network is a collection of endpoints that have connectivity between them. 
+   Endpoints that are not connected to a network do not have connectivity on a network.
+
+### CNM provides the following contract between networks and containers.
+
+1. All containers on the same network can communicate freely with each other.
+1. Multiple networks are the way to segment traffic between containers and should be supported by all drivers.
+1. Multiple endpoints per container are the way to join a container to multiple networks.
+1. An endpoint is added to a network sandbox to provide it with network connectivity.
+
+### CNM Driver Interfaces
+
+1. **Network Drivers (Native or Remote)**
+
+    1. Docker Network Drivers provide the actual implementation that makes networks work.
+    1. They are pluggable so that different drivers can be used and interchanged easily to support different use cases.
+    1. Multiple network drivers can be used on a given Docker Engine or Cluster concurrently, but each Docker network
+       is only instantiated through a single network driver.
+   1. Two options
+       1. Native Network Drivers (see section below)
+       1. Remote Network Drivers
+   
+1. **IPAM Drivers**
+
+    1. Docker has a native IP Address Management Driver that provides default subnets or IP addresses for
+   networks and endpoints if they are not specified. 
+
+
+## Docker Native Network Drivers
+
 1. **User-defined bridge networks** is the best network driver type when you need multiple containers to communicate on
    the same Docker host.
 
@@ -12,6 +59,9 @@
 1. **Macvlan networks** is the best network driver type when you are migrating from a VM setup or need your containers
    to look like physical hosts on your network, each with a unique MAC address.
 
+1. **None**: The none driver gives a container its own networking stack and network namespace but does not configure
+    interfaces inside the container. Without additional configuration, the container is completely isolated from the
+    host networking stack.
 
 ## User-defined bridge networks
 
@@ -26,7 +76,7 @@ User-defined bridges vs. default bridges
 
 ## Overlay networks
 
-https://docs.docker.com/network/overlay/
+REF: https://docs.docker.com/network/overlay/
 
 1. The overlay network driver creates a distributed network among multiple Docker daemon hosts. This network sits on
    top of (overlays) the host-specific networks, allowing containers connected to it (including swarm service
@@ -58,25 +108,6 @@ https://docs.docker.com/network/overlay/
    dtr-ol
    ```
 
-## Container Network Model (CNM)
-
-https://blog.docker.com/2015/04/docker-networking-takes-a-step-in-the-right-direction-2/
-
-1. Network Sandbox
-   1. An isolated environment where the Networking configuration for a Docker Container lives.
-
-1. Endpoint
-   1. A network interface that can be used for communication over a specific network. Endpoints join exactly one network and multiple endpoints can exist within a single Network Sandbox.
-
-1. Network
-   1. A network is a uniquely identifiable group of endpoints that are able to communicate with each other. You could create a “Frontend” and “Backend” network and they would be completely isolated.
-
-The CNM provides the following contract between networks and containers.
-
-1. All containers on the same network can communicate freely with each other.
-1. Multiple networks are the way to segment traffic between containers and should be supported by all drivers.
-1. Multiple endpoints per container are the way to join a container to multiple networks.
-1. An endpoint is added to a network sandbox to provide it with network connectivity.
 
 
 ## IP address and hostname
@@ -191,6 +222,9 @@ docker network rm	 NETWORK [NETWORK...]
    
 1. The 'routing mesh' allows all nodes that participate in a Swarm for a given service to be aware of and capable of
    responding to any published service port request even if a node does not have a replica for said service running on it.
+
+
+
 
 
 ## DNS Services

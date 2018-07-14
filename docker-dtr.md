@@ -16,18 +16,6 @@
     1. All nodes must be a worker node managed by Universal Control Plane.
     1. All nodes must have a fixed hostname.
 
-1. DTR maintains data about:
-
-    1. Configurations:  The DTR cluster configurations
-    1. Repository metadata:  The metadata about the repositories and images deployed
-    1. Access control to repos and images:  Permissions for teams and repositories
-    1. Notary data:  Notary tags and signatures
-    1. Scan results:  Security scanning results for images
-    1. Certificates and keys:  The certificates, public keys, and private keys that are used for mutual TLS
-       communication
-    1. Images content:  The images you push to DTR. This can be stored on the file system of the node running DTR, or
-       other storage system, depending on the configuration
-
 1. Endpoints exposed by DTRDocker Trusted Registry that can be used to assess the health of a Docker Trusted Registry
    replica:
     ```

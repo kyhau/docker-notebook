@@ -240,8 +240,28 @@ docker pull docker.example.com/examples/simple_image
 docker pull docker.example.com/examples/simple_image:3.0
 
 docker pull docker.example.com/examples/simple_image:3.0.0	
+
+# Download all tagged images : -a or --all-tags
+docker pull -a docker.example.com/examples/simple_image
+
+# Skip image verification: --disable-content-trust=true  
+docker pull --disable-content-trust docker.example.com/examples/simple_image
 ```
 
+
+#### `docker build`
+
+```bash
+# Skip image verification: --disable-content-trust=true  
+docker build --disable-content-trust -t docker.example.com/examples/simple_image .
+```
+
+#### `docker push`
+
+```bash
+# Skip image verification: --disable-content-trust=true  
+docker push --disable-content-trust docker.example.com/examples/simple_image
+```
 
 #### `docker-compose`
 

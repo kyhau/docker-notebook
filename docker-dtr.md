@@ -26,13 +26,41 @@
 
 # Docker image signing
 
+
+## Enable and disable content trust per-shell or per-invocation
+
+```bash
+# To enable content trust in a bash shell enter the following command:
+export DOCKER_CONTENT_TRUST=1
+
+# In an environment where DOCKER_CONTENT_TRUST is set, you can use the --disable-content-trust flag to run individual
+# operations on tagged images without content trust on an as-needed basis.
+cat Dockerfile
+> FROM docker/trusttest:latest
+> RUN echo
+
+# To build a container successfully using this Dockerfile:
+docker build --disable-content-trust -t <username>/nottrusttest:latest .
+
+# The same is true for all the other commands, such as pull and push:
+docker pull --disable-content-trust docker/trusttest:latest
+docker push --disable-content-trust <username>/nottrusttest:latest
+
+# To invoke a command with content trust enabled regardless of whether or how the DOCKER_CONTENT_TRUST variable is set:
+docker build --disable-content-trust=false -t <username>/trusttest:testing .
+```
+
+## Sign image and push to DTR
+
 Ref: https://docs.docker.com/ee/dtr/user/manage-images/sign-images/#sign-images-that-ucp-can-trust
 
-1. Docker supports image signing since Docker 1.8 (implemented as a separate piece of plumbing called Notary).
+```bash
 
-1. Target version to be updated to > Docker 1.8 (Docker registry 2.1)
+```
 
-1. By default, when you push an image to DTR, the Docker CLI client doesn’t sign the image.
+1. Docker supports image signing since Docker 1.8 (implemented as a separate piece of plumbing called **Notary**).
+
+1. By default, when you push an image to DTR, the Docker CLI client does not sign the image.
 
    ![Alt text](https://docs.docker.com/ee/dtr/images/sign-an-image-1.svg?sanitize=true)
 
@@ -70,6 +98,7 @@ docker login dtr.example.org
 export DOCKER_CONTENT_TRUST=1
 docker push dtr.example.org/dev/nginx:1
 ```
+
 
 
 ### Sign images that UCP can trust

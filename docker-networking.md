@@ -31,18 +31,30 @@ REF: https://success.docker.com/article/networking
 
 1. **Network Drivers (Native or Remote)**
 
-    1. Docker Network Drivers provide the actual implementation that makes networks work.
-    1. They are pluggable so that different drivers can be used and interchanged easily to support different use cases.
-    1. Multiple network drivers can be used on a given Docker Engine or Cluster concurrently, but each Docker network
-       is only instantiated through a single network driver.
-   1. Two options
-       1. Native Network Drivers (see section below)
-       1. Remote Network Drivers
-   
-1. **IPAM Drivers**
+    Docker Network Drivers provide the actual implementation that makes networks work.
+    
+    They are pluggable so that different drivers can be used and interchanged easily to support different use cases.
+    
+    Multiple network drivers can be used on a given Docker Engine or Cluster concurrently, but each Docker network
+    is only instantiated through a single network driver.
+       
+    1. Native Network Drivers (see section below)
 
-    1. Docker has a native IP Address Management Driver that provides default subnets or IP addresses for
-   networks and endpoints if they are not specified. 
+    1. Remote Network Drivers
+        1. `contiv`:  An open source network plugin led by Cisco Systems to provide infrastructure and security policies for multi-tenant microservices deployments. Contiv also provides integration for non-container workloads and with physical networks, such as ACI. Contiv implements remote network and IPAM drivers.
+        1. `weave`:  A network plugin that creates a virtual network that connects Docker containers across multiple hosts or clouds. Weave provides automatic discovery of applications, can operate on partially connected networks, does not require an external cluster store, and is operations friendly.
+        1. `calico`:  An open source solution for virtual networking in cloud datacenters. It targets datacenters where most of the workloads (VMs, containers, or bare metal servers) only require IP connectivity. Calico provides this connectivity using standard IP routing. Isolation between workloads — whether according to tenant ownership or any finer grained policy — is achieved via iptables programming on the servers hosting the source and destination workloads.
+        1. `kuryr`:  A network plugin developed as part of the OpenStack Kuryr project. It implements the Docker networking (libnetwork) remote driver API by utilizing Neutron, the OpenStack networking service. Kuryr includes an IPAM driver as well.
+   
+1. **IPAM Drivers (IP Address Management Drivers)**
+
+    Docker has a native IP Address Management Driver that provides default subnets or IP addresses for networks and
+    endpoints if they are not specified. 
+
+     1. Native IPAM Drivers
+     
+     1. Remote IPAM Drivers
+         1. `infoblox`:  An open source IPAM plugin that provides integration with existing Infoblox tools.
 
 
 ## Docker Native Network Drivers

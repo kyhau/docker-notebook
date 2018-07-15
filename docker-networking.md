@@ -20,19 +20,18 @@ REF: https://success.docker.com/article/networking
    bridge, a VLAN, etc. A Network is a collection of endpoints that have connectivity between them. 
    Endpoints that are not connected to a network do not have connectivity on a network.
 
-### CNM provides the following contract between networks and containers.
+### CNM provides the following contract between networks and containers
 
 1. All containers on the same network can communicate freely with each other.
-1. Multiple networks are the way to segment traffic between containers and should be supported by all drivers.
-1. Multiple endpoints per container are the way to join a container to multiple networks.
 1. An endpoint is added to a network sandbox to provide it with network connectivity.
+1. Multiple endpoints per container are the way to join a container to multiple networks.
+1. Multiple networks are the way to segment traffic between containers and should be supported by all drivers.
 
 ### CNM Driver Interfaces
 
 1. **Network Drivers (Native or Remote)**
 
     Docker Network Drivers provide the actual implementation that makes networks work.
-    
     They are pluggable so that different drivers can be used and interchanged easily to support different use cases.
     
     Multiple network drivers can be used on a given Docker Engine or Cluster concurrently, but each Docker network
@@ -167,7 +166,7 @@ REF: https://docs.docker.com/network/overlay/
 ```bash
 #############################################################################################################
 # Create a network
-docker network create	 [OPTIONS] NETWORK
+docker network create [OPTIONS] NETWORK
 
 # The 'docker network create' command can take a network, subnet and gateway as arguments for either bridge
 # or overlay drivers.
@@ -181,7 +180,6 @@ docker network create my-bridge-network
 # Create a new overlay network "dev_overlay" to the cluster with a particular network range and gateway. 
 docker network create --driver=overlay --subnet=192.168.1.0/24 --gateway 192.168.1.250 dev_overlay
 
-
 #############################################################################################################
 # Connect a container to a network; 
 # options: --alias, --ip, --ip6, --link, --link-local-ip 
@@ -192,7 +190,6 @@ docker network connect my-net my-nginx
 # OR
 docker create --name my-nginx --network my-net --publish 8080:80 nginx:latest
 
-
 #############################################################################################################
 # Disconnect a container from a network; options: --force|-f
 docker network disconnect	 [OPTIONS] NETWORK CONTAINER
@@ -200,11 +197,9 @@ docker network disconnect	 [OPTIONS] NETWORK CONTAINER
 # To disconnect a running container "my-nginx" from an existing user-defined bridge "my-net"
 docker network disconnect my-net my-nginx
 
-
 #############################################################################################################
 # Display detailed information on one or more networks; options: --format|-f, --verbose|-v 
 docker network inspect	[OPTIONS] NETWORK [NETWORK...]
-
 
 #############################################################################################################
 # List networks; options: --filter|-f, --format, --no-trunc, --quiet|-q
@@ -218,11 +213,9 @@ aa075c363cae        bridge              bridge              local
 84bba7e0b175        host                host                local
 926c02ac0dc5        none                null                local
 
-
 #############################################################################################################
 # Remove all unused networks; options: --filter, --force|-f
 docker network prune [OPTIONS]
-
 
 #############################################################################################################
 # Remove one or more networks
@@ -297,5 +290,4 @@ docker run -d --dns=8.8.8.8 IMAGE_NAME
 
 --hostname
     The hostname a container uses for itself. Defaults to the container’s name if not specified.
-
 ```

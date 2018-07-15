@@ -45,6 +45,9 @@ service docker status
 # Set up a swarm
 docker swarm init [OPTIONS]
 
+# For a cluster to have dedicated manager nodes that are not served as worker nodes.
+docker swarm init --availability=drain
+
 # Docker will display the necessary information for a manager or node to join a cluster during initialization. 
 # This command will allow you to retrieve that information for subsequent joins.
 docker swarm join-token manager
@@ -63,6 +66,10 @@ docker swarm leave
 
 # Enable autolock on an existing swarm cluster
 docker swarm update --autolock=true
+
+# This flag specifies the availability of the node at the time the node joins a master.
+# Possible availability values are active, pause, or drain.
+docker swarm update --availability active
 ```
 
 #### `docker node`
@@ -79,6 +86,7 @@ docker node update --label-add foo --label-add bar worker1
 # the manager node).
 # Docker updates the object (node) to DOWN when the availability is indicated to be 'drain' on the indicated NODE
 # ID.
+# Possible availability values are active, pause, or drain.
 docker node update --availability drain [NODE_ID]
 
 # Undo the 'drain' task applied to a node so that it can be used again for services.

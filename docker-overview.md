@@ -41,6 +41,11 @@ Docker Engine is a client-server application with these major components:
 
 1. Docker Swarm is a cluster management and deployment system. See [docker-orchestration.md](docker-orchestration.md).
 
+1. A **swarm** is a collection of nodes that are in the same Docker cluster.
+
+   ![Alt text](https://docs.docker.com/ee/ucp/images/ucp-architecture-2.svg?sanitize=true)
+
+   ([Image source: docs.docker.com](https://docs.docker.com))
 
 ## Services
 

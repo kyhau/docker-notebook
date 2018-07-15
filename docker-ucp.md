@@ -23,7 +23,7 @@
 
    ([Image source: docs.docker.com](https://docs.docker.com))
 
-    1. A swarm is a collection of nodes that are in the same Docker cluster.
+    1. A **swarm** is a collection of nodes that are in the same Docker cluster.
     1. Nodes in a Docker swarm operate in one of two modes: **Manager** or **Worker**. 
     1. If nodes are not already running in a swarm when installing UCP, nodes will be configured to run in swarm mode.
 
@@ -46,22 +46,24 @@
    `https:///_ping`   
    `https://<ucp-manager-url>/_ping`
 
-1. There are two ways to interact with UCP: the web UI or the CLI.
+1. There are two ways to interact with UCP: **the web UI or the CLI**.
 
-1. Where is the option to integrate Docker Enterprise with LDAP? UCP
+1. Where is the option to integrate Docker Enterprise with LDAP? **UCP**
 
 
 ## Pause Containers
 
-1. Every pod in Kubernetes has a **pause** container, which is an “empty” container that bootstraps the pod to
+1. A Kubernetes pod is a group of containers that are deployed together on the same host.
+
+1. Every pod in Kubernetes has a **pause container**, which is an “empty” container that bootstraps the pod to
    establish all of the namespaces. 
    
-1. Pause containers hold the cgroups, reservations, and namespaces of a pod before its individual containers are
-   created.
+1. **Pause containers** hold the `cgroups`, `reservations`, and `namespaces` of a pod before its individual containers
+   are created.
 
-1. The **pause** container’s image is always present, so the allocation of the pod’s resources is instantaneous.
+1. The **pause container**’s image is always present, so the allocation of the pod’s resources is instantaneous.
 
-1. **pause** containers are hidden but you can see them by running
+1. **Pause containers** are hidden but you can see them by running
 
 ```bash
 docker ps -a | grep -I pause

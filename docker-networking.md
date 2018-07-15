@@ -202,8 +202,13 @@ docker network create my-bridge-network
 # Create a new overlay network "dev_overlay" to the cluster with a particular network range and gateway. 
 docker network create --driver=overlay --subnet=192.168.1.0/24 --gateway 192.168.1.250 dev_overlay
 
+# One way to guarantee that the IP address is available is to specify an --ip-range when creating the
+# network, and choose the static IP address(es) from outside that range. This ensures that the IP address
+# is not given to another container while this container is not on the network.
+docker network create --subnet 172.20.0.0/16 --ip-range 172.20.240.0/20 multi-host-network
+
 #############################################################################################################
-# Connect a container to a network; 
+# Connect a container to a network
 # options: --alias, --ip IP, --ip6 IP, --link, --link-local-ip 
 docker network connect [OPTIONS] NETWORK CONTAINER
 

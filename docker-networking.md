@@ -265,25 +265,25 @@ docker network rm	 NETWORK [NETWORK...]
    1. `docker port`
    1. `docker ps`
 
-1. The docker run option to publish a port so that an application is accessible externally
-   1. `docker run --publish`
-
+1. `docker run --publish` is to publish a port so that an application is accessible externally
+   
 1. When publishing a container/service's service ports (like HTTP port 80) to the underlying host(s) with the `-P`
    option, Docker will map the container ports to port numbers above port **32768** on the host.
 
    The `-P` option will map the ports in a container that is EXPOSED during its build to ports on a host with a port
    number higher than *32768*.
 
-### Routing mesh
+### Routing Mesh
 
-1. Publishing a service's port using the **routing mesh** makes the service accessible at the published port on every
-   swarm node.
+1. Publishing a service's port using the **Routing Mesh** makes the service accessible at the published port on **every
+   swarm node**.
+
+1. The **Routing Mesh** allows all nodes that participate in a Swarm for a given service to be aware of and capable of
+   responding to any published service port request even if a node does not have a replica for said service running on
+   it.
 
 1. The ability for any node in a cluster to answer for an exposed service port even if there is no replica for that
-   service running on it, is handled by Routing Mesh.
-   
-1. The 'routing mesh' allows all nodes that participate in a Swarm for a given service to be aware of and capable of
-   responding to any published service port request even if a node does not have a replica for said service running on it.
+   service running on it, is handled by **Routing Mesh**.
 
 
 ## DNS Services

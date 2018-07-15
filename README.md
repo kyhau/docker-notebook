@@ -262,15 +262,13 @@ docker run -d --dns=8.8.8.8 [image]
 
 ### `docker inspect` (or `docker container inspect`)
 
-1. `docker inspect` returns low-level information on Docker objects 
+1. `docker inspect` returns low-level information on Docker objects (e.g. container, node, etc.)
    (e.g. current logging driver for a running container). 
 
 1. Default format of `docker inspect` is **json**.
 
 ```bash
-# The '--pretty' option will format the associated output in a more easily readable format.
-# JSON, is thde default output from an inspect command.
-docker inspect [NODE_ID] --pretty
+# Examples of `docker inspect` on containers 
 
 # The output will be formatted as to be more easily readable on standard output.
 docker inspect --format="{{.Structure.To.Review}}" [objectid/name] myweb

@@ -29,7 +29,7 @@ REF: https://success.docker.com/article/networking
 
 ### CNM Driver Interfaces
 
-1. **Network Drivers (Native or Remote)**
+1. **Network Drivers**
 
     Docker Network Drivers provide the actual implementation that makes networks work.
     They are pluggable so that different drivers can be used and interchanged easily to support different use cases.

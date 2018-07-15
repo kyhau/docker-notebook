@@ -100,8 +100,8 @@ A UCP Client Bundle provides the following items to a client that intends to use
 
 UCP issues different types of certificates depending on the user:
 
-1. User certificate bundles: only allow running docker commands through a UCP manager node.
-1. Admin user certificate bundles: allow running docker commands on the Docker Engine of any node.
+1. **User certificate bundles**: only allow running docker commands through a **UCP manager node**.
+1. **Admin user certificate bundles**: allow running docker commands on the **Docker Engine of any node**.
 
 
 ## Docker image signing

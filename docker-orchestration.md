@@ -8,15 +8,11 @@ The Docker service can be managed via standard systemd service management utilit
 # Enable and start Docker CE (Ubuntu 16 or above)
 systemctl enable docker && systemctl start docker
 
-# Start docker service (Ubuntu 14)
-service docker start
-# OR (Ubuntu 16+)
-systemctl start docker
 
-# Query docker state (e.g. stopped or running) (Ubuntu 14)
-service docker status
-# OR (Ubuntu 16+)
+# Query docker state (e.g. stopped or running) (Ubuntu 16)
 systemctl status docker
+# OR (Ubuntu 14)
+service docker status
 ```
 
 

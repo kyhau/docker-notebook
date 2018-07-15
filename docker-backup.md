@@ -57,8 +57,7 @@ tar --list -f /tmp/backup.tar
 
 # Create a backup, encrypt it, and store it on /tmp/backup.tar, with a passhrase
 docker container run --log-driver none --rm -i --name ucp -v /var/run/docker.sock:/var/run/docker.sock \
-  docker/ucp:2.2.4 backup --interactive \
-  --passphrase "secret" > /tmp/backup.tar
+  docker/ucp:2.2.4 backup --interactive --passphrase "secret" > /tmp/backup.tar
 
 # Decrypt the backup and list its contents
 $ gpg --decrypt /tmp/backup.tar | tar --list

@@ -39,21 +39,21 @@ REF: https://success.docker.com/article/networking
     is only instantiated through a single network driver.
        
     1. Native Network Drivers (see section below)
-        1. `bridge`:  `**User-defined bridge networks** is the best network driver type when you need multiple
+        1. `bridge`:  **User-defined bridge network** is the best network driver type when you need multiple
            containers to communicate on the same Docker host.
         
-        1. `host`:  **Host networks** is the best network driver type when the network stack should not be isolated from the Docker host,
-           but you want other aspects of the container to be isolated.
+        1. `host`:  **Host network** is the best network driver type when the network stack should not be isolated
+            from the Docker host, but you want other aspects of the container to be isolated.
         
-        1. `overlay`:  **Overlay networks** is the best network driver type when you need containers running on different Docker hosts to
-           communicate, or when multiple applications work together using swarm services.
+        1. `overlay`:  **Overlay network** is the best network driver type when you need containers running on
+            different Docker hosts to communicate, or when multiple applications work together using swarm services.
         
-        1. `macvlan`:  **Macvlan networks** is the best network driver type when you are migrating from a VM setup or need your containers
-           to look like physical hosts on your network, each with a unique MAC address.
+        1. `macvlan`:  **Macvlan network** is the best network driver type when you are migrating from a VM setup or
+           need your containers to look like physical hosts on your network, each with a unique MAC address.
         
-        1. `none`:  The `none` driver gives a container its own networking stack and network namespace but does not configure
-            interfaces inside the container. Without additional configuration, the container is completely isolated from the
-            host networking stack.
+        1. `none`:  The `none` driver gives a container its own networking stack and network namespace but does not
+            configure interfaces inside the container. Without additional configuration, the container is completely
+            isolated from the host networking stack.
 
     1. Remote Network Drivers
         1. `contiv`:  An open source network plugin led by Cisco Systems to provide infrastructure and security policies for multi-tenant microservices deployments. Contiv also provides integration for non-container workloads and with physical networks, such as ACI. Contiv implements remote network and IPAM drivers.
@@ -84,10 +84,10 @@ REF: https://success.docker.com/article/networking
 
 ## User-defined bridges vs. default bridges
 
-1. User-defined bridges provide better isolation and interoperability between containerised applications.
-1. User-defined bridges provide automatic DNS resolution between containers.
-1. Containers can be attached and detached from user-defined networks on the fly.
 1. Each user-defined network creates a configurable bridge.
+1. Containers can be attached and detached from user-defined networks on the fly.
+1. User-defined bridges provide automatic DNS resolution between containers.
+1. User-defined bridges provide better isolation and interoperability between containerised applications.
 1. Linked containers on the default bridge network share environment variables.
 
 
@@ -245,13 +245,24 @@ docker network rm	 NETWORK [NETWORK...]
 1. By default, a container inherits the DNS settings of the Docker daemon, including the `/etc/hosts` and
    `/etc/resolv.conf`.
 
+1. Set the DNS server for all Docker containers.
+
+```bash
+# To set the DNS server for all Docker containers, use:
+$ sudo dockerd --dns 8.8.8.8
+
+# To set the DNS search domain for all Docker containers, use:
+$ sudo dockerd --dns-search example.com
+```
+
 1. You can override these settings on a **per-container** basis.
 
 ```bash
+# Use the --dns option to override the default DNS server when creating a container.
+docker container create --dns=IP_ADDRESS ...
 
 # The 'docker run' command uses the --dns option to override the default DNS servers for a container.
 docker run -d --dns=8.8.8.8 IMAGE_NAME
-
 
 --dns IP_ADDRESS
     The IP address of a DNS server. To specify multiple DNS servers, use multiple --dns flags. If the

@@ -7,9 +7,9 @@ Subpages
 - [Storage and Volumes](docker-storage-and-volumes.md)
 - [Orchestration - Swarm, Node, Service](docker-orchestration.md)
 - [Networking](docker-networking.md)
-- [Docker Trusty Registry, Image Signing, Image Scanning](docker-dtr.md)
+- [Docker Trusty Registry, Image Signing](docker-dtr.md)
 - [Universal Control Plane (UCP), Manager, Worker, Pause Containers](docker-ucp.md)
-- [Security](docker-security.md)
+- [Security - RBAC, Image Signing, Image Scanning](docker-security.md)
 - [Backups and disaster Recovery](docker-backup.md)
 - [Docker upgrade](docker-upgrade.md)
 - Python examples: [docker_checker](docker_checker/README.md)
@@ -56,6 +56,17 @@ docker exec -it CONTAINER_NAME /bin/bash
 docker run -it --rm --env MYVAR=whatever --env MYVAR2=something centos:6 /bin/bash
 
 # Note: To specify container name, use '--name'. Note that '--name' has no short form ('-n' is not valid).
+
+# --expose        :  Expose a port or a range of ports; does not actually publish the port
+# --publish|-p    :  Publish a container’s port(s) to the host
+# --publish-all|-P:  Publish all exposed ports to random ports
+
+# This binds port 8080 of the container to TCP port 80 on 127.0.0.1 of the host machine.
+# You can also specify udp and sctp ports. 
+docker run -p 127.0.0.1:80:8080/tcp ubuntu bash
+
+# This exposes port 80 of the container without publishing the port to the host system’s interfaces.
+docker run --expose 80 ubuntu bash
 
 # Instantiate a docker container called 'myweb' that is running an Apache web server on port 80 by default within
 # it, you can allow direct access to the container service via the host's IP by redirecting the container port 80
@@ -231,6 +242,11 @@ New way to do docker container commands (make it clearer).
 ```bash
 # New way to do `docker ps`
 docker container ls
+
+# Create a new container
+docker create [OPTIONS] IMAGE [COMMAND] [ARG...]
+# OR
+docker container create [OPTIONS] IMAGE [COMMAND] [ARG...]
 
 # You have to temporarily use a public DNS (8.8.8.8) when launching transient detached containers
 # while your corporate DNS servers are undergoing maintenance. Which docker command would use that

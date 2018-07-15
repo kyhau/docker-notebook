@@ -1,9 +1,4 @@
-# Docker Image Creation, Management, and Registry
-
-### Dockerfile
-
-1. There is no way to rebuild a Dockerfile from an existing image, although the 'history' option can be used to help
-   see the commands that were run in building it.
+# Dockerfile
 
 ```bash
 # The first line can be a comment
@@ -35,6 +30,9 @@ VOLUME ["/var/www", "/var/log/apache2", "/etc/apache2"]
 
 ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 ```
+
+1. There is no way to rebuild a Dockerfile from an existing image, although the 'history' option can be used to help
+   see the commands that were run in building it.
 
 1. EVERY directive in a Dockerfile, when executed, will create a new image layer when building an image.
 
@@ -72,12 +70,12 @@ ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
    1. Use multi-stage builds
 
 
-### Build Docker Image
+## Example of building a image and running a container
 
 ```bash
 # When the Dockerfile is in the current context (directory), you build it with an image name and tag with the
 # -t option followed by the image:tag and the directory context of the file, in this case '.'.
-docker build -t myimage:v1 .
+docker build -t mywebserver:v1 .
 
 # Run it in the background (detach mode)
 % docker run -d --name testweb1 --rm mywebserver:v1
@@ -89,13 +87,4 @@ docker build -t myimage:v1 .
 # To see how many layers in the image
 % docker history mywebserver:v1 | wc -l
 12
-```
-
-
-### Tag and Push Docker Image
-
-```bash
-docker push [OPTIONS] NAME[:TAG]
-
-docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
 ```

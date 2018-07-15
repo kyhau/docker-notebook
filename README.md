@@ -3,7 +3,7 @@
 Subpages
 - [Docker Overview - Docker Engine, dockerd, namespaces, cgroups, UnionFD](docker-overview.md)
 - [Installation and Configurations](docker-configurations.md)
-- [Dockerfile, Image Creation, Management, and Registry](docker-image-creation-management-registry.md)
+- [Dockerfile](docker-dockerfile.md)
 - [Storage and Volumes](docker-storage-and-volumes.md)
 - [Orchestration - Swarm, Node, Service](docker-orchestration.md)
 - [Networking](docker-networking.md)
@@ -130,9 +130,16 @@ docker rm <CONTAINER_NAME or CONTAINER_ID>
 ### `docker ps`
 
 ```bash
-# List all containers (both running or not running)
+# List all containers (both running or not running): --all|-a
 docker ps -a
 
+# --filter|-f  : Filter output: 
+# --last int|-n int : Show n last created containers (default -1)
+# --latest|-l  : Show the latest created container (includes all states)
+# --no-trunc   : Don't truncate output
+# --quiet|-q   : Only display numeric IDs
+
+# Display total file size: --size|-s
 # The column ‘size’ shows the amount of data that is used for the writable layer of each container.
 # The column ‘virtual size’ shows the amount of data used for the read-only image data used by the container
 # plus the container’s writable layer ‘size’.
@@ -267,6 +274,10 @@ The 'history' option will display the image layers, the number of them, and how 
 ```bash
 # Review an image's storage layers
 docker history IMAGE_ID
+
+# To see how many layers in the image
+docker history mywebserver:v1 | wc -l
+> 12
 ```
 
 
@@ -311,13 +322,27 @@ docker pull --disable-content-trust docker.example.com/examples/simple_image
 ### `docker build`
 
 ```bash
+# When the Dockerfile is in the current context (directory), you build it with an image name and tag with the
+# -t option followed by the image:tag and the directory context of the file, in this case '.'.
+docker build -t docker.example.com/examples/simple_image:v1 .
+
 # Skip image verification: --disable-content-trust=true  
 docker build --disable-content-trust -t docker.example.com/examples/simple_image .
 ```
 
+
+### `docker tag`
+
+```bash
+docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+```
+
+
 ### `docker push`
 
 ```bash
+docker push [OPTIONS] NAME[:TAG]
+
 # Skip image verification: --disable-content-trust=true  
 docker push --disable-content-trust docker.example.com/examples/simple_image
 ```

@@ -258,36 +258,36 @@ docker network rm	 NETWORK [NETWORK...]
 
 1. Set the DNS server for all Docker containers.
 
-```bash
-# To set the DNS server for all Docker containers, use:
-$ sudo dockerd --dns 8.8.8.8
-
-# To set the DNS search domain for all Docker containers, use:
-$ sudo dockerd --dns-search example.com
-```
+    ```bash
+    # To set the DNS server for all Docker containers, use:
+    $ sudo dockerd --dns 8.8.8.8
+    
+    # To set the DNS search domain for all Docker containers, use:
+    $ sudo dockerd --dns-search example.com
+    ```
 
 1. You can override these settings on a **per-container** basis.
 
-```bash
-# Use the --dns option to override the default DNS server when creating a container.
-docker container create --dns=IP_ADDRESS ...
-
-# The 'docker run' command uses the --dns option to override the default DNS servers for a container.
-docker run -d --dns=8.8.8.8 IMAGE_NAME
-
---dns IP_ADDRESS
-    The IP address of a DNS server. To specify multiple DNS servers, use multiple --dns flags. If the
-    container cannot reach any of the IP addresses you specify, Google’s public DNS server 8.8.8.8 is
-    added, so that your container can resolve internet domains.
-
---dns-search
-    A DNS search domain to search non-fully-qualified hostnames. To specify multiple DNS search
-    prefixes, use multiple --dns-search flags.
-
---dns-opt
-    A key-value pair representing a DNS option and its value. See your operating system’s documentation
-    for resolv.conf for valid options.
-
---hostname
-    The hostname a container uses for itself. Defaults to the container’s name if not specified.
-```
+    ```bash
+    # Use the --dns option to override the default DNS server when creating a container.
+    docker container create --dns=IP_ADDRESS ...
+    
+    # The 'docker run' command uses the --dns option to override the default DNS servers for a container.
+    docker run -d --dns=8.8.8.8 IMAGE_NAME
+    
+    --dns IP_ADDRESS
+        The IP address of a DNS server. To specify multiple DNS servers, use multiple --dns flags. If the
+        container cannot reach any of the IP addresses you specify, Google’s public DNS server 8.8.8.8 is
+        added, so that your container can resolve internet domains.
+    
+    --dns-search
+        A DNS search domain to search non-fully-qualified hostnames. To specify multiple DNS search
+        prefixes, use multiple --dns-search flags.
+    
+    --dns-opt
+        A key-value pair representing a DNS option and its value. See your operating system’s documentation
+        for resolv.conf for valid options.
+    
+    --hostname
+        The hostname a container uses for itself. Defaults to the container’s name if not specified.
+    ```

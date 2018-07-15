@@ -209,7 +209,7 @@ docker network create --subnet 172.20.0.0/16 --ip-range 172.20.240.0/20 multi-ho
 
 #############################################################################################################
 # Connect a container to a network
-# options: --alias, --ip IP, --ip6 IP, --link, --link-local-ip 
+# options: --alias, --ip, --ip6, --link, --link-local-ip 
 docker network connect [OPTIONS] NETWORK CONTAINER
 
 # To connect a running container "my-nginx" to an existing user-defined bridge "my-net"
@@ -235,19 +235,18 @@ docker network disconnect my-net my-nginx
 
 #############################################################################################################
 # Display detailed information on one or more networks; options: --format|-f, --verbose|-v 
-docker network inspect	[OPTIONS] NETWORK [NETWORK...]
+docker network inspect [OPTIONS] NETWORK [NETWORK...]
 
 #############################################################################################################
 # List networks; options: --filter|-f, --format, --no-trunc, --quiet|-q
-docker network ls	 [OPTIONS]   
+docker network ls [OPTIONS]   
 
 # The 'ls' command for the 'docker network' object will list all Docker networks and their drivers installed.
-$ docker network ls
-
-NETWORK ID          NAME                DRIVER              SCOPE
-aa075c363cae        bridge              bridge              local
-84bba7e0b175        host                host                local
-926c02ac0dc5        none                null                local
+docker network ls
+> NETWORK ID          NAME                DRIVER              SCOPE
+> aa075c363cae        bridge              bridge              local
+> 84bba7e0b175        host                host                local
+> 926c02ac0dc5        none                null                local
 
 #############################################################################################################
 # Remove all unused networks; options: --filter, --force|-f

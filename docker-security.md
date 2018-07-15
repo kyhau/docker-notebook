@@ -73,18 +73,12 @@ REF: https://docs.docker.com/ee/ucp/authorization/
        namespaces**.
     1. Swarm collections: 
         1. A collection has a directory-like structure that holds Swarm resources.
-        1. You can create collections in UCP by defining a directory path and moving resources into it. 
-        1. Also, you can create the path in UCP and use labels in your YAML file to assign application resources to
-           the path. 
         1. Resource types that users can access in a Swarm collection include containers, networks, nodes, services,
            secrets, and volumes.
     1. Kubernetes namespaces: 
         1. A namespace is a logical area for a Kubernetes cluster.
-           Kubernetes comes with a default namespace for your cluster objects, plus two more namespaces for system and
-           public resources.
-        1. You can create custom namespaces, but unlike Swarm collections, namespaces can’t be nested. Resource types
-           that users can access in a Kubernetes namespace include pods, deployments, network policies, nodes, services,
-           secrets, and many more.
+        1. Unlike Swarm collections, namespaces can’t be nested. Resource types that users can access in a Kubernetes
+           namespace include pods, deployments, network policies, nodes, services, secrets, and many more.
 
 1. A **grant** is made up of **subject**, **role**, and **resource set**.
     1. Grants define which users can access what resources in what way.

@@ -25,10 +25,12 @@ Other references:
 ### Running container
 
 ```bash
+docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+
 # Start a container from the image 'centos:6'; it will exit immediately.
 docker run centos:6
 
-# Start a container from the image 'httpd:latest' in background (-d or --detach) and print container ID.
+# Start a container from the image 'httpd:latest' in background (--detach|-d) and print the container ID.
 docker run -d httpd
 
 # Launch a container in 'interactive' mode in the current 'terminal'; i: interactive, t: terminal
@@ -55,8 +57,6 @@ docker exec -it CONTAINER_NAME /bin/bash
 # Inside container: echo $MYVAR and $MYVAR2
 docker run -it --rm --env MYVAR=whatever --env MYVAR2=something centos:6 /bin/bash
 
-# Note: To specify container name, use '--name'. Note that '--name' has no short form ('-n' is not valid).
-
 # --expose        :  Expose a port or a range of ports; does not actually publish the port
 # --publish|-p    :  Publish a container’s port(s) to the host
 # --publish-all|-P:  Publish all exposed ports to random ports
@@ -77,6 +77,8 @@ docker run -d --name myweb -p 80:80 httpd:latest
 # system, and allow the container port 80 to be redirected to the underlying host's port somewhere in the range
 # of 80-85, based on port availability.
 docker run -d --name myweb -p 80-85:80 httpd:latest
+
+# Note: To specify container name, use '--name'. Note that '--name' has no short form ('-n' is not valid).
 
 # Instantiate a container (named myweb) running Apache from an image called 'httpd:latest', mount the underlying
 # hosts's '/var/www/html' directory in the container's '/usr/local/apache2/htdocs'
@@ -125,7 +127,7 @@ docker rmi $(docker images -q -f dangling=true)
 # OR
 docker image rm $(docker images -q -f dangling=true)
 
-# Force removal of an image (e.g. remove an image with containers based on it); --force or -f
+# Force removal of an image with --force|-f (e.g. remove an image with containers based on it)
 docker rmi IMAGE_NAME --force
 
 # Do not delete untagged parents
@@ -134,6 +136,7 @@ docker rmi IMAGE_NAME --no-prune
 # Remove all non-running containers (filters: created, restarting, running, paused, exited)
 docker rm $(docker ps -q -f status=exited)
 
+# Remove container by container name or container ID
 docker rm <CONTAINER_NAME or CONTAINER_ID>
 ```
 
@@ -207,7 +210,6 @@ docker images -f "dangling=true" -q
 > 8abc22fbb042
 
 # Format the output: --format
-#
 # Placeholders: .ID, .Repository, .Tag, .Digest, .CreatedSince, .CreatedAt, .Size
 
 docker images --format "{{.ID}}: {{.Repository}}"
@@ -228,10 +230,25 @@ $ docker images --format "table {{.ID}}\t{{.Repository}}\t{{.Tag}}"
 
 ### `docker image`
 
+New way to do docker image commands (make it clearer).
+
 ```bash
+docker image COMMAND
 
 # Display detailed information on one or more images
 docker image inspect IMAGE_ID
+
+# Build an image from a Dockerfile
+docker image build [OPTIONS] PATH | URL | -
+
+# Import the contents from a tarball to create a filesystem image
+docker image import [--change|-c DOCKERFILE_INSTRUCTION] [--message|-m COMMIT_MESSAGE] [REPOSITORY[:TAG]]
+
+# Load an image from a tar archive or STDIN
+docker image load [--input|-i TAR] [--quiet|-q]
+
+# Save one or more images to a tar archive (streamed to STDOUT by default)
+docker image save [--output|-o FILE] IMAGE [IMAGE...]
 ```
 
 
@@ -359,8 +376,11 @@ docker pull --disable-content-trust docker.example.com/examples/simple_image
 
 ```bash
 # When the Dockerfile is in the current context (directory), you build it with an image name and tag with the
-# -t option followed by the image:tag and the directory context of the file, in this case '.'.
+# --tag|-t option followed by the image:tag and the directory context of the file, in this case '.'.
 docker build -t docker.example.com/examples/simple_image:v1 .
+
+# --file|-f Name of the Dockerfile
+docker build -t docker.example.com/examples/simple_image:v1 -f PATH_TO/Dockerfile
 
 # Skip image verification: --disable-content-trust=true  
 docker build --disable-content-trust -t docker.example.com/examples/simple_image .
@@ -406,8 +426,10 @@ docker push --disable-content-trust docker.example.com/examples/simple_image
 
 ### `docker-compose`
 
-1. `docker-compose` allows you to define one or more containers in a single configuration file that
+`docker-compose` allows you to define one or more containers in a single configuration file that
     can then be deployed all at once.
+
+`docker-compose [-f <arg>...] [options] [COMMAND] [ARGS...]`
 
 
 ### `docker commit`
@@ -420,10 +442,10 @@ settings into a new image.
 docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
 
 # OPTIONS
-# --author ,  -a		Author (e.g., “John Hannibal Smith hannibal@a-team.com”)
-# --change ,  -c		Apply Dockerfile instruction to the created image
-# --message , -m		Commit message
-# --pause ,   -p	  true	Pause container during commit
+# --author|-a	  Author (e.g., “John Hannibal Smith hannibal@a-team.com”)
+# --change|-c   Apply Dockerfile instruction to the created image
+# --message|-m  Commit message
+# --pause|-p    Pause container during commit; default is `true`
 
 # Commit a container
 $ docker ps

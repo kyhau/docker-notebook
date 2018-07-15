@@ -18,8 +18,7 @@
    from a backup. This is why it’s important to ensure replicas are healthy and perform frequent backups.
    See [docker-backup.md](docker-backup.md).
 
-1. Endpoints exposed by DTRDocker Trusted Registry that can be used to assess the health of a Docker Trusted Registry
-   replica:
+1. Endpoints exposed by DTR that can be used to assess the health of a DTR replica:
     ```
     /health
     /nginx_status
@@ -30,7 +29,7 @@
 
 REF: https://docs.docker.com/ee/dtr/user/manage-images/sign-images/#sign-images-that-ucp-can-trust
 
-See Also [Content Trust] in [docker-security.md](docker-security.md).
+See Also **Content Trust** in [docker-security.md](docker-security.md).
 
 ```bash
 # Pull NGINX from Docker Store
@@ -43,6 +42,9 @@ docker tag nginx:latest dtr.example.org/dev/nginx:1
 docker login dtr.example.org
 
 # Sign and push the image to DTR
+# This pushes the image to DTR and creates trust metadata.
+# It also creates public and private key pairs to sign the trust metadata, and pushes that metadata to the Notary
+# Server internal to DTR.
 export DOCKER_CONTENT_TRUST=1
 docker push dtr.example.org/dev/nginx:1
 ```

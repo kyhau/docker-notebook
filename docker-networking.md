@@ -81,6 +81,11 @@ REF: https://success.docker.com/article/networking
     1. `bridge` is the network driver, or template, from which this network is created.
     1. `docker0` is the name of the Linux bridge that is the kernel building block used to implement this network.
 
+1. `docker0` is the network interace that functions as both:
+ 
+    1. the 'gateway' to the private network on the host, which is used for Docker container communication, 
+    1. defining the network range available for container IP assignments.
+
 
 ## User-defined bridges vs. default bridges
 

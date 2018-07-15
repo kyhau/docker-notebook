@@ -1,50 +1,5 @@
 # Docker Installation and Configurations
 
-## Configurations
-
-### `docker info`
-
-```bash
-# Displays system wide configuration information as seen by the Docker service.
-# e.g. see the storage driver Docker is currently using
-docker info
-```
-
-### `docker0`
-
-When Docker is first installed, the installation creates a network interface called `docker0` that functions as both:
- 
-1. the 'gateway' to the private network on the host, which is used for Docker container communication, 
-1. defining the network range available for container IP assignments.
-
-### Configuration files and directories
-
-1. `/run/docker.sock` determines which accounts can use the service.
-    1. `docker.sock` command is owned by `docker`.
-    1. To add a user to this group (to allow them to run Docker commands with unprivileged accounts):
-    
-       `usermod -aG docker user`
-
-1. `/run/docker.pid` file contains the PID (Process ID) of the Docker service when it is running.
-
-1. `/etc/docker/daemon.json` file is used to override various Docker defaults, including
-    1. the Docker logging driver (`log-driver`)
-    1. the Docker storage driver (`storage-driver`)
-
-
-1. `/var/lib/docker`: Storage related to Docker image and container layers are stored in `/var/lib/docker` on a host
-   unless changed in the configuration or daemon at launch time.
-
-
-#### `DOCKER_OPTS`
-
-```bash
-# Build a Docker image depending on another image from Docker registry.
-# Edit "/etc/default/docker"
-DOCKER_OPTS="--insecure-registry <docker registry url>"
-```
-
-
 ## Installation notes
 
 1. Which of the following is how to configure the Docker daemon to start on boot?
@@ -81,3 +36,49 @@ DOCKER_OPTS="--insecure-registry <docker registry url>"
     1. Time Synchronisation
     1. Network ports
 
+1. The command to display system wide configuration information as seen by the Docker service.
+
+    e.g. see the storage driver Docker is currently using
+    
+    `docker info`
+
+1. When Docker is first installed, the installation creates a network interface called **`docker0`** that functions as
+   both:
+ 
+    1. the 'gateway' to the private network on the host, which is used for Docker container communication, 
+    1. defining the network range available for container IP assignments.
+
+    See also **Default bridge network** in [docker-networking.md](docker-networking.md).
+
+
+## Configurations files and directories
+
+1. `/run/docker.sock` file determines which accounts can use the service.
+
+    1. `docker.sock` command is owned by `docker`.
+
+    1. To add a user to this group (to allow them to run Docker commands with unprivileged accounts):
+    
+       `usermod -aG docker user`
+
+1. `/run/docker.pid` file contains the PID (Process ID) of the Docker service when it is running.
+
+1. `/etc/docker/daemon.json` file is used to override various Docker defaults, including
+
+    1. the Docker logging driver (`log-driver`)
+
+    1. the Docker storage driver (`storage-driver`)
+
+1. `/var/lib/docker` is the directory on a host, stores Docker image and container layers;
+   unless changed in the configuration or daemon at launch time.
+
+1. `/etc/default/docker` file
+
+    1. `DOCKER_OPTS`
+
+        ```bash
+        # Build a Docker image depending on another image from Docker registry.
+        # Edit "/etc/default/docker"
+        DOCKER_OPTS="--insecure-registry <docker registry url>"
+        ```
+ 

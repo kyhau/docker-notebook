@@ -28,8 +28,8 @@
 
 1. What does a virtual machine directly rely on that a container does not?
 
-   Hypervisor. A virtual machine relies on some type of **hypervisor** that is responsible for translating calls from
-   applications to the underlying hardware: storage, CPU, and memory requests.
+   **Hypervisor**. A virtual machine relies on some type of **hypervisor** that is responsible for translating calls
+   from applications to the underlying hardware: storage, CPU, and memory requests.
 
 1. Which of the following items need to be considered before installing Docker Enterprise?
 

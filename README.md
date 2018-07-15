@@ -412,7 +412,8 @@ docker push --disable-content-trust docker.example.com/examples/simple_image
 
 ### `docker commit`
 
-The `docker commit` command is used to take a container's build and commit it to the indicated image name.
+`docker commit` creates a new image from a container's change. It can be useful to commit a container’s file changes or
+settings into a new image. 
 
 
 ```bash
@@ -466,5 +467,4 @@ $ docker ps
 CONTAINER ID        IMAGE               COMMAND                 CREATED             STATUS              PORTS              NAMES
 89373736e2e7        testimage:version4  "apachectl -DFOREGROU"  3 seconds ago       Up 2 seconds        80/tcp             distracted_fermat
 c3f279d17e0a        ubuntu:12.04        /bin/bash               7 days ago          Up 25 hours                            desperate_dubinsky
-
 ```

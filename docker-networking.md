@@ -37,18 +37,30 @@ REF: https://success.docker.com/article/networking
     Multiple network drivers can be used on a given Docker Engine or Cluster concurrently, but each Docker network
     is only instantiated through a single network driver.
        
-    1. Native Network Drivers (see section below)
-        1. `bridge`:  **User-defined bridge network** is the best network driver type when you need multiple
-           containers to communicate on the same Docker host.
+    1. Native Network Drivers
+        1. `bridge`:  The `bridge` driver creates a Linux bridge on the host that is managed by Docker.
+            By default containers on a bridge can communicate with each other.
+            External access to containers can also be configured through the `bridge` driver.
+            **User-defined bridge network** is the best network driver type when you need multiple containers to
+            communicate on the same Docker host.
         
-        1. `host`:  **Host network** is the best network driver type when the network stack should not be isolated
-            from the Docker host, but you want other aspects of the container to be isolated.
+        1. `host`:  With the `host` driver, a container uses the networking stack of the host.
+            There is no namespace separation, and all interfaces on the host can be used directly by the container.
+            **Host network** is the best network driver type when the network stack should not be isolated from the
+            Docker host, but you want other aspects of the container to be isolated.
+            
+        1. `overlay`:  The `overlay` driver creates an overlay network that supports multi-host networks out of the box.
+            It uses a combination of local Linux bridges and VXLAN to overlay container-to-container communications over
+            physical network infrastructure.
+            **Overlay network** is the best network driver type when you need containers running on different Docker
+            hosts to communicate, or when multiple applications work together using swarm services.
         
-        1. `overlay`:  **Overlay network** is the best network driver type when you need containers running on
-            different Docker hosts to communicate, or when multiple applications work together using swarm services.
-        
-        1. `macvlan`:  **Macvlan network** is the best network driver type when you are migrating from a VM setup or
-           need your containers to look like physical hosts on your network, each with a unique MAC address.
+        1. `macvlan`:  The `macvlan` driver uses the MACVLAN bridge mode to establish a connection between container
+            interfaces and a parent host interface (or sub-interfaces). It can be used to provide IP addresses to
+            containers that are routable on the physical network. Additionally VLANs can be trunked to the `macvlan`
+            driver to enforce Layer 2 container segmentation.
+            **Macvlan network** is the best network driver type when you are migrating from a VM setup or need your
+            containers to look like physical hosts on your network, each with a unique MAC address.
         
         1. `none`:  The `none` driver gives a container its own networking stack and network namespace but does not
             configure interfaces inside the container. Without additional configuration, the container is completely

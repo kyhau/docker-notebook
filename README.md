@@ -7,7 +7,7 @@ Subpages
 - [Storage and Volumes](docker-storage-and-volumes.md)
 - [Orchestration - Swarm, Node, Service](docker-orchestration.md)
 - [Networking](docker-networking.md)
-- [Docker Trusty Registry, Image Signing](docker-dtr.md)
+- [Docker Trusty Registry (DTR), Image Signing](docker-dtr.md)
 - [Universal Control Plane (UCP), Manager, Worker, Pause Containers](docker-ucp.md)
 - [Security - RBAC, Image Signing, Image Scanning](docker-security.md)
 - [Backups and disaster Recovery](docker-backup.md)

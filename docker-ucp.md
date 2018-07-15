@@ -7,10 +7,11 @@
    directly, but interact with UCP instead. 
 
    ![Alt text](https://docs.docker.com/ee/ucp/images/ucp-architecture-1.svg?sanitize=true)
+
    ([Image source: docs.docker.com](https://docs.docker.com))
 
-1. UCP also secures Docker with role-based access control so that only authorized users can make changes and deploy
-   applications to your Docker cluster.
+1. UCP also secures Docker with **Role Based Access Control (RBAC)** so that only authorized users can make changes
+   and deploy applications to your Docker cluster.
 
    See [docker-security.md](docker-security.md).
 
@@ -19,6 +20,7 @@
 1. UCP leverages the clustering and orchestration functionality provided by Docker.
 
    ![Alt text](https://docs.docker.com/ee/ucp/images/ucp-architecture-2.svg?sanitize=true)
+
    ([Image source: docs.docker.com](https://docs.docker.com))
 
     1. A swarm is a collection of nodes that are in the same Docker cluster.

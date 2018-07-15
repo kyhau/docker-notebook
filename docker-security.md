@@ -160,31 +160,25 @@ See also **Sign image and push to DTR** in [docker-dtr](docker-dtr.md).
    private key you’re using to sign the images to your UCP account.
 
    To sign images in a way that UCP trusts them, you need to:
-
-    1. Configure your Notary client.
-    1. Initialize trust metadata for the repository.
-    1. Delegate signing to the keys in your UCP client bundle.
+    1. Configure your **Notary client**.
+    1. Initialize **trust metadata** for the repository.
+    1. Delegate signing to the **keys in your UCP client bundle**.
 
 1. When content trust is enabled,
 
     1. The docker CLI commands that operate on tagged images must either have content signatures or explicit content
        hashes. The commands that operate with content trust are: push, build, create, pull, run
-
     1. The Docker client only allows docker pull to retrieve signed images.  However, an operation with an explicit
        content hash always succeeds as long as the hash exists:
        E.g. 
        
        `$ docker pull someimage@sha256:d149ab53f8718e987c3a3024bb8aa0e2caadf6c0328f1d9d850b2a2a67f2819a`
-
     1. Trust for an image tag is managed through the use of signing keys. A key set is created when an operation using
        content trust is first invoked. A key set consists of the following classes of keys.
-
         1. An offline key is used to create tagging keys. Offline keys belong to a person or an organisation. Resides
            client-side. You should store these in a safe place and back them up.
-
         1. A tagging key is associated with an image repository. Creators with this key can push or pull any tag in this
            repository. This resides on client-side.
-
         1. A timestamp key is associated with an image repository. This is created by Docker and resides on the server.
 
     See more details in https://docs.docker.com/engine/security/trust/content_trust/
@@ -196,8 +190,7 @@ REF: https://docs.docker.com/ee/dtr/user/manage-images/scan-images-for-vulnerabi
 
 1. Docker Security Scanning is available as an add-on to Docker Trusted Registry, and an administrator configures it
    for your DTR instance.
-
-1. Only users with write access to a repository can manually start a scan. Users with read-only access can view the
-   scan results, but cannot start a new scan.
+1. Only users with write access to a repository can manually start a scan.
+1. Users with read-only access can view the scan results, but cannot start a new scan.
 
 

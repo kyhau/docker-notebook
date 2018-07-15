@@ -67,10 +67,20 @@ REF: https://success.docker.com/article/networking
             isolated from the host networking stack.
 
     1. Remote Network Drivers
-        1. `contiv`:  An open source network plugin led by Cisco Systems to provide infrastructure and security policies for multi-tenant microservices deployments. Contiv also provides integration for non-container workloads and with physical networks, such as ACI. Contiv implements remote network and IPAM drivers.
-        1. `weave`:  A network plugin that creates a virtual network that connects Docker containers across multiple hosts or clouds. Weave provides automatic discovery of applications, can operate on partially connected networks, does not require an external cluster store, and is operations friendly.
-        1. `calico`:  An open source solution for virtual networking in cloud datacenters. It targets datacenters where most of the workloads (VMs, containers, or bare metal servers) only require IP connectivity. Calico provides this connectivity using standard IP routing. Isolation between workloads — whether according to tenant ownership or any finer grained policy — is achieved via iptables programming on the servers hosting the source and destination workloads.
-        1. `kuryr`:  A network plugin developed as part of the OpenStack Kuryr project. It implements the Docker networking (libnetwork) remote driver API by utilizing Neutron, the OpenStack networking service. Kuryr includes an IPAM driver as well.
+        1. `contiv`:  An open source network plugin led by Cisco Systems to provide infrastructure and security policies
+            for multi-tenant microservices deployments. Contiv also provides integration for non-container workloads and
+            with physical networks, such as ACI. Contiv implements remote network and IPAM drivers.
+        1. `weave`:  A network plugin that creates a virtual network that connects Docker containers across multiple
+            hosts or clouds. Weave provides automatic discovery of applications, can operate on partially connected
+            networks, does not require an external cluster store, and is operations friendly.
+        1. `calico`:  An open source solution for virtual networking in cloud datacenters. It targets datacenters where
+            most of the workloads (VMs, containers, or bare metal servers) only require IP connectivity. Calico provides
+            this connectivity using standard IP routing. Isolation between workloads — whether according to tenant
+            ownership or any finer grained policy — is achieved via iptables programming on the servers hosting the
+            source and destination workloads.
+        1. `kuryr`:  A network plugin developed as part of the OpenStack Kuryr project. It implements the Docker
+            networking (libnetwork) remote driver API by utilizing Neutron, the OpenStack networking service. Kuryr
+            includes an IPAM driver as well.
    
 1. **IPAM Drivers (IP Address Management Drivers)**
 
@@ -143,15 +153,15 @@ REF: https://docs.docker.com/network/overlay/
 
 1. Which of the built-in network types has 'swarm' level scope?
 
-   The overlay network handles routing of services for the swarm and thus has swarm level scope across all nodes.
+   The **overlay** network handles routing of services for the swarm and thus has swarm level scope across all nodes.
 
 
 ## Host networks
 
 1. Which of the built-in network drivers is often referred to as the 'Host Only' network driver?
 
-    The 'host' network driver is referred to as the 'host only' network driver because the host is the only entity that
-    will have network connectivity to the resources on it.
+   The **host** network driver is referred to as the 'host only' network driver because the host is the only entity that
+   that will have network connectivity to the resources on it.
 
 
 ## IP address and hostname

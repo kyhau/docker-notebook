@@ -14,7 +14,7 @@
     1. Azure
     1. Google
 
-1. Which of the following is how to configure the Docker daemon to start on boot (on Ubuntu)?
+1. How to configure the Docker daemon to start on boot (on Ubuntu)
 
     1. Use `upstart` for Ubuntu 14.10 and below
     1. Use `systemd` for most current Linux distributions (RHEL, CentOS, Fedora, Ubuntu 16.04 and higher)
@@ -28,23 +28,19 @@
 
 1. What does a virtual machine directly rely on that a container does not?
 
-   Hypervisor
-
-   A virtual machine relies on some type of **hypervisor** that is responsible for translating calls from applications
-   to the underlying hardware: storage, CPU, and memory requests.
+   Hypervisor. A virtual machine relies on some type of **hypervisor** that is responsible for translating calls from
+   applications to the underlying hardware: storage, CPU, and memory requests.
 
 1. Which of the following items need to be considered before installing Docker Enterprise?
 
     1. Docker Engine, DTR, and UCP version compatibility
     1. Disk space
-    1. Time Synchronisation
     1. Network ports
+    1. Time Synchronisation
 
-1. The command to display system wide configuration information as seen by the Docker service.
+1. `docker info` displays system wide configuration information as seen by the Docker service.
 
-    e.g. see the storage driver Docker is currently using
-    
-    `docker info`
+    e.g. See the storage driver Docker is currently using
 
 1. When Docker is first installed, the installation creates a network interface called **`docker0`** that functions as
    both:
@@ -60,7 +56,6 @@
 1. `/run/docker.sock` file determines which accounts can use the service.
 
     1. `docker.sock` command is owned by `docker`.
-
     1. To add a user to this group (to allow them to run Docker commands with unprivileged accounts):
     
        `usermod -aG docker user`
@@ -70,7 +65,6 @@
 1. `/etc/docker/daemon.json` file is used to override various Docker defaults, including
 
     1. the Docker logging driver (`log-driver`)
-
     1. the Docker storage driver (`storage-driver`)
 
 1. `/var/lib/docker` is the directory on a host, stores Docker image and container layers;
@@ -79,7 +73,6 @@
 1. `/etc/default/docker` file
 
     1. `DOCKER_OPTS`
-
         ```bash
         # Build a Docker image depending on another image from Docker registry.
         # Edit "/etc/default/docker"

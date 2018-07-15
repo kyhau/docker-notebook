@@ -100,7 +100,6 @@ docker node rm [NODE_ID]
 # When run on the manager node, this command will remove the indicated node from the swarm it is a member of.
 docker node rm [NODE_ID]
 
-
 # `docker inspect` returns low-level information on Docker objects (e.g. container, node, etc.)
 # For nodes: 
 # The '--pretty' option will format the associated output in a more easily readable format.

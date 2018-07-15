@@ -377,6 +377,23 @@ docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
 ```
 
 
+### `docker login`
+
+```bash
+# Log in to a Docker registry
+docker login [OPTIONS] [SERVER]
+
+# OPTIONS:
+# --username|-u:  Username
+# --password|-p:  Password
+# --password-stdin:  Take the password from stdin
+
+docker login dtr.example.org
+
+docker login dtr.example.org -u kay -p xxxxxx
+```
+
+
 ### `docker push`
 
 ```bash

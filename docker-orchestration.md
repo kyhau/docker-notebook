@@ -73,8 +73,8 @@ docker swarm update --autolock=true
 #### `docker node`
 
 ```bash
-# The simple 'ls' command applied to the 'node' object from the manager provides a list of all nodes that the
-# manager is aware of.
+# List nodes in the swarm; OPTIONS: --filter"-f, --format, --quiet|-q
+docker node ls [OPTIONS]
 docker node ls
 
 # Undo the 'drain' task applied to a node so that it can be used again for services.

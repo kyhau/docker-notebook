@@ -46,7 +46,8 @@
 
 1. What is the endpoint that we can use to check the health of a single UCP manager node?
 
-   `https:///_ping`
+   `https:///_ping`   
+   `https://<ucp-manager-url>/_ping`
 
 1. There are two ways to interact with UCP: the web UI or the CLI.
 

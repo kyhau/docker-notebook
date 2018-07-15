@@ -246,8 +246,10 @@ docker run -d --dns=8.8.8.8 [image]
 
 ### `docker inspect` (or `docker container inspect`)
 
-- `docker inspect` returns low-level information on Docker objects. 
-- Default format is json.
+1. `docker inspect` returns low-level information on Docker objects 
+   (e.g. current logging driver for a running container). 
+
+1. Default format of `docker inspect` is **json**.
 
 ```bash
 # The '--pretty' option will format the associated output in a more easily readable format.
@@ -273,11 +275,31 @@ The 'history' option will display the image layers, the number of them, and how 
 
 ```bash
 # Review an image's storage layers
-docker history IMAGE_ID
+docker history [OPTIONS] IMAGE_ID
+
+# --format:  Pretty-print images using a Go template
+# --human|-H:  Print sizes and dates in human readable format; default is true
+# --no-trunc:  Don’t truncate output
+# --quiet|-q:  Only show numeric IDs
 
 # To see how many layers in the image
 docker history mywebserver:v1 | wc -l
 > 12
+```
+
+
+### `docker logs`
+
+```bash
+# Fetch the logs of a container
+docker logs [OPTIONS] CONTAINER
+
+# --details:  Show extra details provided to logs
+# --follow|-f:  Follow log output
+# --since:  Show logs since timestamp (e.g. 2013-01-02T13:23:37) or relative (e.g. 42m for 42 minutes)
+# --tail:  Number of lines to show from the end of the logs; default is `all1
+# --timestamps|-t:  Show timestamps
+# --until:  Show logs before a timestamp (e.g. 2013-01-02T13:23:37) or relative (e.g. 42m for 42 minutes)
 ```
 
 
@@ -334,6 +356,7 @@ docker build --disable-content-trust -t docker.example.com/examples/simple_image
 ### `docker tag`
 
 ```bash
+# Tag an image referenced by Name, ImageID, Name:Tag
 docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
 ```
 
@@ -342,6 +365,9 @@ docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
 
 ```bash
 docker push [OPTIONS] NAME[:TAG]
+
+# OPTIONS:
+#   --disable-content-trust	:  Skip image signing; default is `true`.
 
 # Skip image verification: --disable-content-trust=true  
 docker push --disable-content-trust docker.example.com/examples/simple_image

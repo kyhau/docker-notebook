@@ -72,7 +72,7 @@ REF: https://success.docker.com/article/networking
          1. `infoblox`:  An open source IPAM plugin that provides integration with existing Infoblox tools.
 
 
-## User-defined bridge networks
+## Default bridge network
 
 1. On any host running Docker Engine, there is, by default, a local Docker network named `bridge`. 
    This network is created using a **bridge network driver** which instantiates a Linux bridge called `docker0`; i.e.
@@ -81,7 +81,8 @@ REF: https://success.docker.com/article/networking
     1. `bridge` is the network driver, or template, from which this network is created.
     1. `docker0` is the name of the Linux bridge that is the kernel building block used to implement this network.
 
-#### User-defined bridges vs. default bridges
+
+## User-defined bridges vs. default bridges
 
 1. User-defined bridges provide better isolation and interoperability between containerised applications.
 1. User-defined bridges provide automatic DNS resolution between containers.

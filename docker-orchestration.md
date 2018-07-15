@@ -21,10 +21,10 @@ systemctl status docker
 1. Docker swarm allows you to deploy clusters of Docker containers across multiple nodes and manage their behavior.
 
 1. Two types of Docker Swarm Services
-    1. Replicated: Number of identical tasks can be specified for a replicated service.
-    1. Global: There is no pre-specified number of tasks for global service.
+    1. **Replicated**: Number of identical tasks can be specified for a replicated service.
+    1. **Global**: There is no pre-specified number of tasks for global service.
 
-1. Raft (Docker Consensus Algorithm)
+1. **Raft** (**Docker Consensus Algorithm**)
    1. In Docker swarm mode, manager nodes implement the Raft Consensus Algorithm to manage the global cluster state.
    1. The consensus algorithm is to make sure that all the manager nodes that are in charge of managing and scheduling
       tasks in the cluster, are storing the same consistent state.
@@ -84,7 +84,7 @@ docker node update --availability active [NODE_ID]
 # ID.
 docker node update --availability drain [NODE_ID]
 
-# Add or update multiple node labels
+# Add or update multiple node labels of the node `worker1`
 docker node update --label-add foo --label-add bar worker1
 
 # Remove a node marked as 'DOWN' from the cluster
@@ -117,20 +117,20 @@ docker service scale my_api=10
 # Roll back to the previous version of a service
 docker service update --rollback [SERVICE_NAME]
 
-# Add or update a placement constraint to the service 'redis'
-docker service update --constraint-add "engine.labels.purpose==database" redis
-
 # Add or update a mount on a service
 docker service update --mount-add ... [SERVICE_NAME]
 
 # Add a network to a service
 docker service update --network-add ... [SERVICE_NAME]
 
-# Add or update a placement preference
-docker service update --placement-pref-add ... [SERVICE_NAME]
-
 # Add or update a published port
 docker service update --publish-add ... [SERVICE_NAME]
+
+# Add or update a placement constraint to the service 'redis'
+docker service update --constraint-add "engine.labels.purpose==database" redis
+
+# Add or update a placement preference
+docker service update --placement-pref-add ... [SERVICE_NAME]
 
 # Stop a service called 'myweb' on your cluster
 # Docker requires you to specify the 'service' object when removing a service rather than a single container from

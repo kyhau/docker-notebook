@@ -29,15 +29,14 @@ VOLUME ["/var/www", "/var/log/apache2", "/etc/apache2"]
                       # mounted volumes from native host or other containers
 
 ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+                      # The command that any container instantiated on the image will execute on startup by
+                      # default, unless overridden when the container is started.
 ```
 
 1. There is no way to rebuild a Dockerfile from an existing image, although the 'history' option can be used to help
    see the commands that were run in building it.
 
 1. EVERY directive in a Dockerfile, when executed, will create a new image layer when building an image.
-
-1. The `ENTRYPOINT` directive in a Dockerfile will be the command that any container instantiated on the image will
- execute on startup by default, unless overridden when the container is started.
 
 1. Build cache is only used from images that have a local parent chain.
 
@@ -51,6 +50,7 @@ ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
       then word will be the result.
    1. ${variable:+word} indicates that if variable is set then word will be the result, otherwise the result is the
       empty string.
+
 1. Environment variables are supported by the following list of instructions in the Dockerfile:
    1. ADD
    1. COPY
@@ -63,6 +63,15 @@ ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
    1. VOLUME
    1. WORKDIR
    1. ONBUILD (when combined with one of the supported instructions above)
+
+1. `CMD` vs. `ENTRYPOINT`
+   1. Docker has a default entrypoint which is `/bin/sh -c` but does not have a default command.
+
+   1. When you run docker like this: `docker run -i -t ubuntu bash`, the entrypoint is the default `/bin/sh -c`,
+      the image is `ubuntu` and the command is `bash`.
+
+   1. The command is run via the entrypoint. i.e., the actual thing that gets executed is `/bin/sh -c bash`. 
+      This allowed Docker to implement `RUN` quickly by relying on the shell's parser.
 
 1. Create an efficient image via a Dockerfile
    1. Start with an appropriate base image

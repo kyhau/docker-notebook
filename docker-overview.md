@@ -37,6 +37,11 @@ Docker Engine is a client-server application with these major components:
 1. **Docker store** allows you to buy and sell Docker images or distribute them for free.
 
 
+## Swarm
+
+1. Docker Swarm is a cluster management and deployment system. See [docker-orchestration.md](docker-orchestration.md).
+
+
 ## Services
 
 1. Services allow you to scale containers across multiple Docker daemons, which all work together as a **swarm** with
@@ -51,8 +56,10 @@ Docker Engine is a client-server application with these major components:
    
 1. Docker Engine supports swarm mode in Docker 1.12 and higher.
 
+See [docker-orchestration.md](docker-orchestration.md).
 
-## Namespaces
+
+## Namespaces - provide security and isolation
 
 1. Docker uses a technology called **namespaces** to provide the isolated workspace called the **container**.
    When you run a container, Docker creates a set of **namespaces** for that container.
@@ -68,8 +75,11 @@ Docker Engine is a client-server application with these major components:
     1. The `mnt` namespace: Managing filesystem mount points (MNT: Mount).
     1. The `uts` namespace: Isolating kernel and version identifiers. (UTS: Unix Timesharing System).
 
+1. The `PID` and `Network` namespaces mean that each container is isolated in terms of them, which maintains the
+   isolation and separation of the container processes from underlying host services.
 
-## Control groups (`cgroups`)
+
+## Control groups (`cgroups`) - provide resource management and reporting
 
 1. Docker Engine on Linux also relies on another technology called **control groups (`cgroups`)**. 
 
@@ -79,6 +89,22 @@ Docker Engine is a client-server application with these major components:
    and constraints.
    
    For example, you can limit the memory available to a specific container.
+
+1. Which of the following resource limitation options, when added to a container instantiation, is representative of a
+   'Control Group (cgroup)?
+
+    1. `--memory=[amount b/k/m/g]`
+    1. `--cpus=[value]`
+
+    ```bash
+    # If you have 2 CPUs, guarantee the container at most at most one and a half of the CPUs every second.
+    # Docker 1.13 and higher. Docker 1.12 and lower uses --cpu-period=100000 --cpu-quota=50000
+    docker run -it --cpus="1.5" ubuntu /bin/bash
+    
+    # The maximum amount of memory the container can use. If you set this option, the minimum allowed value is 4m
+    # (4 megabyte).
+    docker run -it --memory=[amount b/k/m/g] ubuntu /bin/bash
+    ```
 
 
 ## Union file systems (UnionFS)

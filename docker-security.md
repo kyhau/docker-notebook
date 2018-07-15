@@ -19,17 +19,16 @@ https://docs.docker.com/engine/security/
 Providing `--privileged` to a container at startup, will allow it to perform operations that a container may otherwise
 be restricted from performing (e.g. binding a device path to an internal container path).
 
-```bash
-docker run --privileged -it --rm ubuntu:latest bash
-```
+`docker run --privileged -it --rm ubuntu:latest bash`
 
-> So basically any container host that you allow anyone to launch a --privileged container on is the same as giving
-  them root access to every container on that host.
-  <br>
-  Unfortunately the docker project has chosen the trusted computing model, and outside of auth plugins there is no way
-  to protect against this, so always error on the side of adding needed features vs. using --privileged.
+So basically any container host that you allow anyone to launch a `--privileged` container on is the same as giving
+them root access to every container on that host.
 
-REF: [stackoverflow:privileged-containers-and-capabilities](https://stackoverflow.com/questions/36425230/privileged-containers-and-capabilities).
+Unfortunately the docker project has chosen the trusted computing model, and outside of auth plugins there is no way
+to protect against this, so always error on the side of adding needed features vs. using `--privileged`.
+
+REF: [stackoverflow:privileged-containers-and-capabilities](
+https://stackoverflow.com/questions/36425230/privileged-containers-and-capabilities).
 
 
 ## mTLS (Mutual Transport Layer Security)

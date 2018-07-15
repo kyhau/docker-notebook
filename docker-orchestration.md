@@ -22,7 +22,9 @@ systemctl status docker
 
 ### Docker Swarm
 
-1. Docker swarm allows you to deploy clusters of Docker containers across multiple nodes and manage their behavior.
+1. Docker Swarm is a cluster management and deployment system.
+
+1. Docker Swarm allows you to deploy clusters of Docker containers across multiple nodes and manage their behavior.
 
 1. Two types of Docker Swarm Services
     1. **Replicated**: Number of identical tasks can be specified for a replicated service.

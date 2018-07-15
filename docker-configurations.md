@@ -2,11 +2,6 @@
 
 ## Installation notes
 
-1. Which of the following is how to configure the Docker daemon to start on boot?
-
-    1. Use `upstart` for Ubuntu 14.10 and below
-    1. Use `systemd` for most current Linux distributions (RHEL, CentOS, Fedora, Ubuntu 16.04 and higher)
-
 1. All major x86 based operating systems, and even some 'arm', support Docker, including
 
    1. Apple OSX/sierraOS
@@ -19,6 +14,11 @@
     1. Azure
     1. Google
 
+1. Which of the following is how to configure the Docker daemon to start on boot (on Ubuntu)?
+
+    1. Use `upstart` for Ubuntu 14.10 and below
+    1. Use `systemd` for most current Linux distributions (RHEL, CentOS, Fedora, Ubuntu 16.04 and higher)
+
 1. The following are requirements for Docker to run but are NOT installed as dependencies as they exist on most full
    system installations:
 
@@ -26,7 +26,11 @@
     1. `lvm2`
     1. `yum-utils`
 
-1. A virtual machine relies on some type of **hypervisor** that is responsible for translating calls from applications
+1. What does a virtual machine directly rely on that a container does not?
+
+   Hypervisor
+
+   A virtual machine relies on some type of **hypervisor** that is responsible for translating calls from applications
    to the underlying hardware: storage, CPU, and memory requests.
 
 1. Which of the following items need to be considered before installing Docker Enterprise?

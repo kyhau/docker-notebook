@@ -8,7 +8,6 @@ The Docker service can be managed via standard systemd service management utilit
 # Enable and start Docker CE (Ubuntu 16 or above)
 systemctl enable docker && systemctl start docker
 
-
 # Query docker state (e.g. stopped or running) (Ubuntu 16)
 systemctl status docker
 # OR (Ubuntu 14)
@@ -27,17 +26,17 @@ service docker status
     1. **Global**: There is no pre-specified number of tasks for global service.
 
 1. **Raft** (**Docker Consensus Algorithm**)
-   1. In Docker swarm mode, manager nodes implement the Raft Consensus Algorithm to manage the global cluster state.
-   1. The consensus algorithm is to make sure that all the manager nodes that are in charge of managing and scheduling
-      tasks in the cluster, are storing the same consistent state.
+   1. In Docker Swarm mode, **manager nodes** implement the Raft Consensus Algorithm to manage the **global cluster**
+      state. The consensus algorithm is to make sure that all the manager nodes that are in charge of managing and
+      scheduling tasks in the cluster, are storing the same consistent state.
    1. Raft requires a majority or quorum of (N/2)+1 members to agree on values proposed to the cluster.
    1. Raft tolerates up to (N-1)/2 failures.
    1. If a quorum is not reached, the existing tasks will keep running.
    1. If a quorum is not reached, the system will not process any more requests to schedule additional tasks.
-
-This means that in a cluster of 5 Managers running Raft, if 3 nodes are unavailable, the system cannot process any
-more requests to schedule additional tasks. The existing tasks keep running but the scheduler cannot rebalance tasks
-to cope with failures if the manager set is not healthy.
+   
+   This means that in a cluster of 5 Managers running Raft, if 3 nodes are unavailable, the system cannot process any
+   more requests to schedule additional tasks. The existing tasks keep running but the scheduler cannot rebalance tasks
+   to cope with failures if the manager set is not healthy.
 
 
 #### `docker swarm`

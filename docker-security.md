@@ -71,14 +71,12 @@ REF: https://docs.docker.com/ee/ucp/authorization/
 1. **Resource sets** include **collections** and **namespaces**.
     1. To control user access, cluster resources are grouped into **Docker Swarm collections** or **Kubernetes
        namespaces**.
-    1. Swarm collections: 
-        1. A collection has a directory-like structure that holds Swarm resources.
-        1. Resource types that users can access in a Swarm collection include containers, networks, nodes, services,
-           secrets, and volumes.
-    1. Kubernetes namespaces: 
-        1. A namespace is a logical area for a Kubernetes cluster.
-        1. Unlike Swarm collections, namespaces can’t be nested. Resource types that users can access in a Kubernetes
-           namespace include pods, deployments, network policies, nodes, services, secrets, and many more.
+    1. A Swarm collection has a directory-like structure that holds Swarm resources.
+       Resource types that users can access in a Swarm collection include containers, networks, nodes, services,
+       secrets, and volumes.
+    1. A Kubernetes namespace is a logical area for a Kubernetes cluster.
+       Unlike Swarm collections, namespaces can’t be nested. Resource types that users can access in a Kubernetes
+       namespace include pods, deployments, network policies, nodes, services, secrets, and many more.
 
 1. A **grant** is made up of **subject**, **role**, and **resource set**.
     1. Grants define which users can access what resources in what way.

@@ -54,6 +54,8 @@ REF: https://docs.docker.com/ee/ucp/authorization/
     1. Group cluster **resources** into resource sets of Swarm collections or Kubernetes namespaces.
     1. Create **grants** by combining subject + role + resource set.
 
+1. Only an administrator can manage grants, subjects, roles, and access to resources.
+
 1. A **subject** represents a user, team, organization, or service account. A subject can be granted a role that defines
    permitted operations against one or more resource sets.
     1. User: A person authenticated by the authentication backend. Users can belong to one or more teams and one or
@@ -92,8 +94,6 @@ REF: https://docs.docker.com/ee/ucp/authorization/
     ![docker-grant](https://docs.docker.com/ee/ucp/images/ucp-grant-model.svg?sanitize=true)
     
     ([Image source: docs.docker.com](https://docs.docker.com/ee/ucp/authorization/grant-permissions/#swarm-grants))
-
-1. Only an administrator can manage grants, subjects, roles, and access to resources.
 
 
 ## UCP Client Bundle

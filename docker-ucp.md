@@ -77,16 +77,8 @@ docker ps -a | grep -I pause
 
 ### UCP Client Bundle
 
-A UCP Client Bundle provides the following items to a client that intends to use or manage the cluster? (Choose 3)
-
-1. Account security key
-1. Environment variables to set the connection destination.
-1. UCP certificate files to trust.
-
+See [docker-security.md](docker-security.md).
 
 ### Client certificates for administrators
 
-UCP issues different types of certificates depending on the user:
-
-1. User certificate bundles: only allow running docker commands through a UCP manager node.
-1. Admin user certificate bundles: allow running docker commands on the Docker Engine of any node.
+See [docker-security.md](docker-security.md).

@@ -29,12 +29,20 @@ docker run --privileged -it --rm ubuntu:latest bash
   Unfortunately the docker project has chosen the trusted computing model, and outside of auth plugins there is no way
   to protect against this, so always error on the side of adding needed features vs. using --privileged.
 
-See reference in [stackoverflow:privileged-containers-and-capabilities](https://stackoverflow.com/questions/36425230/privileged-containers-and-capabilities).
+REF: [stackoverflow:privileged-containers-and-capabilities](https://stackoverflow.com/questions/36425230/privileged-containers-and-capabilities).
 
 
-## MTLS (Mutual Transport Layer Security)
+## mTLS (Mutual Transport Layer Security)
 
-MTLS is used to secure communications between the manager and nodes in a Docker Swarm cluster.
+REF: https://docs.docker.com/engine/swarm/how-swarm-mode-works/pki/
+
+The swarm mode public key infrastructure (PKI) system built into Docker makes it simple to securely deploy a container
+orchestration system.
+
+The nodes in a swarm use **mutual Transport Layer Security (TLS)** to authenticate, authorize,
+and encrypt the communications with other nodes in the swarm.
+
+mTLS is used to secure communications between the manager and nodes in a Docker Swarm cluster.
 
 
 ## Role Based Access Control (RBAC)
@@ -62,8 +70,8 @@ REF: https://docs.docker.com/ee/ucp/authorization/
     1. Service account: A Kubernetes object that enables a workload to access cluster resources that are assigned to a
        namespace.
 
-1. **Roles** define what operations can be done by whom. A role is a set of permitted operations against a type of resource,
-   like a container or volume, that’s assigned to a user or team with a grant.
+1. **Roles** define what operations can be done by whom. A role is a set of permitted operations against a type of
+   resource, like a container or volume, that’s assigned to a user or team with a grant.
 
 1. **Resource sets** include **collections** and **namespaces**.
 
@@ -99,6 +107,23 @@ REF: https://docs.docker.com/ee/ucp/authorization/
     ([Image source: docs.docker.com](https://docs.docker.com/ee/ucp/authorization/grant-permissions/#swarm-grants))
 
 1. Only an administrator can manage grants, subjects, roles, and access to resources.
+
+
+## UCP Client Bundle
+
+A UCP Client Bundle provides the following items to a client that intends to use or manage the cluster:
+
+1. Account security key
+1. Environment variables to set the connection destination.
+1. UCP certificate files to trust.
+
+
+## Client certificates for administrators
+
+UCP issues different types of certificates depending on the user:
+
+1. User certificate bundles: only allow running docker commands through a UCP manager node.
+1. Admin user certificate bundles: allow running docker commands on the Docker Engine of any node.
 
 
 ## Docker image signing

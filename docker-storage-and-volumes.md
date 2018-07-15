@@ -3,16 +3,16 @@
 1. There is no way to add a volume to an instantiated container.
 
 
-### Differences between -v and --mount behavior
+## Differences between -v and --mount behavior
 
 1. If you use `-v` or `--volume` to bind-mount a file or directory that does not yet exist on the Docker host, `-v`
- creates the endpoint for you. It is always created as a directory.
+   creates the endpoint for you. It is always created as a directory.
 
 1. If you use `--mount` to bind-mount a file or directory that does not yet exist on the Docker host, Docker does not
- automatically create it for you, but generates an error.
+   automatically create it for you, but generates an error.
 
 
-### Start a container with a bind mount
+## Start a container with a bind mount
 
 ```bash
 # Option 1: using --mount
@@ -39,7 +39,7 @@ docker inspect devtest
 ```
 
 
-### Mounting into a non-empty directory on the container
+## Mounting into a non-empty directory on the container
 
 ```bash
 # Option 1: using --mount
@@ -57,7 +57,7 @@ docker container rm broken-container
  ```
 
 
-### Use a read-only bind mount
+## Use a read-only bind mount
 
 ```bash
 # Option 1: using --mount
@@ -84,7 +84,7 @@ docker inspect devtest
 ```
 
 
-### Configure bind propagation
+## Configure bind propagation
 
 1. Bind propagation defaults to `rprivate` for both bind mounts and volumes. 
 1. It is only configurable for bind mounts, and only on Linux host machines.
@@ -106,7 +106,7 @@ docker inspect devtest
 
 
 
-### Storage Drivers
+## Storage Drivers
 
 REF: https://docs.docker.com/storage/storagedriver/#container-size-on-disk
 

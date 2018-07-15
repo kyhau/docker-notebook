@@ -124,11 +124,23 @@ REF: https://docs.docker.com/network/overlay/
    1. `--cluster-store-opt`
    1. `--cluster-advertise`
 
-1. Overlay Network allows Docker Trusted Registry (DTR) components running on different nodes to communicate and replicate
-   Docker Trusted Registry data.
+1. Overlay Network allows Docker Trusted Registry (DTR) components running on different nodes to communicate and
+   replicate Docker Trusted Registry data.
    ```
    dtr-ol
    ```
+
+1. Which of the built-in network types has 'swarm' level scope?
+
+   The overlay network handles routing of services for the swarm and thus has swarm level scope across all nodes.
+
+
+## Host networks
+
+1. Which of the built-in network drivers is often referred to as the 'Host Only' network driver?
+
+    The 'host' network driver is referred to as the 'host only' network driver because the host is the only entity that
+    will have network connectivity to the resources on it.
 
 
 ## IP address and hostname
@@ -228,10 +240,11 @@ docker network rm	 NETWORK [NETWORK...]
 1. The docker run option to publish a port so that an application is accessible externally
    1. `docker run --publish`
 
-1. When publishing a container/service's service ports (like HTTP port 80) to the underlying host(s) with the -P
-   option, Docker will map the container ports to port numbers above port 32768 on the host.
-   The -P option will map the ports in a container that is EXPOSED during its build to ports on a host with a port
-   number higher than 32768.
+1. When publishing a container/service's service ports (like HTTP port 80) to the underlying host(s) with the `-P`
+   option, Docker will map the container ports to port numbers above port **32768** on the host.
+
+   The `-P` option will map the ports in a container that is EXPOSED during its build to ports on a host with a port
+   number higher than *32768*.
 
 ### Routing mesh
 

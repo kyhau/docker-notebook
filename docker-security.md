@@ -2,11 +2,11 @@
 
 REF: https://docs.docker.com/engine/security/
 
-1. You can configure Docker’s trust features so that your users can push and pull trusted images.
-1. You can protect the Docker daemon socket and ensure only trusted Docker client connections.
-1. You can use certificate-based client-server authentication to verify a Docker daemon has the rights to access images
-   on a registry. 
-1. You can configure secure computing mode (**Seccomp**) policies to secure system calls in a container.
+1. You can configure Docker’s trust features so that your users can push and pull **trusted images**.
+1. You can protect the Docker daemon socket and ensure only **trusted Docker client connections**.
+1. You can use certificate-based client-server authentication to **verify a Docker daemon has the rights to access
+   images on a registry**. 
+1. You can configure secure computing mode (**Seccomp**) policies to **secure system calls in a container**.
 1. An **AppArmor profile** for Docker is installed with the official .deb packages. 
 
 

@@ -204,13 +204,22 @@ docker network create --driver=overlay --subnet=192.168.1.0/24 --gateway 192.168
 
 #############################################################################################################
 # Connect a container to a network; 
-# options: --alias, --ip, --ip6, --link, --link-local-ip 
+# options: --alias, --ip IP, --ip6 IP, --link, --link-local-ip 
 docker network connect [OPTIONS] NETWORK CONTAINER
 
 # To connect a running container "my-nginx" to an existing user-defined bridge "my-net"
 docker network connect my-net my-nginx
 # OR
 docker create --name my-nginx --network my-net --publish 8080:80 nginx:latest
+
+# You can specify the IP address you want to be assigned to the container’s interface.
+docker network connect --ip 10.10.36.122 multi-host-network container2
+
+# --alias option can be used to resolve the container by another name in the network being connected to.
+docker network connect --alias db --alias mysql multi-host-network container2
+
+# You can use --link option to link another container with a preferred alias
+docker network connect --link container1:c1 multi-host-network container2
 
 #############################################################################################################
 # Disconnect a container from a network; options: --force|-f

@@ -91,7 +91,7 @@ See [docker-orchestration.md](docker-orchestration.md).
    For example, you can limit the memory available to a specific container.
 
 1. Which of the following resource limitation options, when added to a container instantiation, is representative of a
-   'Control Group (cgroup)?
+   'Control Group (`cgroup`)'?
 
     1. `--memory=[amount b/k/m/g]`
     1. `--cpus=[value]`

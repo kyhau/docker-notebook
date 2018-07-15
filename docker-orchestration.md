@@ -57,8 +57,8 @@ docker swarm join-token worker
 # A node to join the indicated cluster of the IP (of 10.0.1.100), with a token 'ighhsjkd6637'
 docker swarm join --token ighhsjkd6637 10.0.1.100:2377
 
-# Execute this command from the node you are removing, you can gracefully leave the cluster without having to use the
-# NODE ID.
+# Execute this command from the node you are removing, you can gracefully leave the cluster without having to use
+# the NODE ID.
 docker swarm leave
 
 # Enable autolock on an existing swarm cluster

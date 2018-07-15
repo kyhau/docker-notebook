@@ -58,8 +58,7 @@ REF: https://docs.docker.com/ee/ucp/authorization/
 
 1. A **subject** represents a user, team, organization, or service account. A subject can be granted a role that defines
    permitted operations against one or more resource sets.
-    1. User: A person authenticated by the authentication backend. Users can belong to one or more teams and one or
-       more organizations.
+    1. User: A person authenticated by the authentication backend. Users can belong to one or more teams/organizations.
     1. Team: A group of users that share permissions defined at the team level. A team can be in one organization only.
     1. Organization: A group of teams that share a specific set of permissions, defined by the roles of the organization.
     1. Service account: A Kubernetes object that enables a workload to access cluster resources that are assigned to a

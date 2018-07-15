@@ -24,9 +24,7 @@
    ([Image source: docs.docker.com](https://docs.docker.com))
 
     1. A swarm is a collection of nodes that are in the same Docker cluster.
-
     1. Nodes in a Docker swarm operate in one of two modes: **Manager** or **Worker**. 
-
     1. If nodes are not already running in a swarm when installing UCP, nodes will be configured to run in swarm mode.
 
 1. When you deploy UCP, it starts running a globally scheduled service called `ucp-agent`. 
@@ -36,14 +34,11 @@
     1. **Manager**: 
         1. The `ucp-agent` service automatically starts serving all UCP components, including the UCP web UI and data
            stores used by UCP. The `ucp-agent` accomplishes this by deploying several containers on the node. 
-        
         1. By promoting a node to manager, UCP automatically becomes highly available and fault tolerant.
 
-    1. **Worker**: on worker nodes, 
-    
+    1. **Worker**: on worker nodes,
         1. The `ucp-agent` service starts serving a proxy service that ensures only authorized users and other UCP
            services can run Docker commands in that node. 
-           
         1. The `ucp-agent` deploys a subset of containers on worker nodes.
 
 1. What is the endpoint that we can use to check the health of a single UCP manager node?

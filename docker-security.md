@@ -177,4 +177,3 @@ REF: https://docs.docker.com/ee/dtr/user/manage-images/scan-images-for-vulnerabi
 1. Only users with write access to a repository can manually start a scan.
 1. Users with read-only access can view the scan results, but cannot start a new scan.
 
-

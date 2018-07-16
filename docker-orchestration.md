@@ -186,3 +186,17 @@ docker service inspect --pretty [SERVICE_NAME]
 # Find the number of tasks running as part of the service "redis".
 docker service inspect --format="{{.Spec.Mode.Replicated.Replicas}}" redis 
 ```
+
+
+## Docker Configs
+
+REF: https://docs.docker.com/engine/swarm/configs/
+
+
+## Docker Secrets
+
+REF: https://docs.docker.com/engine/swarm/secrets/
+
+1. Docker secrets are only available to swarm services, not to standalone containers. 
+1. To use this feature, consider adapting your container to run as a service. Stateful containers can typically run
+   with a scale of 1 without changing the container code.

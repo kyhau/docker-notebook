@@ -72,3 +72,16 @@ docker push dtr.example.org/dev/nginx:1
    ([Image source: docs.docker.com](https://docs.docker.com))
 
 
+## Garbage Collection
+
+REF: https://docs.docker.com/ee/dtr/admin/configure/garbage-collection/
+
+1. You can configure Docker Trusted Registry to automatically delete unused image layers, thus saving you disk space.
+
+1. How DTR deletes unused layers
+
+   First you configure DTR to run a garbage collection job on a fixed schedule. At the scheduled time DTR:
+    1. Identifies and marks unused image layers.
+    1. Deletes the marked image layers.
+
+   By default, when the garbage collection job starts DTR is put in read-only mode.

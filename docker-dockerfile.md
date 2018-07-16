@@ -1,5 +1,7 @@
 # Dockerfile
 
+REF: https://docs.docker.com/engine/reference/builder/
+
 ```bash
 # The first line can be a comment
 FROM debian:stable                        # FROM image_name[:tag] [AS name]
@@ -47,6 +49,8 @@ CMD echo "Check container IP"
                       #   CMD ["param1","param2"] (as default parameters to ENTRYPOINT)
                       #   CMD command param1 param2 (shell form)
 
+SHELL ["executable", "parameters"]
+
 ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
                       # The command that any container instantiated on the image will execute on startup by
                       # default, unless overridden when the container is started.
@@ -56,6 +60,11 @@ ONBUILD [INSTRUCTIONS]
                       # later time, when the image is used as the base for another build. The trigger will be
                       # executed in the context of the downstream build, as if it had been inserted immediately
                       # after the FROM instruction in the downstream Dockerfile.
+
+HEALTHCHECK --interval=5m --timeout=3s CMD curl --fail http://localhost/ || exit 1
+                      # HEALTHCHECK [OPTIONS] CMD command
+                      # (check container health by running a command inside the container)
+
 
 ```
 

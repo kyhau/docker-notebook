@@ -94,6 +94,12 @@ docker run -d --name myweb --mount type=bind,src=/var/www/html,target=/usr/local
 # Docker 1.13 and higher. Docker 1.12 and lower uses --cpu-period=100000 --cpu-quota=50000
 docker run -it --cpus="1.5" ubuntu /bin/bash
 
+# Processes in container can be executed on cpu 1 and cpu 3.
+docker run -it --cpuset-cpus="1,3" ubuntu:14.04 /bin/bash
+
+# Processes in container can be executed on cpu 0, cpu 1 and cpu 2.
+docker run -it --cpuset-cpus="0-2" ubuntu:14.04 /bin/bash
+
 # The maximum amount of memory the container can use. If you set this option, the minimum allowed value is 4m
 # (4 megabyte).
 docker run -it --memory=[amount b/k/m/g] ubuntu /bin/bash
@@ -102,6 +108,12 @@ docker run -it --memory=[amount b/k/m/g] ubuntu /bin/bash
 # because --memory-swap is the amount of combined memory and swap that can be used, while --memory is only the
 # amount of physical memory that can be used.
 docker run -it --memory=[amount b/k/m/g] --memory-swap=[amount b/k/m/g] ubuntu /bin/bash
+
+# This example restricts the processes in the container to only use memory from memory nodes 1 and 3.
+docker run -it --cpuset-mems="1,3" ubuntu:14.04 /bin/bash
+
+# This example restricts the processes in the container to only use memory from memory nodes 0, 1 and 2.
+$ docker run -it --cpuset-mems="0-2" ubuntu:14.04 /bin/bash
 
 # The 'docker run' command uses the --dns option to override the default DNS servers for a container.
 docker run -d --dns=8.8.8.8 IMAGE_NAME
@@ -249,6 +261,15 @@ docker image load [--input|-i TAR] [--quiet|-q]
 
 # Save one or more images to a tar archive (streamed to STDOUT by default)
 docker image save [--output|-o FILE] IMAGE [IMAGE...]
+
+# Create a backup that can then be used with docker load.
+docker save busybox > busybox.tar
+# OR
+docker save --output busybox.tar busybox
+# OR
+docker save -o fedora-all.tar fedora
+# OR
+docker save -o fedora-latest.tar fedora:latest
 ```
 
 

@@ -107,9 +107,46 @@ docker inspect devtest
 | `rprivate`| The default. The same as private, meaning that no mount points anywhere within the original or replica mount points propagate in either direction. |
 
 
-
 ## Storage Drivers
+
+### Container size on disk
+
+To view the approximate size of a running container, you can use the docker ps -s command. Two different columns relate to size.
+
+- size: the amount of data (on disk) that is used for the writable layer of each container
+- virtual size: the amount of data used for the read-only image data used by the container plus the container’s writable layer size. 
+
+
+###  Copy-on-write (CoW) strategy
 
 REF: https://docs.docker.com/storage/storagedriver/#container-size-on-disk
 
 1. Copy-on-write (CoW) is a Docker strategy of sharing and copying files for maximum efficiency.
+
+
+REF: https://docs.docker.com/storage/storagedriver/select-storage-driver/
+
+### AUFS storage driver
+
+1. AUFS is a union filesystem. 
+
+### Btrfs storage driver
+
+1. Btrfs is a next generation copy-on-write filesystem that supports many advanced storage technologies that make it a
+   good fit for Docker.
+1. Btrfs is included in the mainline Linux kernel.
+1. btrfs storage driver is only supported on Docker CE on Ubuntu or Debian, and Docker EE / CS Engine on SLES.
+
+### Device mapper storage driver 
+
+1. Production hosts using the `devicemapper` storage driver must use `direct-lvm` mode.
+1. This mode uses block devices to create the thin pool. This is faster than using `loopback` devices, uses system
+   resources more efficiently, and block devices can grow as needed. However, more set-up is required than `loop-lvm`
+   mode.
+
+### OverlayFS storage driver
+
+### ZFS storage driver
+
+### VFS storage driver
+

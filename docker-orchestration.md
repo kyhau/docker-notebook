@@ -63,6 +63,8 @@ docker swarm join --token ighhsjkd6637 10.0.1.100:2377
 # Execute this command from the node you are removing, you can gracefully leave the cluster without having to use
 # the NODE ID.
 docker swarm leave
+> Node left the defauly swarm.
+# The node will still appear in the node list, and marked as `down`. Use `node rm` to remove inactive node.
 
 # Enable autolock on an existing swarm cluster
 docker swarm update --autolock=true
@@ -78,6 +80,10 @@ docker swarm update --availability active
 # Lists all the nodes that the Docker Swarm manager knows about; OPTIONS: --filter"-f, --format, --quiet|-q
 docker node ls [OPTIONS]
 docker node ls
+> ID                           HOSTNAME  STATUS  AVAILABILITY  MANAGER STATUS
+> 7ln70fl22uw2dvjn2ft53m3q5    worker2   Ready   Active
+> dkp8vy1dq1kxleu9g4u78tlag    worker1   Ready   Active
+> dvfxp4zseq4s0rih1selh0d20 *  manager1  Ready   Active        Leader
 
 # Add or update multiple node labels of the node `worker1`
 docker node update --label-add foo --label-add bar worker1
@@ -130,6 +136,11 @@ docker service create --name my_api_service --replicas 3 MYAPI_IMAGE
 # Scale the number of replicas in your swarm to 5 once the cluster is already running
 # The 'scale' option allows you to indicate the service to scale along with the number of replicas to scale to.
 docker service scale [SERVICE_NAME]=5
+
+# The following commands are equivalent:
+# https://docs.docker.com/engine/reference/commandline/service_scale/#scale-a-single-service
+docker service scale frontend=50
+docker service update --replicas=50 frontend
 
 # Scale your service (my_api_service) from whatever its current replica count is to 10 replicas in the cluster
 docker service scale my_api_service=10

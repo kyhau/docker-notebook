@@ -190,6 +190,24 @@ REF: https://docs.docker.com/network/overlay/
 # Create a network
 docker network create [OPTIONS] NETWORK
 
+# OPTIONS:
+# --attachable		Enable manual container attachment
+# --aux-address		Auxiliary IPv4 or IPv6 addresses used by Network driver
+# --config-from		The network from which copying the configuration
+# --config-only		Create a configuration only network
+# --driver|-d     Driver to manage the Network; default is `bridge`
+# --gateway		  IPv4 or IPv6 Gateway for the master subnet
+# --ingress		  Create swarm routing-mesh network
+# --internal		Restrict external access to the network
+# --ip-range		Allocate container ip from a sub-range
+# --ipam-driver	IP Address Management Driver
+# --ipam-opt		Set IPAM driver specific options
+# --ipv6		    Enable IPv6 networking
+# --label		    Set metadata on a network
+# --opt , -o		Set driver specific options
+# --scope		    Control the network’s scope
+# --subnet		  Subnet in CIDR format that represents a network segment
+
 # The 'docker network create' command can take a network, subnet and gateway as arguments for either bridge
 # or overlay drivers.
 # --driver|-d:  accepts `bridge` or `overlay` (built-in network drivers); `bridge` if not specified
@@ -206,6 +224,10 @@ docker network create --driver=overlay --subnet=192.168.1.0/24 --gateway 192.168
 # network, and choose the static IP address(es) from outside that range. This ensures that the IP address
 # is not given to another container while this container is not on the network.
 docker network create --subnet 172.20.0.0/16 --ip-range 172.20.240.0/20 multi-host-network
+
+# Encrypt traffic on an overlay network (--opt|-o)
+docker network create --opt encrypted --driver overlay --attachable my-attachable-multi-host-network
+
 
 #############################################################################################################
 # Connect a container to a network

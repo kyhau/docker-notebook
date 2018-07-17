@@ -47,6 +47,7 @@ Docker Engine is a client-server application with these major components:
 
    ([Image source: docs.docker.com](https://docs.docker.com))
 
+
 ## Services
 
 1. Services allow you to scale containers across multiple Docker daemons, which all work together as a **swarm** with
@@ -79,9 +80,13 @@ See [docker-orchestration.md](docker-orchestration.md).
     1. The `ipc` namespace: Managing access to IPC resources (IPC: InterProcess Communication).
     1. The `mnt` namespace: Managing filesystem mount points (MNT: Mount).
     1. The `uts` namespace: Isolating kernel and version identifiers. (UTS: Unix Timesharing System).
+    1. The `user`namespace: (currently experimental support for): remap user, may break other namespace (e.g. pid)
 
 1. The `PID` and `Network` namespaces mean that each container is isolated in terms of them, which maintains the
    isolation and separation of the container processes from underlying host services.
+
+1. The user namespace, which is the mechanism for remapping UIDs inside a container, is the newest namespace to be
+   implemented in the Docker Engine, starting in 1.10 (can be done using `--userns-remap` flag).
 
 
 ## Control groups (`cgroups`) - provide resource management and reporting
@@ -93,7 +98,12 @@ See [docker-orchestration.md](docker-orchestration.md).
 1. Control groups allow Docker Engine to share available hardware resources to containers and optionally enforce limits
    and constraints.
    
-   For example, you can limit the memory available to a specific container.
+1. Common control groups
+    1. CPU
+    1. Memory
+    1. Network bandwidth
+    1. Disk
+    1. Priority
 
 1. Which of the following resource limitation options, when added to a container instantiation, is representative of a
    'Control Group (`cgroup`)'?

@@ -9,6 +9,12 @@ REF: https://docs.docker.com/engine/security/
 1. You can configure secure computing mode (**Seccomp**) policies to **secure system calls in a container**.
 1. An **AppArmor profile** for Docker is installed with the official .deb packages. 
 
+Docker Engine makes use of AppArmor, Seccomp, Capabilities kernel features for security purposes.
+
+1. **AppArmor** allows to restrict programs capabilities with per-program profiles.
+1. **Seccomp** used for filtering syscalls issued by a program.
+1. **Capabilties** for performing permission checks.
+
 
 ## docker run --privileged
 

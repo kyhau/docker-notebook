@@ -70,12 +70,26 @@
 1. `/var/lib/docker` is the directory on a host, stores Docker image and container layers;
    unless changed in the configuration or daemon at launch time.
 
-1. `/etc/default/docker` file
-
-    1. `DOCKER_OPTS`
-        ```bash
-        # Build a Docker image depending on another image from Docker registry.
-        # Edit "/etc/default/docker"
-        DOCKER_OPTS="--insecure-registry <docker registry url>"
-        ```
  
+### Running an Insecure Docker Registry
+ 
+On Ubuntu 14.x:
+
+1. Edit `/etc/default/docker` file
+    ```bash
+    # for a registry running on port 80 on example.com.
+    DOCKER_OPTS="--insecure-registry registry.example.com -H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock"
+    ```
+
+2. `sudo service docker restart`
+
+On Ubuntu 16.x and CentOS:
+
+1. Edit `/etc/docker/daemon.json` file
+    ```bash
+    {
+        "insecure-registries" : ["registry.example.com"]
+    }
+    ```
+
+2. `sudo systemctl restart docker`

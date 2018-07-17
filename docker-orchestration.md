@@ -163,6 +163,13 @@ docker service update --constraint-add "engine.labels.purpose==database" redis
 # Add or update a placement preference
 docker service update --placement-pref-add ... [SERVICE_NAME]
 
+# Use the --secret-add or --secret-rm options add or remove a service’s secrets.
+# Add a secret named ssh-2 and removes ssh-1:
+docker service update \
+  --secret-add source=ssh-2,target=ssh-2 \
+  --secret-rm ssh-1 \
+  myservice
+
 # Remove a service (my_api_service) from the running swarm.
 docker service rm my_api_service
 

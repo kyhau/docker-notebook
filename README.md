@@ -9,6 +9,7 @@ Subpages
 - [Networking](docker-networking.md)
 - [Docker Trusty Registry (DTR), Image Signing](docker-dtr.md)
 - [Universal Control Plane (UCP), Manager, Worker, Pause Containers](docker-ucp.md)
+- [Docker Secrets and Docker Config](docker-secrets-and-config.md)
 - [Security - RBAC, Image Signing, Image Scanning](docker-security.md)
 - [Backups and disaster Recovery](docker-backup.md)
 - [Docker upgrade](docker-upgrade.md)

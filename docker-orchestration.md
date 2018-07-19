@@ -100,6 +100,20 @@ docker node update --availability drain [NODE_ID]
 # for services as advertised.
 docker node update --availability active [NODE_ID]
 
+# Promote a node, run the following command from a manager node
+docker node promote node-3 node-2
+> Node node-3 promoted to a manager in the swarm.
+> Node node-2 promoted to a manager in the swarm.
+# equivalent to
+docker node update --role manager
+
+# Demote a node, run the following command from a manager node
+docker node demote node-3 node-2
+> Manager node-3 demoted in the swarm.
+> Manager node-2 demoted in the swarm.
+# equivalent to
+docker node update --role worker
+
 # Remove a node marked as 'DOWN' from the cluster
 docker node rm [NODE_ID]
 
@@ -193,49 +207,3 @@ docker service inspect --pretty [SERVICE_NAME]
 # Find the number of tasks running as part of the service "redis".
 docker service inspect --format="{{.Spec.Mode.Replicated.Replicas}}" redis 
 ```
-
-
-## Docker Configs
-
-REF: https://docs.docker.com/engine/swarm/configs/
-
-
-## Docker Secrets
-
-REF: https://docs.docker.com/engine/swarm/secrets/
-
-1. Docker secrets are only available to swarm **services**, not to standalone containers. 
-1. To use this feature, consider adapting your container to run as a service. Stateful containers can typically run
-   with a scale of 1 without changing the container code.
-
-### How Docker manages secrets
-
-1. When you add a secret to the swarm, Docker sends the secret to the swarm manager over a mutual TLS connection. 
-   
-1. The secret is stored in the Raft log, which is encrypted. The entire Raft log is replicated across the other
-   managers, ensuring the same high availability guarantees for secrets as for the rest of the swarm management data.
-
-1. When you grant a newly-created or running service access to a secret, the decrypted secret is mounted into the
-   container in an in-memory filesystem. The location of the mount point within the container defaults to
-   `/run/secrets/<secret_name>` in Linux containers, or `C:\ProgramData\Docker\secrets` in Windows containers.
-   You can specify a custom location in Docker 17.06 and higher.
-
-1. You can update a service to grant it access to additional secrets or revoke its access to a given secret at any time.
-
-1. A node only has access to (encrypted) secrets if the node is a swarm manager or if it is running service tasks which
-   have been granted access to the secret. When a container task stops running, the decrypted secrets shared to it are
-   unmounted from the in-memory filesystem for that container and flushed from the node’s memory.
-
-1. If a node loses connectivity to the swarm while it is running a task container with access to a secret, the task
-   container still has access to its secrets, but cannot receive updates until the node reconnects to the swarm.
-
-1. You can add or inspect an individual secret at any time, or list all secrets. You cannot remove a secret that a
-   running service is using.
-
-1. To update or roll back secrets more easily, consider adding a version number or date to the secret name. This is
-   made easier by the ability to control the mount point of the secret within a given container.
-
-### Rotate a secret for a way to remove a secret without disrupting running services.
-
-REF: https://docs.docker.com/engine/swarm/secrets/#example-rotate-a-secret
-

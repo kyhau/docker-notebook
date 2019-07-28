@@ -4,6 +4,7 @@ REF: https://docs.docker.com/engine/reference/builder/
 
 ```bash
 # The first line can be a comment
+# A Dockerfile must start with FROM instruction, if not ARG.
 FROM debian:stable                        # FROM image_name[:tag] [AS name]
 
 ARG VARIABLE_NAME=xxx
@@ -88,6 +89,16 @@ HEALTHCHECK --interval=5m --timeout=3s CMD curl --fail http://localhost/ || exit
 
    1. The command is run via the entrypoint. i.e., the actual thing that gets executed is `/bin/sh -c bash`. 
       This allowed Docker to implement `RUN` quickly by relying on the shell's parser.
+
+1. `ARG` vs. `ENV`
+   1. `ENV` variables persisted into the built image; `ARG` variables are not.
+   1. `ARG` (build arguments) can be set to a default value inside of a Dockerfile, but also changed by providing a
+      `–build-arg` argument when actually building an image. 
+      Those values are not available after the image is built however.
+      A running container won't have access to an `ARG` variable value.
+   1. `ENV` values are available during the image build phase, but also after a container is launched from the image.
+       You can override `ENV` values which were set in a Dockerfile by providing environment variables in the command
+       line or your docker-compose.yml file.
 
 1. Environment variables
    1. `${variable:-word}` indicates that if variable is set then the result will be that value. If variable is not set

@@ -23,6 +23,8 @@ Other references:
 
 ## Cheat Sheet
 
+[Docker cheat sheet (2019-09)](https://www.docker.com/sites/default/files/d8/2019-09/docker-cheat-sheet.pdf)
+
 ### Running container
 
 ```bash

@@ -15,6 +15,11 @@ Subpages
 - [Docker upgrade](docker-upgrade.md)
 - Python examples: [docker_checker](docker_checker/README.md)
 
+Best practice
+- [Docker development best practices](https://docs.docker.com/develop/dev-best-practices/)
+- [Best practices for writing Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
+- [Intro Guide to Dockerfile Best Practices](https://www.docker.com/blog/intro-guide-to-dockerfile-best-practices/)
+
 Other references:
 - [Docker Advanced multi-stage build patterns – Tõnis Tiigi](
   https://medium.com/@tonistiigi/advanced-multi-stage-build-patterns-6f741b852fae)

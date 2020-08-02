@@ -326,7 +326,7 @@ docker inspect --format="{{.Structure.To.Review}}" [objectid/name] myweb
 docker inspect myweb | grep IPAddress
 
 # Show JUST the IP address of a running container called 'testweb'
-docker container inspect --format="{{.NetworkSettings.Networks.bridge.IPAddress}" testweb
+docker container inspect --format="{{.NetworkSettings.Networks.bridge.IPAddress}}" testweb
 ```
 
 

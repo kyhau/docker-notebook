@@ -22,6 +22,7 @@ Best practices
 - [Intro Guide to Dockerfile Best Practices](https://www.docker.com/blog/intro-guide-to-dockerfile-best-practices/)
 
 Other references:
+- [How To Run Docker in Docker Container [3 Easy Methods] - Bibin Wilson](https://devopscube.com/run-docker-in-docker/)
 - [Docker Advanced multi-stage build patterns – Tõnis Tiigi](
   https://medium.com/@tonistiigi/advanced-multi-stage-build-patterns-6f741b852fae)
 - [Docker ARG, ENV and .env - a Complete Guide](https://vsupalov.com/docker-arg-env-variable-guide/)

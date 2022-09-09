@@ -53,6 +53,10 @@ docker run -it centos:6 /bin/bash
 # Container is deleted at “exit”.
 docker run -it --rm centos:6 /bin/bash
 
+# If you want to force the image to hang around (in order to debug something or examine state of the file system)
+# you can override the entry point to change it to a shell:
+docker run -it --entrypoint=/bin/bash IMAGE_NAME
+
 # Attach local standard input, output, and error streams to a running container
 # Will cause the container to exit when “exit” the container.
 docker attach [OPTIONS] CONTAINER_NAME
